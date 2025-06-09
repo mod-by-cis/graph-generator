@@ -1,0 +1,53 @@
+# Nazwa przepływu pracy
+name: Build and Commit Docs
+
+on:
+  push:
+    branches:
+      - main # Uruchom tylko dla gałęzi main
+    paths:
+      # Uruchom, jeśli zmienią się pliki źródłowe...
+      - 'docs/dev/**/*.ts'
+      - 'docs/dev/**/*.tsx'
+      # ...lub skrypt budujący...
+      - 'tasks/docs-build.ts' 
+      # ...lub konfiguracja Deno.
+      - 'deno.jsonc'    
+
+  # Umożliwia ręczne uruchomienie z zakładki Actions
+  workflow_dispatch:
+
+# Nadajemy uprawnienia do zapisu (commit/push) dla całego workflow
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Krok 1: Pobranie kodu
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Krok 2: Ustawienie Deno
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2 # Zgodnie z https://github.com/denoland/setup-deno
+        with:
+          deno-version: v2.3.5 # wersja Deno
+
+      # Krok 3: Uruchomienie zadania z deno.jsonc
+      - name: Run build task
+      # run: deno run -A ./tasks/docs-build.ts # Użyj -A lub określ konkretne uprawnienia
+        run: deno task gen # Bardziej idiomatyczne i zintegrowane z deno.jsonc
+      
+      # Krok 4: Commit i push zmian
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: auto-build main.js of docs"
+          file_pattern: docs/gen/main.js 
+          # Śledzony plik. Jeśli sourcemap jest osobno, dodaj go tutaj.
+          # Opcjonalnie, dla lepszej czytelności historii Git
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: github-actions-bot@github.com
+          # Akcja domyślnie commituje na gałąź, która wywołała workflow.

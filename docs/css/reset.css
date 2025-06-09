@@ -1,0 +1,98 @@
+/* === Nowoczesny Reset CSS === */
+
+/* 1. Użyj bardziej intuicyjnego modelu pudełkowego dla wszystkich elementów.
+  Padding i border nie będą już powiększać elementów.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Usuń domyślne marginesy.
+ */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* 3. Ustaw `html` i `body` na pełną wysokość i szerokość okna przeglądarki.
+  To jest bezpośrednia odpowiedź na Twoją prośbę.
+  Dodatkowo, `line-height` poprawia czytelność tekstu.
+*/
+html,
+body {
+  height: 100%;
+  width: 100%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased; /* Lepsze renderowanie czcionek na WebKit */
+}
+
+/* 4. Uprość resetowanie stylów list
+ */
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+/* 5. Spraw, aby media (obrazki, wideo) były domyślnie responsywne.
+  Nie będą "wystawać" poza swój kontener.
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Zapewnij, aby elementy formularzy dziedziczyły style czcionek.
+  Dzięki temu przyciski, pola tekstowe itp. będą wyglądać spójnie z resztą tekstu.
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 7. Usuń domyślne dekoracje tekstu z linków.
+ */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 8. Unikaj przepełnienia tekstu (text overflow).
+ */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Stwórz kontekst "stackowania" na elemencie root aplikacji.
+  To bardziej zaawansowana technika, która zapobiega problemom z `z-index` w przyszłości.
+*/
+#root {
+  isolation: isolate;
+  height: 100%; /* Upewnij się, że kontener aplikacji również zajmuje pełną wysokość */
+}
