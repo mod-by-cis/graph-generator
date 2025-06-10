@@ -84,6 +84,7 @@
     "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": "acd44405405a97e6f904c79d2722de60f131800b55ffc864b2432642c6582945",
     "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs": "81aa2784a8f9b4bcf59b6619505fc027e29de5b8acc88a39d588ad5a058b5fa0",
     "https://esm.sh/preact@10.26.8/denonext/preact.mjs": "15cb76ed3f64c60ee55efae71db9561133cbb37af609921ddef445c4a543fad2",
+    "https://esm.sh/preact@10.26.8/hooks": "161d4d8a64ffce0d3241389770dfa6e8209b3157424ccfaa5920c7167b69ebba",
     "https://esm.sh/preact@10.26.8/hooks?target=denonext": "161d4d8a64ffce0d3241389770dfa6e8209b3157424ccfaa5920c7167b69ebba",
     "https://esm.sh/preact@10.26.8/jsx-runtime": "53ae918d4a68dc65cecf7ca4e211e2036b1328d1339a7872c6bc83e7732c3729",
     "https://esm.sh/preact@10.26.8?target=denonext": "f6c6195e67293b6df707b53dd3075ca149604e1ba989c7832179b3c1b7e8a302"
