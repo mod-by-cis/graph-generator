@@ -1,0 +1,108 @@
+/* --- Styl dla Kontrolera (Pilota) --- */
+
+.af-pilot-wrapper {
+  /* Możesz pozycjonować ten wrapper absolutnie, gdziekolwiek chcesz na stronie, np. */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.af-pilot-trigger {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.af-pilot-trigger:hover {
+  transform: scale(1.1);
+}
+
+.af-controls-panel {
+  position: absolute;
+  bottom: calc(100% + 10px); /* Panel pojawia się nad przyciskiem */
+  right: 0;
+  width: 250px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border: 1px solid #eee;
+  animation: af-fade-in 0.2s ease-out;
+}
+
+.af-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.af-controls-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.af-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+}
+
+.af-controls-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.af-controls-panel li {
+  padding: 8px;
+  border-radius: 4px;
+}
+.af-controls-panel li:hover {
+  background-color: #f5f5f5;
+}
+
+@keyframes af-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Styl dla Kontenera Paneli --- */
+
+.af-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #fafafa;
+  border: 1px dashed #ddd;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.af-row {
+  flex-direction: row;
+}
+
+.af-col {
+  flex-direction: column;
+}

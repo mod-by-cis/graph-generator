@@ -1,0 +1,91 @@
+import { signal, Signal } from "$tsx-preact-signal";
+
+// --- Definicja Struktury Stanu ---
+
+/**
+ * Definiuje, jak wygląda obiekt stanu dla pojedynczej instancji
+ * komponentu AccordionFields.
+ */
+export interface AccordionState {
+  // Czy panel kontrolny jest obecnie otwarty?
+  isOpen: boolean;
+  // Lista tytułów wszystkich dostępnych pól (paneli).
+  // To jest kluczowe, aby pilot wiedział, jakie przyciski wyświetlić.
+  fieldTitles: string[];
+  // W jakim trybie jest akordeon: 'single' (jeden panel) czy 'split' (dwa panele).
+  mode: 'single' | 'split';
+  // Który etap wyboru w trybie split jest aktywny.
+  splitStep: 'select_second' | 'select_ratio' | 'done';
+  // Tablica z tytułami widocznych paneli.
+  // np. ['a1', null] dla trybu single, ['a1', 'a2'] dla trybu split.
+  visiblePanels: [string | null, string | null];
+  // Stosunek podziału w trybie split, np. '1:1'.
+  ratio: string;
+}
+
+// --- Globalny Magazyn Stanu ---
+
+/**
+ * Główny, globalny magazyn przechowujący stany wszystkich akordeonów na stronie.
+ * Używamy Map, gdzie kluczem jest unikalny `anchorTag` (np. "aa77"),
+ * a wartością jest sygnał (Signal) zawierający obiekt stanu dla tego akordeonu.
+ * * Dlaczego `Signal<Map<...>>`? Aby komponenty mogły reagować na dodawanie
+ * lub usuwanie całych instancji akordeonów.
+ */
+const accordionStore = signal(new Map<string, Signal<AccordionState>>());
+
+// --- Funkcje Pomocnicze (Publiczne API Naszego Magazynu) ---
+
+/**
+ * Rejestruje nową instancję akordeonu w globalnym magazynie.
+ * Komponent <AccordionFields> wywoła tę funkcję, gdy zostanie zamontowany.
+ * @param anchorTag Unikalny identyfikator dla pary Kontroler-Akordeon.
+ * @param titles Tablica z tytułami wszystkich pól-dzieci, które przekazał użytkownik.
+ */
+export function registerAccordion(anchorTag: string, titles: string[]): void {
+  // Sprawdzamy, czy instancja o tym anchorTag już nie istnieje
+  if (accordionStore.value.has(anchorTag)) {
+    console.warn(`AccordionFields with anchorTag "${anchorTag}" is already registered.`);
+    return;
+  }
+
+  // Tworzymy sygnał z domyślnym, początkowym stanem dla tego akordeonu.
+  const initialState: AccordionState = {
+    isOpen: false,
+    fieldTitles: titles, // Pilot od razu wie, jakie ma panele!
+    mode: 'single',
+    splitStep: 'done',
+    visiblePanels: [titles[0] ?? null, null], // Domyślnie pokaż pierwszy panel
+    ratio: '1:1',
+  };
+
+  const newStateSignal = signal(initialState);
+
+  // Aktualizujemy globalną mapę, dodając nowy wpis.
+  // Używamy spread (...) aby stworzyć nową mapę, co jest wymagane przez Signals
+  // do wykrycia zmiany i poinformowania subskrybentów.
+  accordionStore.value = new Map([...accordionStore.value, [anchorTag, newStateSignal]]);
+}
+
+/**
+ * Wyrejestrowuje instancję akordeonu z globalnego magazynu.
+ * Komponent <AccordionFields> wywoła tę funkcję, gdy zostanie odmontowany.
+ * @param anchorTag Identyfikator akordeonu do usunięcia.
+ */
+export function unregisterAccordion(anchorTag: string): void {
+  const newStore = new Map(accordionStore.value);
+  if (newStore.delete(anchorTag)) {
+    accordionStore.value = newStore;
+  }
+}
+
+/**
+ * Zwraca sygnał stanu dla konkretnej instancji akordeonu.
+ * Zarówno <AccordionFields> jak i <AccordionFieldsPilot> użyją tej funkcji,
+ * aby uzyskać dostęp do swojego stanu i móc na niego reagować.
+ * @param anchorTag Identyfikator akordeonu.
+ * @returns Sygnał (Signal) ze stanem lub `undefined`, jeśli nie znaleziono.
+ */
+export function getAccordionState(anchorTag: string): Signal<AccordionState> | undefined {
+  return accordionStore.value.get(anchorTag);
+}
