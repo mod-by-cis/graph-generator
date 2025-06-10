@@ -18,9 +18,7 @@ import {
   IconToggle,
 } from "./WindowBlindIcon.tsx";
 
-type CustomCSSProperties = JSX.CSSProperties & {
-  [key: `--${string}`]: string | number;
-};
+import type { CustomCSSProperties } from "../style/types.ts";
 
 type WindowBlindProps = {
   way?: "ROW" | "COL"; // Kierunek podziału
@@ -65,8 +63,8 @@ function WindowBlind({
     calculateMax(); // Oblicz raz na początku
 
     // Oblicz ponownie przy zmianie rozmiaru okna
-    window.addEventListener("resize", calculateMax);
-    return () => window.removeEventListener("resize", calculateMax);
+    globalThis.addEventListener("resize", calculateMax);
+    return () => globalThis.removeEventListener("resize", calculateMax);
   }, [way]); // Uruchom ponownie, jeśli zmieni się kierunek (`way`)
 
   // Funkcja do obsługi przesuwania myszą i dotykiem
@@ -98,17 +96,17 @@ function WindowBlind({
     const handleMouseUp = () => setIsDragging(false);
 
     if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("touchmove", handleTouchMove);
-      window.addEventListener("mouseup", handleMouseUp);
-      window.addEventListener("touchend", handleMouseUp);
+      globalThis.addEventListener("mousemove", handleMouseMove);
+      globalThis.addEventListener("touchmove", handleTouchMove);
+      globalThis.addEventListener("mouseup", handleMouseUp);
+      globalThis.addEventListener("touchend", handleMouseUp);
     }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchend", handleMouseUp);
+      globalThis.removeEventListener("mousemove", handleMouseMove);
+      globalThis.removeEventListener("touchmove", handleTouchMove);
+      globalThis.removeEventListener("mouseup", handleMouseUp);
+      globalThis.removeEventListener("touchend", handleMouseUp);
     };
   }, [isDragging, handleMove]);
 
