@@ -27,6 +27,21 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
     state.value = { ...state.value, isOpen: !state.value.isOpen };
   };
 
+  // --- NOWA LOGIKA ---
+  /**
+   * Obsługuje kliknięcie na nazwę panelu w menu pilota.
+   * Ustawia akordeon w tryb 'single' i pokazuje wybrany panel.
+   * @param title Tytuł panelu do wyświetlenia.
+   */
+  const handleSelectPanel = (title: string) => {
+    state.value = {
+      ...state.value,
+      mode: "single",
+      visiblePanels: [title, null], // Ustaw wybrany panel jako jedyny widoczny
+      isOpen: false, // Opcjonalnie: zamknij menu po wyborze
+    };
+  };
+
   return (
     <div class="af-pilot-wrapper">
       {/* Główny przycisk-wyzwalacz */}
@@ -43,15 +58,28 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
         <div class="af-controls-panel">
           <div class="af-controls-header">
             <h3>Sterowanie ({forAnchor})</h3>
-            <button onClick={handleToggleOpen} class="af-close-btn">×</button>
+            <button
+              onClick={handleToggleOpen}
+              class="af-close-btn"
+              title="Zamknij"
+            >
+              ×
+            </button>
           </div>
-          <p>Dostępne pola:</p>
-          <ul>
-            {/* Dynamicznie generujemy listę na podstawie danych z magazynu */}
+          <p>Wybierz panel do wyświetlenia:</p>
+          <div class="af-button-group">
+            {/* Dynamicznie generujemy PRZYCISKI (nie listę) */}
             {state.value.fieldTitles.map((title) => (
-              <li key={title}>{title}</li>
+              <button
+                key={title}
+                class="af-select-btn"
+                // Każdy przycisk po kliknięciu wywołuje naszą nową funkcję
+                onClick={() => handleSelectPanel(title)}
+              >
+                {title}
+              </button>
             ))}
-          </ul>
+          </div>
           {/* Tu w przyszłości dodamy resztę logiki (split, ratio etc.) */}
         </div>
       )}
