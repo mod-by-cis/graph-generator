@@ -3,7 +3,7 @@
 import { ComponentChildren, VNode } from "$tsx-preact";
 
 // Definicja propsów. Każde pole musi mieć tytuł.
-export type AccordionFieldProps = {
+type AccordionFieldProps = {
   title: string;
   children: ComponentChildren;
 };
@@ -13,10 +13,13 @@ export type AccordionFieldProps = {
  * Jego jedynym zadaniem jest przechowywanie `title` i `children`.
  * Nie renderuje niczego bezpośrednio - jest tylko nośnikiem danych dla rodzica.
  */
-export function AccordionField(
+function AccordionField(
   { children }: AccordionFieldProps,
 ): VNode | null {
   // Zwracamy dzieci wewnątrz fragmentu. Rodzic <AccordionFields>
   // odczyta propsy i zdecyduje, co z tym zrobić.
   return <>{children}</>;
 }
+
+export type { AccordionFieldProps };
+export { AccordionField };
