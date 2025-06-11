@@ -15,7 +15,7 @@ export interface AccordionState {
   // W jakim trybie jest akordeon: 'single' (jeden panel) czy 'split' (dwa panele).
   mode: 'single' | 'split';
   // Który etap wyboru w trybie split jest aktywny.
-  splitStep: 'select_second' | 'select_ratio' | 'done';
+  splitStep: 'idle' | 'selecting_second' | 'selecting_ratio';
   // Tablica z tytułami widocznych paneli.
   // np. ['a1', null] dla trybu single, ['a1', 'a2'] dla trybu split.
   visiblePanels: [string | null, string | null];
@@ -45,7 +45,7 @@ const accordionStore = signal(new Map<string, Signal<AccordionState>>());
 export function registerAccordion(anchorTag: string, titles: string[]): void {
   // Sprawdzamy, czy instancja o tym anchorTag już nie istnieje
   if (accordionStore.value.has(anchorTag)) {
-    console.warn(`AccordionFields with anchorTag "${anchorTag}" is already registered.`);
+    console.log(`AccordionFields with anchorTag "${anchorTag}" is already registered.`);
     return;
   }
 
@@ -54,7 +54,7 @@ export function registerAccordion(anchorTag: string, titles: string[]): void {
     isOpen: false,
     fieldTitles: titles, // Pilot od razu wie, jakie ma panele!
     mode: 'single',
-    splitStep: 'done',
+    splitStep: 'idle', // Domyślny stan etapu
     visiblePanels: [titles[0] ?? null, null], // Domyślnie pokaż pierwszy panel
     ratio: '1:1',
   };

@@ -8,14 +8,27 @@ import {
   unregisterAccordion,
 } from "../core/state.ts";
 import { AccordionField, AccordionFieldProps } from "./AccordionField.tsx";
-// W przyszłości użyjemy WindowBlind do trybu split
-// import { WindowBlind, WindowBlindBox1, WindowBlindBox2 } from "./WindowBlind.tsx";
+import { CustomCSSProperties } from "../style/types.ts";
 
 type ContainerProps = {
   anchorTag: string;
   divider?: "ROW" | "COL";
   children: ComponentChildren;
 };
+
+/**
+ * Pomocnicza funkcja do parsowania proporcji (np. '2:1') na wartości flex.
+ * @param ratio - String w formacie 'number:number'.
+ * @returns Tablica z dwiema wartościami liczbowymi.
+ */
+function parseRatio(ratio: string): [number, number] {
+  const parts = ratio.split(":").map(Number);
+  if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+    return [parts[0], parts[1]];
+  }
+  // Domyślna, bezpieczna wartość w razie błędu
+  return [1, 1];
+}
 
 /**
  * Główny kontener, który renderuje widoczne panele.
@@ -47,7 +60,9 @@ function AccordionFields(
   // Efekt do rejestracji i wyrejestrowania w globalnym magazynie.
   useEffect(() => {
     const titles = fields.map((f) => f.title);
-    registerAccordion(anchorTag, titles);
+    if (titles.length > 0) {
+      registerAccordion(anchorTag, titles);
+    }
 
     // Funkcja czyszcząca - wywoływana, gdy komponent jest odmontowywany.
     return () => {
@@ -57,16 +72,54 @@ function AccordionFields(
 
   // Jeśli stan nie jest jeszcze dostępny, nie renderuj nic.
   if (!state) {
-    return <></>;
+    return <div class="af-container af-loading">Inicjalizacja...</div>;
   }
 
-  // Na razie renderujemy tylko pierwszy widoczny panel.
-  const firstVisibleTitle = state.value.visiblePanels[0];
-  const panelToShow = fields.find((f) => f.title === firstVisibleTitle);
+  const renderContent = () => {
+    // Tryb Dzielony (Split)
+    if (
+      state.value.mode === "split" && state.value.visiblePanels[0] &&
+      state.value.visiblePanels[1]
+    ) {
+      const [title1, title2] = state.value.visiblePanels;
+      const panel1 = fields.find((f) => f.title === title1);
+      const panel2 = fields.find((f) => f.title === title2);
+
+      const [flex1, flex2] = parseRatio(state.value.ratio);
+
+      const style1: CustomCSSProperties = { flex: flex1 };
+      const style2: CustomCSSProperties = { flex: flex2 };
+
+      if (!panel1 || !panel2) {
+        return <div>Błąd: Nie można znaleźć jednego z paneli.</div>;
+      }
+
+      return (
+        <>
+          <div class="af-panel" style={style1}>{panel1.content}</div>
+          {/* Opcjonalnie: można dodać wizualny separator między panelami */}
+          <div class="af-visual-divider"></div>
+          <div class="af-panel" style={style2}>{panel2.content}</div>
+        </>
+      );
+    }
+
+    // Tryb Pojedynczy (Single) - domyślny
+    const firstVisibleTitle = state.value.visiblePanels[0];
+    const panelToShow = fields.find((f) => f.title === firstVisibleTitle);
+
+    return (
+      <div class="af-panel af-panel-single">
+        {panelToShow
+          ? panelToShow.content
+          : <div>Wybierz panel do wyświetlenia...</div>}
+      </div>
+    );
+  };
 
   return (
     <div class={`af-container af-${divider.toLowerCase()}`}>
-      {panelToShow ? panelToShow.content : <div>Wybierz panel...</div>}
+      {renderContent()}
     </div>
   );
 }
