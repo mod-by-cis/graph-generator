@@ -6,7 +6,7 @@ import {
   getAccordionState,
   registerAccordion,
   unregisterAccordion,
-} from "../core/state.ts";
+} from "../core/state-accordion.ts";
 import { AccordionField, AccordionFieldProps } from "./AccordionField.tsx";
 import { CustomCSSProperties } from "../style/types.ts";
 

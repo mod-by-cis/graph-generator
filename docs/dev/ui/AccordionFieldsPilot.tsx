@@ -1,14 +1,14 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 import { VNode } from "$tsx-preact";
-import { getAccordionState } from "../core/state.ts";
+import { getAccordionState } from "../core/state-accordion.ts";
 
 type PilotProps = {
   forAnchor: string;
 };
 
 // Definicja dostępnych proporcji dla trybu dzielonego
-const RATIOS = ["1:1", "2:1", "1:2", "3:1", "1:3"];
+const RATIOS = ["1:1", "2:1", "1:2", "3:1", "1:3", "3:2", "2:3", "4:1", "1:4", "3:4", "4:3"];
 
 /**
  * Komponent "pilota", który kontroluje stan powiązanego akordeonu.
