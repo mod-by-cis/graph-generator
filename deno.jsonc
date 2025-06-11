@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
+    "web": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
     "gen": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts"
   },
   "compilerOptions": {
