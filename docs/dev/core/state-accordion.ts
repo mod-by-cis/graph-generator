@@ -7,8 +7,10 @@ import { signal, Signal } from "$tsx-preact-signal";
  * komponentu AccordionFields.
  */
 export interface AccordionState {
-  // Czy panel kontrolny jest obecnie otwarty?
+  // Czy cały interfejs pilota jest otwarty? Wracamy do tego prostego stanu.
   isOpen: boolean;
+  // Który widok jest aktywny WEWNĄTRZ otwartego panelu?
+  activePanel: 'main' | 'ratio';
   // Lista tytułów wszystkich dostępnych pól (paneli).
   // To jest kluczowe, aby pilot wiedział, jakie przyciski wyświetlić.
   fieldTitles: string[];
@@ -21,6 +23,7 @@ export interface AccordionState {
   visiblePanels: [string | null, string | null];
   // Stosunek podziału w trybie split, np. '1:1'.
   ratio: string;
+  arrow: "ROW" | "COL"
 }
 
 // --- Globalny Magazyn Stanu ---
@@ -42,7 +45,7 @@ const accordionStore = signal(new Map<string, Signal<AccordionState>>());
  * @param anchorTag Unikalny identyfikator dla pary Kontroler-Akordeon.
  * @param titles Tablica z tytułami wszystkich pól-dzieci, które przekazał użytkownik.
  */
-export function registerAccordion(anchorTag: string, titles: string[]): void {
+function registerAccordion(anchorTag: string, titles: string[], initialArrow: "ROW" | "COL"): void {
   // Sprawdzamy, czy instancja o tym anchorTag już nie istnieje
   if (accordionStore.value.has(anchorTag)) {
     console.log(`AccordionFields with anchorTag "${anchorTag}" is already registered.`);
@@ -52,11 +55,13 @@ export function registerAccordion(anchorTag: string, titles: string[]): void {
   // Tworzymy sygnał z domyślnym, początkowym stanem dla tego akordeonu.
   const initialState: AccordionState = {
     isOpen: false,
+    activePanel: 'main', // Domyślnie pokazujemy główny widok
     fieldTitles: titles, // Pilot od razu wie, jakie ma panele!
     mode: 'single',
     splitStep: 'idle', // Domyślny stan etapu
     visiblePanels: [titles[0] ?? null, null], // Domyślnie pokaż pierwszy panel
     ratio: '1:1',
+    arrow: initialArrow, // Ustawiamy początkowy kierune
   };
 
   const newStateSignal = signal(initialState);
@@ -72,7 +77,7 @@ export function registerAccordion(anchorTag: string, titles: string[]): void {
  * Komponent <AccordionFields> wywoła tę funkcję, gdy zostanie odmontowany.
  * @param anchorTag Identyfikator akordeonu do usunięcia.
  */
-export function unregisterAccordion(anchorTag: string): void {
+function unregisterAccordion(anchorTag: string): void {
   const newStore = new Map(accordionStore.value);
   if (newStore.delete(anchorTag)) {
     accordionStore.value = newStore;
@@ -86,6 +91,13 @@ export function unregisterAccordion(anchorTag: string): void {
  * @param anchorTag Identyfikator akordeonu.
  * @returns Sygnał (Signal) ze stanem lub `undefined`, jeśli nie znaleziono.
  */
-export function getAccordionState(anchorTag: string): Signal<AccordionState> | undefined {
+function getAccordionState(anchorTag: string): Signal<AccordionState> | undefined {
   return accordionStore.value.get(anchorTag);
 }
+
+
+export {
+  registerAccordion,
+  unregisterAccordion,
+  getAccordionState
+};

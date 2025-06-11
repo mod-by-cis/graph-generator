@@ -7,19 +7,9 @@ import {
   AccordionFields,
   AccordionFieldsPilot,
 } from "./ui/AccordionFields.tsx";
-import { layoutSettingsSignal } from "./core/settings.ts";
 
 function LayoutStart() {
   const ANCHOR_ID = "my-first-accordion";
-
-  // Odczytujemy aktualną wartość sygnału.
-  // Preact automatycznie przerysuje ten komponent, gdy wartość się zmieni.
-  const settings = layoutSettingsSignal.value;
-
-  // Renderowanie warunkowe pozostaje, ale jest oparte na sygnale.
-  if (!settings) {
-    return <div style={{ padding: "2rem" }}>Ładowanie ustawień układu...</div>;
-  }
 
   return (
     <>
@@ -27,7 +17,6 @@ function LayoutStart() {
 
       <AccordionFields
         anchorTag={ANCHOR_ID}
-        divider={settings["main-accordion-fields"]}
       >
         <AccordionField title="Ustawienia Główne">
           <div>

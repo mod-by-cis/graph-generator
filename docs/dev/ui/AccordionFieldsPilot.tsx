@@ -1,3 +1,4 @@
+//to wlasciwe
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 import { VNode } from "$tsx-preact";
@@ -8,7 +9,19 @@ type PilotProps = {
 };
 
 // Definicja dostępnych proporcji dla trybu dzielonego
-const RATIOS = ["1:1", "2:1", "1:2", "3:1", "1:3", "3:2", "2:3", "4:1", "1:4", "3:4", "4:3"];
+const RATIOS = [
+  "1:1",
+  "2:1",
+  "1:2",
+  "3:1",
+  "1:3",
+  "3:2",
+  "2:3",
+  "4:1",
+  "1:4",
+  "3:4",
+  "4:3",
+];
 
 /**
  * Komponent "pilota", który kontroluje stan powiązanego akordeonu.
@@ -19,20 +32,46 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
 
   // Jeśli stan dla danego 'anchor' nie istnieje (jeszcze), nie renderujemy nic.
   if (!state) {
-    console.warn(`[Pilot] No state found for anchor: ${forAnchor}`);
+    // Ta wiadomość jest normalna przy pierwszym renderowaniu
+    // console.warn(`[Pilot] No state found for anchor: ${forAnchor}`);
     return <></>;
   }
 
-  // Funkcja do przełączania widoczności panelu kontrolnego.
-  const handleToggleOpen = () => {
-    // Modyfikujemy wartość sygnału. Wszystkie komponenty, które go
-    // subskrybują (czyli nasz pilot i kontener), automatycznie się zaktualizują.
+  // Główny przełącznik, który otwiera i zamyka cały interfejs pilota
+  const handleTogglePilot = () => {
     const nextIsOpen = !state.value.isOpen;
     state.value = {
       ...state.value,
       isOpen: nextIsOpen,
-      // Resetuj stan wyboru do początku, gdy użytkownik zamyka panel
+      // Przy otwieraniu ZAWSZE pokazuj panel główny, resetując wybór
+      activePanel: nextIsOpen ? "main" : state.value.activePanel,
       splitStep: !nextIsOpen ? "idle" : state.value.splitStep,
+    };
+  };
+
+  // Zmienia kierunek podziału
+  const handleToggleArrow = () => {
+    state.value = {
+      ...state.value,
+      arrow: state.value.arrow === "ROW" ? "COL" : "ROW",
+    };
+  };
+
+  // Ustawia, że wewnątrz panelu chcemy widzieć wybór proporcji
+  const showRatioSelector = () => {
+    state.value = { ...state.value, activePanel: "ratio" };
+  };
+
+  /**
+   * Finalizuje wybór, ustawia proporcje i zamyka menu.
+   * @param ratio Wybrany stosunek, np. '1:1'.
+   */
+  const handleSelectRatio = (ratio: string) => {
+    state.value = {
+      ...state.value,
+      ratio: ratio,
+      isOpen: false,
+      splitStep: "idle",
     };
   };
 
@@ -46,8 +85,8 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       ...state.value,
       mode: "single",
       splitStep: "idle",
-      visiblePanels: [title, null], // Ustaw wybrany panel jako jedyny widoczny
-      isOpen: false, // Opcjonalnie: zamknij menu po wyborze
+      visiblePanels: [title, null],
+      isOpen: false,
     };
   };
 
@@ -59,27 +98,8 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
     state.value = {
       ...state.value,
       mode: "split",
-      splitStep: "selecting_second", // Przejdź do etapu wyboru drugiego panelu
-      visiblePanels: [title, null], // Zapamiętaj pierwszy wybrany panel
-    };
-  };
-
-  /**
-   * Finalizuje wybór, ustawia proporcje i zamyka menu.
-   * @param ratio Wybrany stosunek, np. '1:1'.
-   */
-  const handleSelectRatio = (ratio: string) => {
-    console.log(
-      "Wybrano widok dzielony:",
-      state.value.visiblePanels,
-      "z proporcją:",
-      ratio,
-    );
-    state.value = {
-      ...state.value,
-      ratio: ratio,
-      splitStep: "idle", // Zakończ i zresetuj proces wyboru
-      isOpen: false, // Zamknij panel kontrolny
+      splitStep: "selecting_second",
+      visiblePanels: [title, null],
     };
   };
 
@@ -96,49 +116,19 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
     };
   };
 
-  // --- RENDEROWANIE ---
+  // --- Funkcje renderujące poszczególne widoki panelu ---
 
-  // Pomocnicza funkcja renderująca, aby główny return był czystszy
-  const renderControls = () => {
-    // Etap 2: Wybór drugiego panelu
-    // Jeśli jesteśmy w trakcie wyboru drugiego panelu...
-    if (state.value.splitStep === "selecting_second") {
-      const firstPanel = state.value.visiblePanels[0];
-      const availablePanels = state.value.fieldTitles.filter((t) =>
-        t !== firstPanel
-      );
-
-      return (
-        <div>
-          <p>
-            Wybierz drugi panel do pary z: <strong>{firstPanel}</strong>
-          </p>
-          <div class="af-button-group">
-            {availablePanels.map((title) => (
-              <button
-                type="button"
-                key={title}
-                class="af-select-btn"
-                onClick={() => handleSelectSecondPanel(title)}
-              >
-                {title}
-              </button>
-            ))}
-          </div>
-        </div>
-      );
-    }
-
-    // Etap 3: Wybór proporcji
-    if (state.value.splitStep === "selecting_ratio") {
+  const renderPanelContent = () => {
+    // Widok wyboru proporcji
+    if (state.value.activePanel === "ratio") {
       const [panel1, panel2] = state.value.visiblePanels;
       return (
         <div>
           <p>
-            Ustaw proporcje dla <strong>{panel1}</strong> i{" "}
+            Zmień proporcje dla <strong>{panel1}</strong> i{" "}
             <strong>{panel2}</strong>:
           </p>
-          <div class="af-button-grid">
+          <div class="af-button-grid-col2">
             {RATIOS.map((ratio) => (
               <button
                 type="button"
@@ -154,26 +144,74 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       );
     }
 
-    // Etap 1 (Domyślny): Wybór trybu
-    // Domyślny widok wyboru
+    // Widok główny (wieloetapowy)
+    if (state.value.splitStep === "selecting_second") {
+      const firstPanel = state.value.visiblePanels[0];
+      const availablePanels = state.value.fieldTitles.filter((t) =>
+        t !== firstPanel
+      );
+      return (
+        <div>
+          <p>
+            Wybierz drugi panel do pary z: <strong>{firstPanel}</strong>
+          </p>
+          <div class="af-button-grid">
+            {availablePanels.map((title) => (
+              <button
+                type="button"
+                key={title}
+                class="af-select-btn"
+                onClick={() => handleSelectSecondPanel(title)}
+              >
+                {title}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    if (state.value.splitStep === "selecting_ratio") {
+      const [panel1, panel2] = state.value.visiblePanels;
+      return (
+        <div>
+          <p>
+            Ustaw proporcje dla <strong>{panel1}</strong> i{" "}
+            <strong>{panel2}</strong>:
+          </p>
+          <div class="af-button-grid-col2">
+            {RATIOS.map((ratio) => (
+              <button
+                type="button"
+                key={ratio}
+                class="af-select-btn"
+                onClick={() => handleSelectRatio(ratio)}
+              >
+                {ratio}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <p>Wybierz tryb wyświetlania:</p>
         <div class="af-button-grid">
           {state.value.fieldTitles.map((title) => (
-            // Używamy fragmentu, aby zgrupować przyciski dla każdego tytułu
             <div key={title} class="af-title-group">
               <button
                 type="button"
                 class="af-select-btn"
-                onClick={() => handleSelectPanel(title)}
+                onClick={() =>
+                  handleSelectPanel(title)}
               >
                 {title}
               </button>
               <button
                 type="button"
                 class="af-select-split-btn"
-                onClick={() => handleStartSplit(title)}
+                onClick={() =>
+                  handleStartSplit(title)}
                 title={`Wybierz "${title}" jako pierwszy panel`}
               >
                 |..
@@ -191,27 +229,49 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       <button
         type="button"
         class="af-pilot-trigger"
-        onClick={handleToggleOpen}
+        onClick={handleTogglePilot}
         title="Otwórz kontroler paneli"
       >
         ☰
       </button>
 
-      {/* Panel kontrolny - renderowany warunkowo, gdy stan.isOpen jest true */}
+      {/* Przyciski funkcyjne widoczne tylko w trybie 'split' */}
+      {state.value.isOpen && state.value.mode === "split" && (
+        <>
+          <button
+            type="button"
+            class="af-pilot-trigger"
+            onClick={handleToggleArrow}
+            title="Obróć"
+          >
+            ↻
+          </button>
+          <button
+            type="button"
+            class="af-pilot-trigger"
+            onClick={showRatioSelector}
+            title="Zmień proporcje"
+          >
+            ◫
+          </button>
+        </>
+      )}
+
+      {/* Warunkowe renderowanie paneli na podstawie stanu `openPanel` */}
       {state.value.isOpen && (
         <div class="af-controls-panel">
           <div class="af-controls-header">
             <h3>Sterowanie ({forAnchor})</h3>
             <button
               type="button"
-              onClick={handleToggleOpen}
+              onClick={handleTogglePilot}
               class="af-close-btn"
               title="Zamknij"
             >
               ×
             </button>
           </div>
-          {renderControls()}
+          {renderPanelContent()}
         </div>
       )}
     </div>

@@ -12,7 +12,7 @@ import { CustomCSSProperties } from "../style/types.ts";
 
 type ContainerProps = {
   anchorTag: string;
-  divider?: "ROW" | "COL";
+  initialDivider?: "ROW" | "COL";
   children: ComponentChildren;
 };
 
@@ -34,7 +34,7 @@ function parseRatio(ratio: string): [number, number] {
  * Główny kontener, który renderuje widoczne panele.
  */
 function AccordionFields(
-  { anchorTag, divider = "ROW", children }: ContainerProps,
+  { anchorTag, initialDivider = "ROW", children }: ContainerProps,
 ): VNode {
   // Pobieramy sygnał stanu dla tej instancji akordeonu.
   const state = getAccordionState(anchorTag);
@@ -61,14 +61,14 @@ function AccordionFields(
   useEffect(() => {
     const titles = fields.map((f) => f.title);
     if (titles.length > 0) {
-      registerAccordion(anchorTag, titles);
+      registerAccordion(anchorTag, titles, initialDivider);
     }
 
     // Funkcja czyszcząca - wywoływana, gdy komponent jest odmontowywany.
     return () => {
       unregisterAccordion(anchorTag);
     };
-  }, [anchorTag, fields]); // Uruchom ponownie, jeśli zmieni się anchor lub lista pól.
+  }, [anchorTag, fields, initialDivider]); // Uruchom ponownie, jeśli zmieni się anchor lub lista pól.
 
   // Jeśli stan nie jest jeszcze dostępny, nie renderuj nic.
   if (!state) {
@@ -118,7 +118,7 @@ function AccordionFields(
   };
 
   return (
-    <div class={`af-container af-${divider.toLowerCase()}`}>
+    <div class={`af-container af-${state.value.arrow.toLowerCase()}`}>
       {renderContent()}
     </div>
   );
