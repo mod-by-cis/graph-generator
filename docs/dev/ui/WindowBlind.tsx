@@ -164,21 +164,24 @@ function WindowBlind({
       >
         <div className="whb-controls">
           <button
+            type="button"
             onClick={() => setIsLocked((prev) => !prev)}
             title="Zablokuj przesuwanie"
           >
             <IconLocked locked={isLocked} />
           </button>
           <button
+            type="button"
             onClick={() => handleNudge(-5)}
             title="Przesuń w lewo/górę o 5%"
           >
             <IconArrowL />
           </button>
-          <button onClick={handleToggle} title="Przełącz widok">
+          <button type="button" onClick={handleToggle} title="Przełącz widok">
             <IconToggle />
           </button>
           <button
+            type="button"
             onClick={() => handleNudge(5)}
             title="Przesuń w prawo/dół o 5%"
           >

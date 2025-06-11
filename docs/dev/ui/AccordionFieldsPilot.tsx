@@ -116,6 +116,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
           <div class="af-button-group">
             {availablePanels.map((title) => (
               <button
+                type="button"
                 key={title}
                 class="af-select-btn"
                 onClick={() => handleSelectSecondPanel(title)}
@@ -140,6 +141,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
           <div class="af-button-grid">
             {RATIOS.map((ratio) => (
               <button
+                type="button"
                 key={ratio}
                 class="af-select-btn"
                 onClick={() => handleSelectRatio(ratio)}
@@ -162,12 +164,14 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
             // Używamy fragmentu, aby zgrupować przyciski dla każdego tytułu
             <div key={title} class="af-title-group">
               <button
+                type="button"
                 class="af-select-btn"
                 onClick={() => handleSelectPanel(title)}
               >
                 {title}
               </button>
               <button
+                type="button"
                 class="af-select-split-btn"
                 onClick={() => handleStartSplit(title)}
                 title={`Wybierz "${title}" jako pierwszy panel`}
@@ -185,6 +189,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
     <div class="af-pilot-wrapper">
       {/* Główny przycisk-wyzwalacz */}
       <button
+        type="button"
         class="af-pilot-trigger"
         onClick={handleToggleOpen}
         title="Otwórz kontroler paneli"
@@ -198,6 +203,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
           <div class="af-controls-header">
             <h3>Sterowanie ({forAnchor})</h3>
             <button
+              type="button"
               onClick={handleToggleOpen}
               class="af-close-btn"
               title="Zamknij"
