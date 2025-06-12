@@ -47,7 +47,7 @@ function LayoutStart() {
           <PageDotRender />
         </AccordionField>
 
-        <AccordionField viewID={5} title="Efekt..">
+        <AccordionField viewID={5} title="o tym..">
           <PageAboutThis />
         </AccordionField>
       </AccordionFields>
