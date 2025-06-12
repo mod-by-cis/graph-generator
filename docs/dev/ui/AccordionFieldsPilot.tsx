@@ -6,6 +6,7 @@ import { getAccordionState } from "../core/state-accordion.ts";
 
 type PilotProps = {
   forAnchor: string;
+  showAnchor?: boolean;
 };
 
 // Definicja dostępnych proporcji dla trybu dzielonego
@@ -26,7 +27,9 @@ const RATIOS = [
 /**
  * Komponent "pilota", który kontroluje stan powiązanego akordeonu.
  */
-export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
+export function AccordionFieldsPilot(
+  { forAnchor, showAnchor = true }: PilotProps,
+): VNode {
   // Pobieramy sygnał stanu dla akordeonu, którym mamy sterować.
   const state = getAccordionState(forAnchor);
 
@@ -124,9 +127,10 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       const [panel1, panel2] = state.value.visiblePanels;
       return (
         <div>
-          <p>
-            Zmień proporcje dla <strong>{panel1}</strong> i{" "}
-            <strong>{panel2}</strong>:
+          <p class="non-select">
+            Zmień proporcje dla<br /> [ <strong>{panel1}</strong> ] i{"  "}[
+            {" "}
+            <strong>{panel2}</strong> ]:
           </p>
           <div class="af-button-grid-col2">
             {RATIOS.map((ratio) => (
@@ -152,8 +156,11 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       );
       return (
         <div>
-          <p>
-            Wybierz drugi panel do pary z: <strong>{firstPanel}</strong>
+          <p class="non-select">
+            Panel wybrany: [ <strong>{firstPanel}</strong> ].
+          </p>
+          <p class="non-select">
+            Wybierz drugi panel do pary:
           </p>
           <div class="af-button-grid">
             {availablePanels.map((title) => (
@@ -174,9 +181,9 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       const [panel1, panel2] = state.value.visiblePanels;
       return (
         <div>
-          <p>
-            Ustaw proporcje dla <strong>{panel1}</strong> i{" "}
-            <strong>{panel2}</strong>:
+          <p class="non-select">
+            Ustaw proporcje dla wybranych paneli:<br />
+            [ <strong>{panel1}</strong> ] i [ <strong>{panel2}</strong> ]:
           </p>
           <div class="af-button-grid-col2">
             {RATIOS.map((ratio) => (
@@ -195,7 +202,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
     }
     return (
       <div>
-        <p>Wybierz tryb wyświetlania:</p>
+        <p class="non-select">Wybierz [ panel |..] do wyświetlenia:</p>
         <div class="af-button-grid">
           {state.value.fieldTitles.map((title) => (
             <div key={title} class="af-title-group">
@@ -261,7 +268,7 @@ export function AccordionFieldsPilot({ forAnchor }: PilotProps): VNode {
       {state.value.isOpen && (
         <div class="af-controls-panel">
           <div class="af-controls-header">
-            <h3>Sterowanie ({forAnchor})</h3>
+            <h3>Sterowanie wyświetlaniem.{showAnchor && ({ forAnchor })}</h3>
             <button
               type="button"
               onClick={handleTogglePilot}

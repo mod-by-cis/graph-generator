@@ -18,27 +18,31 @@ function LayoutStart() {
 
   return (
     <>
-      <AccordionFieldsPilot forAnchor={ANCHOR_ID} />
+      <AccordionFieldsPilot
+        forAnchor={ANCHOR_ID}
+        showAnchor="false"
+      />
 
       <AccordionFields
         anchorTag={ANCHOR_ID}
+        firstViewID={[3, 4]}
       >
-        <AccordionField title="Grafy">
+        <AccordionField viewID={0} title="o grafach..">
           <PageEduGraphs />
         </AccordionField>
-        <AccordionField title="Dot">
+        <AccordionField viewID={1} title="o dot..">
           <PageEduDot />
         </AccordionField>
 
-        <AccordionField title="Wstaw..">
+        <AccordionField viewID={2} title="Wstaw..">
           <PageDotInsert />
         </AccordionField>
 
-        <AccordionField title="Pisz..">
+        <AccordionField viewID={3} title="Pisz..">
           <PageDotWriter />
         </AccordionField>
 
-        <AccordionField title="Efekt..">
+        <AccordionField viewID={4} title="Efekt..">
           <PageDotRender />
         </AccordionField>
       </AccordionFields>

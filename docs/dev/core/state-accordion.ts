@@ -37,6 +37,12 @@ export interface AccordionState {
  */
 const accordionStore = signal(new Map<string, Signal<AccordionState>>());
 
+// Definiujemy typ dla pól przekazywanych do funkcji rejestrującej
+type FieldData = {
+  title: string;
+  viewID: number;
+};
+
 // --- Funkcje Pomocnicze (Publiczne API Naszego Magazynu) ---
 
 /**
@@ -45,21 +51,46 @@ const accordionStore = signal(new Map<string, Signal<AccordionState>>());
  * @param anchorTag Unikalny identyfikator dla pary Kontroler-Akordeon.
  * @param titles Tablica z tytułami wszystkich pól-dzieci, które przekazał użytkownik.
  */
-function registerAccordion(anchorTag: string, titles: string[], initialArrow: "ROW" | "COL"): void {
+function registerAccordion(
+  anchorTag: string, 
+  fields: FieldData[], 
+  initialArrow: "ROW" | "COL",
+  firstViewID: [number] | [number, number] | undefined
+): void {
   // Sprawdzamy, czy instancja o tym anchorTag już nie istnieje
-  if (accordionStore.value.has(anchorTag)) {
+  if (accordionStore.value.has(anchorTag) || fields.length === 0) {
     console.log(`AccordionFields with anchorTag "${anchorTag}" is already registered.`);
     return;
+  }
+  let initialMode: 'single' | 'split' = 'single';
+  let initialVisiblePanels: [string | null, string | null] = [fields[0].title, null];
+
+  // Logika ustawiania stanu na podstawie `firstViewID`
+  if (firstViewID) {
+    if (firstViewID.length === 2) { // Tryb dzielony
+      const panel1 = fields.find(f => f.viewID === firstViewID[0]);
+      const panel2 = fields.find(f => f.viewID === firstViewID[1]);
+      if (panel1 && panel2) {
+        initialMode = 'split';
+        initialVisiblePanels = [panel1.title, panel2.title];
+      }
+    } else if (firstViewID.length === 1) { // Tryb pojedynczy
+      const panel = fields.find(f => f.viewID === firstViewID[0]);
+      if (panel) {
+        initialMode = 'single';
+        initialVisiblePanels = [panel.title, null];
+      }
+    }
   }
 
   // Tworzymy sygnał z domyślnym, początkowym stanem dla tego akordeonu.
   const initialState: AccordionState = {
     isOpen: false,
     activePanel: 'main', // Domyślnie pokazujemy główny widok
-    fieldTitles: titles, // Pilot od razu wie, jakie ma panele!
-    mode: 'single',
+    fieldTitles: fields.map(f => f.title), // Wyciągamy same tytuły // Pilot od razu wie, jakie ma panele!
+    mode: initialMode,
     splitStep: 'idle', // Domyślny stan etapu
-    visiblePanels: [titles[0] ?? null, null], // Domyślnie pokaż pierwszy panel
+    visiblePanels: initialVisiblePanels,
     ratio: '1:1',
     arrow: initialArrow, // Ustawiamy początkowy kierune
   };

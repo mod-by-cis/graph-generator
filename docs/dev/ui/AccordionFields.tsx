@@ -13,6 +13,7 @@ import { CustomCSSProperties } from "../style/types.ts";
 type ContainerProps = {
   anchorTag: string;
   initialDivider?: "ROW" | "COL";
+  firstViewID?: [number] | [number, number];
   children: ComponentChildren;
 };
 
@@ -33,16 +34,19 @@ function parseRatio(ratio: string): [number, number] {
 /**
  * Główny kontener, który renderuje widoczne panele.
  */
-function AccordionFields(
-  { anchorTag, initialDivider = "ROW", children }: ContainerProps,
-): VNode {
+function AccordionFields({
+  anchorTag,
+  initialDivider = "ROW",
+  firstViewID,
+  children,
+}: ContainerProps): VNode {
   // Pobieramy sygnał stanu dla tej instancji akordeonu.
   const state = getAccordionState(anchorTag);
 
   // Używamy `useMemo`, aby wyodrębnić tytuły i zawartość z dzieci
   // tylko raz, chyba że dzieci się zmienią.
   const fields = useMemo(() => {
-    const extracted: { title: string; content: VNode }[] = [];
+    const extracted: { title: string; viewID: number; content: VNode }[] = [];
     const childrenArray = Array.isArray(children) ? children : [children];
 
     for (const child of childrenArray) {
@@ -51,7 +55,11 @@ function AccordionFields(
         child.type === AccordionField
       ) {
         const props = child.props as AccordionFieldProps;
-        extracted.push({ title: props.title, content: child });
+        extracted.push({
+          title: props.title,
+          viewID: props.viewID,
+          content: child,
+        });
       }
     }
     return extracted;
@@ -59,16 +67,16 @@ function AccordionFields(
 
   // Efekt do rejestracji i wyrejestrowania w globalnym magazynie.
   useEffect(() => {
-    const titles = fields.map((f) => f.title);
-    if (titles.length > 0) {
-      registerAccordion(anchorTag, titles, initialDivider);
+    // const titles = fields.map((f) => f.title);
+    if (fields.length > 0) {
+      registerAccordion(anchorTag, fields, initialDivider, firstViewID);
     }
 
     // Funkcja czyszcząca - wywoływana, gdy komponent jest odmontowywany.
     return () => {
       unregisterAccordion(anchorTag);
     };
-  }, [anchorTag, fields, initialDivider]); // Uruchom ponownie, jeśli zmieni się anchor lub lista pól.
+  }, [anchorTag, fields, initialDivider, firstViewID]); // Uruchom ponownie, jeśli zmieni się anchor lub lista pól.
 
   // Jeśli stan nie jest jeszcze dostępny, nie renderuj nic.
   if (!state) {

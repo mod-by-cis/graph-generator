@@ -5,6 +5,7 @@ import { ComponentChildren, VNode } from "$tsx-preact";
 // Definicja propsów. Każde pole musi mieć tytuł.
 type AccordionFieldProps = {
   title: string;
+  viewID: number;
   children: ComponentChildren;
 };
 

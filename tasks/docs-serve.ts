@@ -1,17 +1,65 @@
 import { serveDir } from "$deno-http/file-server";
-import { fromFileUrl } from "$deno-path/from-file-url";
+import { fromFileUrl, join, relative  } from "$deno-path";
 
 
 const rootPath = fromFileUrl(new URL("../", import.meta.url));
 const docsPath = `${rootPath}docs`;
+const devPath = join(docsPath, "dev");
+const lastBuildPath = join(docsPath, "gen", "lastBuild.txt");
+
 // --- Konfiguracja Live Reload ---
 const clients = new Set<WebSocket>();
+
+// Zmienna, która śledzi, czy oczekujemy na przebudowanie projektu
+let isDevChangePending = false;
 
 // Ta funkcja nie wymaga ŻADNYCH dodatkowych importów.
 async function watchForChanges() {
   console.log(`👀 Obserwator plików uruchomiony w '${docsPath}'`);
   const watcher = Deno.watchFs(docsPath);
-  for await (const event of watcher) {
+
+  for await (const event of watcher) {    
+    // Sprawdzamy, czy którykolwiek ze zmienionych plików pasuje do naszej logiki
+    let shouldReload = false;
+    //let buildCompleted = false;
+
+    for (const path of event.paths) {
+      // 1. Zmiana w plikach deweloperskich (`/docs/dev/`)
+      if (path.startsWith(devPath)) {
+        isDevChangePending = true;
+        console.log(`📝 Zmiana w plikach deweloperskich. Oczekiwanie na 'deno task gen'...`);
+        continue;
+      }
+
+      // 2. Zmiana w pliku `lastBuild.txt`
+      if (path === lastBuildPath) {
+        if (isDevChangePending) {
+          console.log(`✅ Build zakończony. Odświeżam stronę...`);
+          isDevChangePending = false;
+          shouldReload = true;
+          break;
+        }
+        continue;
+      }
+
+      // 3. Zmiana w jakimkolwiek innym pliku (np. CSS, HTML, JSON)
+      const relativePath = relative(docsPath, path);
+      if (!relativePath.startsWith("dev") && !relativePath.startsWith("gen")) {
+        console.log(`🔄 Zmiana w pliku statycznym: ${relativePath}. Odświeżam...`);
+        shouldReload = true;
+        break;
+      }
+    }
+    // Po sprawdzeniu wszystkich ścieżek, decydujemy, czy wysłać sygnał
+    if (shouldReload) {
+      for (const socket of clients) {
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.send("reload");
+        }
+      }
+    }
+
+    /*
     if (event.kind === "modify" || event.kind === "create" || event.kind === "remove") {
       console.log(` Zmiany w plikach: ${event.paths.join(', ')}. Odświeżam...`);
       // Wyślij sygnał "reload" do wszystkich podłączonych klientów
@@ -21,6 +69,7 @@ async function watchForChanges() {
         }
       }
     }
+    */
   }
 }
 watchForChanges().catch(err => console.error("Błąd obserwatora:", err));

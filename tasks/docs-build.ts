@@ -10,7 +10,7 @@ const projectDeno = join(fromFileUrl(new URL("../", import.meta.url)), "deno.jso
 
 
 try {
-  await esbuild.build({
+  const result = await esbuild.build({
     entryPoints: ["docs/dev/main.tsx"],
     outfile: "docs/gen/main.js", 
     // Dodajemy wtyczkę, która nauczy esbuild obsługiwać Deno
@@ -21,7 +21,7 @@ try {
     bundle: true,
     format: "esm",
     minify: true,
-    //metafile: true,
+    metafile: true,
     sourcemap: true, //"inline",
     target: ["esnext"],
     // preact
@@ -33,6 +33,16 @@ try {
   });
 
   console.timeEnd("✅ Projekt zbudowany w");
+  if (result.metafile) {
+    // Używamy JSON.stringify z dodatkowymi argumentami, aby plik był czytelny
+    await Deno.writeTextFile("docs/gen/meta.json", JSON.stringify(result.metafile, null, 2));
+    console.log(`✅ Plik metafile został zapisany w: ${"docs/gen/meta.json"}`);
+  }
+  const buildTimestamp = new Date().toISOString();
+  const fileContent = `${buildTimestamp}\n`;
+  await Deno.writeTextFile("docs/gen/lastBuild.txt", fileContent);
+  console.log(`✅ Data tego budowania zapisana w: ${"docs/gen/lastBuild.txt"}`);
+
 } catch (error) {
   console.error("❌ Błąd podczas budowania:", error);
   // Zakończ proces z kodem błędu, aby poinformować inne narzędzia (np. CI/CD)
