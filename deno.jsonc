@@ -2,7 +2,7 @@
 // @file ./deno.jsonc
 // @author https://github.com/j-Cis
 // 
-// @lastmodified 2025-06-12T17:00:51.653Z+02:00
+// @lastmodified 2025-06-12T18:02:46.234Z+02:00
 // @description Plik konfiguracyjny projektu DENO@2.3.5
 // 
 {
@@ -38,6 +38,7 @@
     "$tsx-preact/": "https://esm.sh/preact@10.26.8/",
     "$tsx-preact-signal": "https://esm.sh/@preact/signals@2.2.0",
     "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/",
+    "$hpcc-graphviz": "https://esm.sh/@hpcc-js/wasm@2.23.0",
     "$byCIS-read-structure-dir": "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod.ts"
   }
 }

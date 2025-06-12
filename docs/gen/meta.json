@@ -318,9 +318,56 @@
       ],
       "format": "esm"
     },
-    "docs/dev/pages/DotRender.tsx": {
-      "bytes": 539,
+    "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs": {
+      "bytes": 8499328,
+      "imports": [],
+      "format": "esm"
+    },
+    "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs": {
+      "bytes": 4474087,
       "imports": [
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs",
+          "kind": "dynamic-import",
+          "original": "./duckdb.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/@hpcc-js/wasm@2.23.0": {
+      "bytes": 93,
+      "imports": [
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs",
+          "kind": "import-statement",
+          "original": "/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "docs/dev/pages/DotRender.tsx": {
+      "bytes": 2670,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "docs/dev/core/state-dot-current.ts",
+          "kind": "import-statement",
+          "original": "../core/state-dot-current.ts"
+        },
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0",
+          "kind": "import-statement",
+          "original": "$hpcc-graphviz"
+        },
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
           "kind": "import-statement",
@@ -408,27 +455,30 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 100422
+      "bytes": 13676011
     },
     "docs/gen/main.js": {
       "imports": [],
       "exports": [],
       "entryPoint": "docs/dev/main.tsx",
       "inputs": {
+        "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs": {
+          "bytesInOutput": 8501258
+        },
         "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
-          "bytesInOutput": 10371
+          "bytesInOutput": 10465
         },
         "https://esm.sh/preact@10.26.8": {
           "bytesInOutput": 0
         },
         "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
-          "bytesInOutput": 1886
+          "bytesInOutput": 2745
         },
         "https://esm.sh/preact@10.26.8/hooks": {
           "bytesInOutput": 0
         },
         "https://esm.sh/@preact/signals-core@1.9.0/denonext/signals-core.mjs": {
-          "bytesInOutput": 4232
+          "bytesInOutput": 4311
         },
         "https://esm.sh/@preact/signals-core@1.9.0?target=denonext": {
           "bytesInOutput": 0
@@ -440,28 +490,28 @@
           "bytesInOutput": 0
         },
         "https://esm.sh/@preact/signals@2.2.0/denonext/signals.mjs": {
-          "bytesInOutput": 2619
+          "bytesInOutput": 2641
         },
         "https://esm.sh/@preact/signals@2.2.0": {
           "bytesInOutput": 0
         },
         "docs/dev/core/state-accordion.ts": {
-          "bytesInOutput": 671
+          "bytesInOutput": 680
         },
         "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs": {
-          "bytesInOutput": 375
+          "bytesInOutput": 377
         },
         "https://esm.sh/preact@10.26.8/jsx-runtime": {
           "bytesInOutput": 0
         },
         "docs/dev/ui/AccordionField.tsx": {
-          "bytesInOutput": 50
+          "bytesInOutput": 52
         },
         "docs/dev/ui/AccordionFieldsPilot.tsx": {
-          "bytesInOutput": 3247
+          "bytesInOutput": 3249
         },
         "docs/dev/ui/AccordionFields.tsx": {
-          "bytesInOutput": 1284
+          "bytesInOutput": 1288
         },
         "docs/dev/pages/EduGraphs.tsx": {
           "bytesInOutput": 241
@@ -470,13 +520,19 @@
           "bytesInOutput": 238
         },
         "docs/dev/core/state-dot-current.ts": {
-          "bytesInOutput": 511
+          "bytesInOutput": 512
         },
         "docs/dev/pages/DotWriter.tsx": {
-          "bytesInOutput": 1736
+          "bytesInOutput": 1740
+        },
+        "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs": {
+          "bytesInOutput": 4474087
+        },
+        "https://esm.sh/@hpcc-js/wasm@2.23.0": {
+          "bytesInOutput": 0
         },
         "docs/dev/pages/DotRender.tsx": {
-          "bytesInOutput": 241
+          "bytesInOutput": 730
         },
         "docs/dev/pages/DotInsert.tsx": {
           "bytesInOutput": 241
@@ -485,10 +541,10 @@
           "bytesInOutput": 241
         },
         "docs/dev/main.tsx": {
-          "bytesInOutput": 644
+          "bytesInOutput": 651
         }
       },
-      "bytes": 28862
+      "bytes": 13005910
     }
   }
 }
