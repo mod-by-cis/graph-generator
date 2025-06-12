@@ -21,13 +21,15 @@ try {
     bundle: true,
     format: "esm",
     minify: true,
-    sourcemap: "inline",
+    //metafile: true,
+    sourcemap: true, //"inline",
     target: ["esnext"],
     // preact
     jsx: "automatic",
     jsxImportSource: "preact",
     loader: { ".ts": "ts", ".tsx": "tsx" },
     logLevel: "info",
+    // pure: ['console.log', 'console.warn'],
   });
 
   console.timeEnd("✅ Projekt zbudowany w");
