@@ -3,7 +3,7 @@
  * @file ./docs/index.html
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T15:18:08.759Z+02:00
+ * @lastmodified 2025-06-12T17:32:38.240Z+02:00
  * @description Główny plik montowania.
  */
 -->
@@ -22,7 +22,30 @@
 
 <body>
   <main id="root"></main>
-  <script type="module" src="gen/main.js"></script>
+
+  <!-- Skrypt ładujący Monaco -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+  <script>
+    // Konfigurujemy ścieżkę dla loadera
+    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs' } });
+  </script>
+  
+  
+  <!-- Ten skrypt wczyta edytor, a PO jego wczytaniu, załaduje i uruchomi naszą aplikację. -->
+  <script>
+    window.require(['vs/editor/editor.main'], function (monaco) {
+      // Ustawiamy Monaco jako globalną zmienną, aby nasza aplikacja miała do niego dostęp
+      window.monaco = monaco;
+
+      // Dopiero teraz, gdy Monaco jest gotowe, dynamicznie tworzymy tag <script>
+      // i wczytujemy nasz główny, zbudowany plik aplikacji.
+      const appScript = document.createElement('script');
+      appScript.type = 'module';
+      appScript.src = 'gen/main.js';
+      document.body.appendChild(appScript);
+    });
+  </script>
+  <!--<script type="module" src="gen/main.js"></script>-->
 </body>
 
 </html>

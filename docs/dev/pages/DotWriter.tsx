@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T16:50:12.009Z+02:00
+ * @lastmodified 2025-06-12T17:07:38.027Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
@@ -14,18 +14,21 @@ import {
   dotContentSignal,
   updateDotContent,
 } from "../core/state-dot-current.ts";
-import * as monaco from "$editor-monaco";
 
-// Flaga, aby upewnić się, że rejestracja języka i motywu wykona się tylko raz
+// Deklarujemy TypeScriptowi, że w globalnym zasięgu `window`
+// może istnieć obiekt `monaco`. To usuwa błędy typów.
+declare global {
+  interface Window {
+    monaco: any;
+  }
+}
+
+// Flaga, aby upewnić się, że konfiguracja wykona się tylko raz
 let isMonacoInitialized = false;
-
-function initializeMonaco() {
+function initializeMonaco(monaco: any) {
   if (isMonacoInitialized) return;
 
-  // 1. Rejestracja niestandardowego języka "dot"
   monaco.languages.register({ id: "dot" });
-
-  // 2. Definicja podświetlania składni dla języka "dot"
   monaco.languages.setMonarchTokensProvider("dot", {
     tokenizer: {
       root: [
@@ -45,8 +48,6 @@ function initializeMonaco() {
       ],
     },
   });
-
-  // 3. Definicja niestandardowego motywu kolorystycznego
   monaco.editor.defineTheme("myDotTheme", {
     base: "vs-dark",
     inherit: true,
@@ -58,60 +59,44 @@ function initializeMonaco() {
       { token: "operator", foreground: "D4D4D4" },
       { token: "delimiter", foreground: "FFD700" },
     ],
-    colors: {
-      "editor.background": "#1E1E1E",
-    },
+    colors: { "editor.background": "#1E1E1E" },
   });
-
   isMonacoInitialized = true;
 }
 
-/**
- * Komponent edytora opartego na Monaco Editor do pisania w języku DOT.
- */
 export default function PageDotWriter(): VNode {
   const editorContainerRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<any | null>(null);
   const updateTimeout = useRef<number | null>(null);
 
-  // Efekt, który tworzy i niszczy instancję edytora
   useEffect(() => {
-    if (editorContainerRef.current) {
-      // Upewnij się, że język jest zarejestrowany
-      initializeMonaco();
+    // Sprawdzamy, czy `monaco` zostało już wczytane przez skrypt w HTML
+    if (editorContainerRef.current && window.monaco) {
+      const monaco = window.monaco;
+      initializeMonaco(monaco);
 
-      // Tworzymy edytor wewnątrz naszego diva
       const editor = monaco.editor.create(editorContainerRef.current, {
-        value: dotContentSignal.peek(), // .peek() odczytuje wartość bez subskrypcji
+        value: dotContentSignal.peek(),
         language: "dot",
         theme: "myDotTheme",
-        automaticLayout: true, // Edytor automatycznie dopasuje się do rozmiaru kontenera
+        automaticLayout: true,
         wordWrap: "on",
-        fontSize: 14,
-        tabSize: 2,
-        scrollBeyondLastLine: false,
       });
-
       editorRef.current = editor;
 
-      // Słuchamy zmian w treści edytora
       const subscription = editor.onDidChangeModelContent(() => {
-        const currentValue = editor.getValue();
-
-        // Opóźniona aktualizacja globalnego stanu
         if (updateTimeout.current) clearTimeout(updateTimeout.current);
         updateTimeout.current = setTimeout(() => {
-          updateDotContent(currentValue);
+          updateDotContent(editor.getValue());
         }, 20000);
       });
 
-      // Funkcja czyszcząca - kluczowa dla uniknięcia wycieków pamięci
       return () => {
-        subscription.dispose(); // Usuń subskrypcję
-        editor.dispose(); // Zniszcz instancję edytora
+        subscription.dispose();
+        editor.dispose();
       };
     }
-  }, []); // Pusta tablica `[]` gwarantuje, że edytor stworzy się tylko raz
+  }, []); // Uruchom tylko raz, po zamontowaniu
 
   const forceUpdateSignal = () => {
     if (editorRef.current) {
@@ -122,8 +107,7 @@ export default function PageDotWriter(): VNode {
 
   const toggleWordWrap = () => {
     if (editorRef.current) {
-      const currentOptions = editorRef.current.getOptions();
-      const currentWordWrap = currentOptions.get(
+      const currentWordWrap = editorRef.current.getOption(
         monaco.editor.EditorOption.wordWrap,
       );
       editorRef.current.updateOptions({
@@ -135,14 +119,9 @@ export default function PageDotWriter(): VNode {
   return (
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
-        <button type="button" onClick={toggleWordWrap}>
-          Przełącz zawijanie
-        </button>
-        <button type="button" onClick={forceUpdateSignal}>
-          Aktualizuj Stan
-        </button>
+        <button onClick={toggleWordWrap}>Przełącz zawijanie</button>
+        <button onClick={forceUpdateSignal}>Aktualizuj Stan</button>
       </div>
-      {/* Ten div będzie hostem dla Monaco Editor */}
       <div class="dot-writer-editor" ref={editorContainerRef}></div>
     </div>
   );
