@@ -1,4 +1,4 @@
-//to wlasciwe
+//to własciwe
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 import { VNode } from "$tsx-preact";

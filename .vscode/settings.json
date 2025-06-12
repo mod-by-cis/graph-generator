@@ -1,5 +1,245 @@
 {
+  // =================================================================
+  // USTAWIENIA PROJEKTU (BEZPIECZNE DO WSPÓŁDZIELENIA)
+  // Te ustawienia zapewniają spójne środowisko dla każdego,
+  // kto pracuje nad tym projektem.
+  // =================================================================
+
+  // =================================================================
+  //  1. EDYTOR - WYGLĄD I ZACHOWANIE
+  // =================================================================
+  // --- Czcionka i jej wygląd ---
+  "editor.fontFamily": "FiraCode,  Fira Code, Consolas, 'Courier New', monospace",
+  "editor.fontSize": 13,
+  "editor.fontLigatures": true,
+  "apc.font.family": "FiraCode,  Fira Code",
+  "apc.monospace.font.family": "FiraCode,  Fira Code",
+  "chat.editor.fontFamily": "FiraCode,  Fira Code",
+  "debug.console.fontFamily": "FiraCode,  Fira Code",
+  "editor.codeLensFontFamily": "FiraCode,  Fira Code",
+  "editor.inlayHints.fontFamily": "FiraCode,  Fira Code",
+  "editor.inlineSuggest.fontFamily": "FiraCode,  Fira Code",
+  "markdown.preview.fontFamily": "FiraCode,  Fira Code,-apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
+  "scm.inputFontFamily": "FiraCode,  Fira Code",
+  "terminal.integrated.fontFamily": "FiraCode,  Fira Code",
+  // --- Wcięcie, Zawijanie i Prowadnice ---
+  "editor.tabSize": 2,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 185,
+  "editor.rulers": [
+    46,
+    92,
+    138,
+    184
+  ],
+  "editor.guides.bracketPairs": true,
+  "editor.guides.indentation": true,
+  // --- Inne Ustawienia Edytora ---
+  "editor.linkedEditing": true,
+  "editor.mouseWheelZoom": true,
+  "editor.multiCursorModifier": "alt",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.experimental.preferTreeSitter.typescript": true,
+  "editor.inlayHints.enabled": "off",
+
+  // =================================================================
+  //  2. INTERFEJS UŻYTKOWNIKA (WORKBENCH)
+  // =================================================================
+  // --- Wygląd Ogólny i Motywy ---
+  "window.zoomLevel": 0.4,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.preferredDarkColorTheme": "Complementary Theme",
+  "workbench.preferredLightColorTheme": "One Dark Modern",
+  // --- Układ Paneli, Okien i Zakładek ---
+  "window.density.editorTabHeight": "compact",
+  "workbench.panel.defaultLocation": "top",
+  "breadcrumbs.enabled": true,
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.editor.tabActionLocation": "left",
+  "workbench.editor.labelFormat": "short",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.pinnedTabSizing": "normal",
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
+  // --- Inne Ustawienia Interfejsu ---
+  "workbench.editor.preferHistoryBasedLanguageDetection": true,
+  "workbench.commandPalette.experimental.suggestCommands": true,
+  "workbench.commandPalette.experimental.askChatLocation": "chatView",
+  // --- Dostosowana Paleta Barw ---
+  "workbench.colorCustomizations": {
+    // --- Pasek Aktywności (lewy boczny pasek z ikonami: Explorer, Search, Git) ---
+    "activityBar.background": "#130e0f",                  // Tło całego paska
+    "activityBar.activeBackground": "#6b0b18",            // Tło pod aktywną (klikniętą) ikoną
+    "activityBar.border": "#272324",                      // Kolor obramowania paska
+    "activityBar.foreground": "#110305",                  // Kolor aktywnej ikony
+    "activityBar.inactiveForeground": "#bbb5b6",          // Kolor nieaktywnych ikon
+    "activityBarBadge.background": "#6b0b18",             // Tło "plakietki" z powiadomieniem (np. liczba zmian w Git)
+    "activityBarBadge.foreground": "#ebbec5",             // Kolor tekstu na plakietce
+
+    // --- Pasek Tytułowy i Menu ---
+    "titleBar.activeBackground": "#130e0f",               // Tło górnego paska tytułowego okna (gdy okno jest aktywne)
+    "menubar.selectionBackground": "#6b0b18",             // Tło po najechaniu na opcję w menu (Plik, Edycja...)
+    "menu.background": "#6b0b18",                         // Tło rozwiniętego menu kontekstowego
+    "menu.selectionBackground": "#220a0d",                // Tło zaznaczonej opcji w menu kontekstowym
+
+    // --- Panele Główne (boczny, dolny) ---
+    "sideBar.background": "#0e0d0d",                     // Tło paska bocznego (tam gdzie jest drzewo plików)
+    "sideBarSectionHeader.background": "#181011",        // Tło nagłówków sekcji w pasku bocznym (np. "EXPLORER")
+    "sideBarSectionHeader.border": "#3d2a2d",            // Obramowanie nagłówków sekcji
+    "panel.background": "#1a1717",                       // Tło dolnego panelu (Terminal, Problems, Output)
+    "panel.border": "#272324",                           // Górna krawędź dolnego panelu
+    "panelTitle.activeForeground": "#eb677b",            // Kolor tytułu aktywnego panelu na dole (np. "TERMINAL")
+    "panelTitle.inactiveForeground": "#6e5358",          // Kolor tytułów nieaktywnych paneli na dole
+    "panelSectionHeader.background": "#272324",          // Tło nagłówków sekcji w panelach (rzadziej używane)
+    
+    // --- Zakładki (Tabs) i Nagłówki Edytora ---
+    "editorGroupHeader.tabsBackground": "#130e0f",        // Tło paska, w którym znajdują się zakładki z plikami
+    "tab.border": "#272122",                              // Obramowanie oddzielające zakładki
+    "tab.activeBackground": "#0e0d0d",                    // Tło aktywnej zakładki
+    "tab.inactiveBackground": "#1a1717",                  // Tło nieaktywnych zakładek
+    "tab.hoverBackground": "#6b0b18",                     // Tło zakładki po najechaniu myszą
+    "tab.hoverBorder": "#6b0b18",                         // Obramowanie zakładki po najechaniu myszą
+    "tab.activeBorderTop": "#a89799",                     // Górna linia akcentująca aktywną zakładkę
+    "tab.activeModifiedBorder": "#6b0b18",                // Kolor akcentu dla aktywnej zakładki, która ma niezapisane zmiany
+    "tab.inactiveModifiedBorder": "#6b0b18",              // Kolor akcentu dla nieaktywnej zakładki z niezapisanymi zmianami
+
+    // --- Edytor Tekstu i jego elementy ---
+    "editorGutter.background": "#0e0d0d",                 // Tło "rynny" z numerami linii
+    "editorHoverWidget.background": "#3b2b2d",            // Tło dymka pojawiającego się po najechaniu na kod
+    "editorStickyScrollHover.background": "#6b0b18",      // Tło "przyklejonego" nagłówka funkcji po najechaniu
+    "editorWidget.background": "#490f17",                 // Tło widżetów edytora, np. pola wyszukiwania (Ctrl+F)
+    "outputViewStickyScroll.background": "#490f17",       // Tło przyklejonego przewijania w panelu wyjściowym
+
+    // --- Okno Podpowiedzi (IntelliSense) ---
+    "editorSuggestWidget.background": "#181011",            // Tło okna z podpowiedziami
+    "editorSuggestWidget.foreground": "#ebe5e5",            // Kolor tekstu w podpowiedziach
+    "editorSuggestWidget.highlightForeground": "#8f4c54",   // Kolor dopasowanego fragmentu tekstu w podpowiedzi
+    "editorSuggestWidget.selectedBackground": "#81212c",    // Tło aktualnie wybranej podpowiedzi
+    "editorSuggestWidget.selectedForeground": "#e6ced1",    // Kolor tekstu wybranej podpowiedzi
+    "editorSuggestWidget.selectedIconForeground": "#130406",// Kolor ikony wybranej podpowiedzi
+    "editorSuggestWidget.focusHighlightForeground": "#181011",
+
+    // --- Listy i Drzewa Plików ---
+    "list.hoverBackground": "#6b0b18",                    // Tło elementu listy po najechaniu (np. pliku w Explorerze)
+    "list.activeSelectionBackground": "#6b0b18",          // Tło aktywnie wybranego elementu (gdy fokus jest na liście)
+    "list.inactiveSelectionBackground": "#3d2a2d",        // Tło wybranego elementu, gdy fokus jest gdzie indziej (np. w edytorze)
+
+    // --- Ogólne Elementy UI (przyciski, inputy, dropdowny) ---
+    "focusBorder": "#6b0b18",                             // Kolor obramowania wokół aktywnego elementu (np. inputa)
+    "button.background": "#490f17",                       // Tło przycisków
+    "button.hoverBackground": "#6b0b18",                  // Tło przycisków po najechaniu
+    "input.background": "#1a1a1a",                        // Tło pól tekstowych
+    "input.border": "#29080c",                            // Obramowanie pól tekstowych
+    "input.placeholderForeground": "#dd4c5d",             // Kolor tekstu zastępczego (placeholder)
+    "dropdown.background": "#2b191b",                     // Tło rozwijanych list
+    "dropdown.border": "#272324",                         // Obramowanie rozwijanych list
+    "dropdown.listBackground": "#2B191B",                 // Tło listy opcji po rozwinięciu
+    "inputOption.activeBackground": "#3f1f23",            // Tło aktywnej opcji (np. w wyszukiwaniu)
+    "inputOption.activeBorder": "#361519",                // Obramowanie aktywnej opcji
+    "inputOption.activeForeground": "#daacb1",            // Kolor tekstu aktywnej opcji
+    "inputOption.hoverBackground": "#6b0b18",             // Tło opcji po najechaniu
+
+    // --- Pasek Stanu (dolny pasek) ---
+    "statusBar.background": "#130e0f",                    // Tło całego paska stanu na dole
+    "statusBarItem.remoteBackground": "#4d0c14",          // Tło elementu paska stanu, gdy jesteś połączony zdalnie (np. przez SSH)
+
+    // --- Inne ---
+    "breadcrumb.background": "#0e0d0d",                   // Tło ścieżki nawigacyjnej ("okruszków") nad edytorem
+    "notebook.background": "#FFFFFF",                       // Tło dla edytorów typu "Notebook" (np. Jupyter)
+    "terminal.selectionBackground": "#db223b46"           // Kolor tła zaznaczonego tekstu w terminalu
+  },
+  // =================================================================
+  //  3. JĘZYKI I FORMATOWANIE
+  // =================================================================
+  // --- Formatowanie przy Zapisie i Formatery ---
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
+  },
+  "[css]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": false
+  },
+  "[dot]": {
+    "editor.defaultFormatter": "tintinweb.graphviz-interactive-preview"
+  },
+  // --- Słownik (Sprawdzanie Pisowni) ---
+  "cSpell.language": "en,pl-PL,pl",
   "cSpell.words": [
-    "divis"
-  ]
+    "accordion",
+    "denonext",
+    "divis",
+    "esbuild",
+    "Inicjalizacja",
+    "odmontowany",
+    "odmontowywany",
+    "preact",
+    "propsów",
+    "propsy",
+    "VNode"
+  ],
+  // =================================================================
+  //  4. NARZĘDZIA I ROZSZERZENIA
+  // =================================================================
+  // --- Deno ---
+  "deno.enable": true,
+  "deno.enablePaths": [
+    "./"
+  ],
+  "deno.lint": true,
+  "deno.cacheOnSave": true,
+  "deno.codeLens.implementations": true,
+  "deno.codeLens.references": true,
+  "deno.codeLens.referencesAllFunctions": true,
+  "deno.codeLens.test": true,
+  "deno.trace.server": "verbose",
+  // --- Git ---
+  "git.autofetch": true,
+  // --- Terminal ---
+  "terminal.integrated.fontLigatures": true,
+  "terminal.integrated.fontSize": 12,
+  // =================================================================
+  //  5. ZARZĄDZANIE PLIKAMI
+  // =================================================================
+  "files.insertFinalNewline": true,
+  // --- Wykluczenia z Widoku i Wyszukiwania ---
+  "files.exclude": {
+    "**/deno.lock": true,
+    "**/docs/gen": true,
+    "**/node_modules": true
+  },
+  "search.exclude": {
+    "**/.unotes": true,
+    "**/.git": true,
+    "**/.history": true,
+    "**/deno.lock": true,
+    "**/docs/gen": true,
+    "**/node_modules": true
+  },
+  "files.readonlyInclude": {
+    "**/.git/**": true,
+    "**/.history/**": true
+  }
 }

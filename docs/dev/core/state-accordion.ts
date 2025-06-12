@@ -92,7 +92,7 @@ function registerAccordion(
     splitStep: 'idle', // Domyślny stan etapu
     visiblePanels: initialVisiblePanels,
     ratio: '1:1',
-    arrow: initialArrow, // Ustawiamy początkowy kierune
+    arrow: initialArrow, // Ustawiamy początkowy kierunek
   };
 
   const newStateSignal = signal(initialState);
