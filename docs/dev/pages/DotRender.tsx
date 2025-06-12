@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotRender.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T21:27:07.501Z+02:00
+ * @lastmodified 2025-06-12T21:46:03.495Z+02:00
  * @description Komponentem sekcji tematycznej DotRender.
  */
 
@@ -146,7 +146,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_TL"
           type="button"
           title="Góra-Lewo"
-          onClick={() => handlePan(1, 1)}
+          onClick={() => handlePan(-1, -1)}
         >
           {/**/}
           ⇖
@@ -164,7 +164,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_TR"
           type="button"
           title="Góra-Prawo"
-          onClick={() => handlePan(-1, 1)}
+          onClick={() => handlePan(1, -1)}
         >
           {/**/}
           ⇗
@@ -173,7 +173,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_LL"
           type="button"
           title="Lewo"
-          onClick={() => handlePan(1, 0)}
+          onClick={() => handlePan(-1, 0)}
         >
           {/**/}
           ⇐
@@ -182,7 +182,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_RR"
           type="button"
           title="Prawo"
-          onClick={() => handlePan(-1, 0)}
+          onClick={() => handlePan(1, 0)}
         >
           {/**/}
           ⇒
@@ -191,7 +191,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_BL"
           type="button"
           title="Dół-Lewo"
-          onClick={() => handlePan(1, -1)}
+          onClick={() => handlePan(-1, 1)}
         >
           {/**/}
           ⇙
@@ -209,7 +209,7 @@ export default function PageDotRender(): VNode {
           class="render-controls_BR"
           type="button"
           title="Dół-Prawo"
-          onClick={() => handlePan(-1, -1)}
+          onClick={() => handlePan(1, 1)}
         >
           {/**/}
           ⇘
