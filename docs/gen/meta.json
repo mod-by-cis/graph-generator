@@ -139,7 +139,7 @@
       "format": "esm"
     },
     "docs/dev/core/state-accordion.ts": {
-      "bytes": 5032,
+      "bytes": 5259,
       "imports": [
         {
           "path": "https://esm.sh/@preact/signals@2.2.0",
@@ -182,7 +182,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionField.tsx": {
-      "bytes": 791,
+      "bytes": 1020,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -198,7 +198,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionFieldsPilot.tsx": {
-      "bytes": 8005,
+      "bytes": 8281,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -219,7 +219,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionFields.tsx": {
-      "bytes": 4309,
+      "bytes": 4539,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -260,7 +260,7 @@
       "format": "esm"
     },
     "docs/dev/pages/EduGraphs.tsx": {
-      "bytes": 337,
+      "bytes": 548,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -271,7 +271,7 @@
       "format": "esm"
     },
     "docs/dev/pages/EduDot.tsx": {
-      "bytes": 331,
+      "bytes": 536,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -282,7 +282,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotWriter.tsx": {
-      "bytes": 337,
+      "bytes": 548,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -293,7 +293,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotRender.tsx": {
-      "bytes": 337,
+      "bytes": 548,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -304,7 +304,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotInsert.tsx": {
-      "bytes": 337,
+      "bytes": 548,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -315,7 +315,7 @@
       "format": "esm"
     },
     "docs/dev/pages/AboutThis.tsx": {
-      "bytes": 337,
+      "bytes": 548,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -326,7 +326,7 @@
       "format": "esm"
     },
     "docs/dev/main.tsx": {
-      "bytes": 1756,
+      "bytes": 1921,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -382,7 +382,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 90771
+      "bytes": 93311
     },
     "docs/gen/main.js": {
       "imports": [],

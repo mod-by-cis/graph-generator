@@ -1,3 +1,12 @@
+# 
+# @file ./.github/workflows/docs-build.yml
+# @author https://github.com/j-Cis
+# @version 0.0.1
+# @lastmodified 2025-06-12T13:33:51.178Z
+# @description automatyzacja github.
+#
+
+
 # Nazwa przepływu pracy
 name: Build and Commit Docs
 
@@ -45,8 +54,14 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "ci: auto-build main.js of docs"
-          file_pattern: docs/gen/main.js 
-          # Śledzony plik. Jeśli sourcemap jest osobno, dodaj go tutaj.
+          
+          # Wszystkie pliki podajemy jako jedną, wieloliniową listę
+          file_pattern: |
+            docs/gen/main.js
+            docs/gen/main.js.map
+            docs/gen/lastBuild.txt
+            docs/gen/meta.json
+            
           # Opcjonalnie, dla lepszej czytelności historii Git
           commit_user_name: GitHub Actions Bot
           commit_user_email: github-actions-bot@github.com

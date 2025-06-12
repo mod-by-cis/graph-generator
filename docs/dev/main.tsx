@@ -1,3 +1,11 @@
+/**
+ * @file ./docs/dev/main.tsx
+ * @author https://github.com/j-Cis
+ * @version 0.0.1
+ * @lastmodified 2025-06-12T13:15:20.370Z
+ * @description Główny plik.
+ */
+
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 

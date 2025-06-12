@@ -1,7 +1,16 @@
+// 
+// @file ./deno.jsonc
+// @author https://github.com/j-Cis
+// @version 0.0.1
+// @lastmodified 2025-06-12T13: 24: 51.082Z
+// @description Plik konfiguracyjny projektu DENO@2.3.5
+// 
+
 {
   "tasks": {
     "web": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
-    "gen": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts"
+    "gen": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
+    "u:t": "deno run ./tasks/utils/get-date-iso.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

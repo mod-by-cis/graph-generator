@@ -1,3 +1,11 @@
+/**
+ * @file ./docs/dev/core/state-accordion.ts
+ * @author https://github.com/j-Cis
+ * @version 0.0.1
+ * @lastmodified 2025-06-12T13:19:01.961Z
+ * @description kontrolowanie stanu związane z komponentem AccordionFields.
+ */
+
 import { signal, Signal } from "$tsx-preact-signal";
 
 // --- Definicja Struktury Stanu ---

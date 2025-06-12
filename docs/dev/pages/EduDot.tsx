@@ -1,3 +1,11 @@
+/**
+ * @file ./docs/dev/pages/EduDot.tsx
+ * @author https://github.com/j-Cis
+ * @version 0.0.1
+ * @lastmodified 2025-06-12T13:31:24.942Z
+ * @description Komponentem sekcji tematycznej EduDot.
+ */
+
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 
