@@ -293,7 +293,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotWriter.tsx": {
-      "bytes": 4312,
+      "bytes": 5817,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -408,7 +408,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 102011
+      "bytes": 103958
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -473,7 +473,7 @@
           "bytesInOutput": 53
         },
         "docs/dev/pages/DotWriter.tsx": {
-          "bytesInOutput": 1255
+          "bytesInOutput": 1657
         },
         "docs/dev/pages/DotRender.tsx": {
           "bytesInOutput": 241
@@ -488,7 +488,7 @@
           "bytesInOutput": 644
         }
       },
-      "bytes": 28733
+      "bytes": 29135
     }
   }
 }

@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T15:39:56.076Z+02:00
+ * @lastmodified 2025-06-12T16:15:05.754Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
@@ -21,9 +21,12 @@ import {
 export default function PageDotWriter(): VNode {
   // Stan lokalny, aby uniknąć aktualizacji globalnego sygnału przy każdym naciśnięciu klawisza
   const [localText, setLocalText] = useState<string>(dotContentSignal.value);
-  const [wordWrap, setWordWrap] = useState<boolean>(false);
-  const updateTimeout = useRef<number | null>(null);
+  const [wordWrap, setWordWrap] = useState<boolean>(true); // Domyślnie włączone
 
+  // Stan do przechowywania obliczonych wysokości dla każdej linii
+  const [lineHeights, setLineHeights] = useState<number[]>([]);
+
+  const updateTimeout = useRef<number | null>(null);
   // Refy do elementów DOM w celu synchronizacji przewijania
   const lineNumbersRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -44,6 +47,36 @@ export default function PageDotWriter(): VNode {
     };
   }, [localText]); // Uruchom ponownie ten efekt za każdym razem, gdy zmieni się lokalny tekst
 
+  // Efekt, który mierzy wysokość linii w nakładce <pre>
+  useEffect(() => {
+    if (overlayRef.current) {
+      // Dzielimy renderowany tekst na linie, aby zmierzyć każdą z osobna
+      // Usuwamy ostatnią pustą linię dodaną przez renderTextWithWhitespace
+      const renderedLines = overlayRef.current.innerHTML.split("\n").slice(
+        0,
+        -1,
+      );
+      const newHeights: number[] = [];
+
+      // Tworzymy tymczasowy element do mierzenia
+      const measureNode = document.createElement("div");
+      measureNode.style.visibility = "hidden";
+      measureNode.style.position = "absolute";
+      // Musi mieć te same style, co nakładka, aby pomiar był dokładny
+      measureNode.className = `editor-overlay ${wordWrap ? "wrap" : "no-wrap"}`;
+      document.body.appendChild(measureNode);
+
+      // Mierzymy wysokość każdej wyrenderowanej linii
+      for (const line of renderedLines) {
+        measureNode.innerHTML = line || "&nbsp;"; // Używamy &nbsp; dla pustych linii
+        newHeights.push(measureNode.offsetHeight);
+      }
+
+      document.body.removeChild(measureNode);
+      setLineHeights(newHeights);
+    }
+  }, [localText, wordWrap]); // Mierz ponownie, gdy zmieni się tekst lub opcja zawijania
+
   const handleTextChange = (e: Event) => {
     const target = e.target as HTMLTextAreaElement;
     setLocalText(target.value);
@@ -62,8 +95,7 @@ export default function PageDotWriter(): VNode {
   // Synchronizacja przewijania ---
   const handleScroll = () => {
     if (lineNumbersRef.current && textareaRef.current && overlayRef.current) {
-      const scrollTop = textareaRef.current.scrollTop;
-      const scrollLeft = textareaRef.current.scrollLeft;
+      const { scrollTop, scrollLeft } = textareaRef.current;
       // Synchronizuj pozycję pionową numerów wierszy
       lineNumbersRef.current.scrollTop = scrollTop;
       // Synchronizuj pozycję poziomą i pionową nakładki
@@ -89,8 +121,17 @@ export default function PageDotWriter(): VNode {
         <button onClick={forceUpdateSignal}>Aktualizuj Stan</button>
       </div>
       <div class="dot-writer-editor">
+        {/* Kolumna z numerami wierszy - teraz używa dynamicznych wysokości */}
         <div ref={lineNumbersRef} class="line-numbers">
-          {lineNumbers.map((n) => <div key={n}>{n}</div>)}
+          {lineHeights.map((height, index) => (
+            <div
+              key={index}
+              class="line-number"
+              style={{ height: `${height}px` }}
+            >
+              {index + 1}
+            </div>
+          ))}
         </div>
         <div class="editor-main-area">
           <textarea

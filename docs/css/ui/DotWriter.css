@@ -2,7 +2,7 @@
  * @file ./docs/css/ui/DotWriter.css
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T15:43:34.195Z+02:00
+ * @lastmodified 2025-06-12T16:14:53.677Z+02:00
  * @description Główne style dla komponentu DotWriter.
  */
 
@@ -51,6 +51,15 @@
   line-height: 1.5;
   user-select: none;
   overflow-y: hidden; /* Ukrywamy jego własny pasek przewijania */
+}
+
+/* Styl dla pojedynczego numeru wiersza */
+.line-number {
+  display: flex;
+  justify-content: flex-end; /* Wyrównaj do prawej */
+  align-items: flex-start; /* Wyrównaj do góry */
+  padding-top: 2px; /* Drobna korekta, aby lepiej pasowało */
+  box-sizing: border-box;
 }
 
 /* Kontener na pole tekstowe i nakładkę */
