@@ -1,0 +1,70 @@
+{
+  "inputs": {
+    "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs": {
+      "bytes": 8499328,
+      "imports": [],
+      "format": "esm"
+    },
+    "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs": {
+      "bytes": 4474087,
+      "imports": [
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs",
+          "kind": "dynamic-import",
+          "original": "./duckdb.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/@hpcc-js/wasm@2.23.0": {
+      "bytes": 93,
+      "imports": [
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs",
+          "kind": "import-statement",
+          "original": "/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "tasks/utils/wasm-loader.ts": {
+      "bytes": 467,
+      "imports": [
+        {
+          "path": "https://esm.sh/@hpcc-js/wasm@2.23.0",
+          "kind": "import-statement",
+          "original": "$hpcc-graphviz"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "docs/gen/wasm-dot.js.map": {
+      "imports": [],
+      "exports": [],
+      "inputs": {},
+      "bytes": 13571334
+    },
+    "docs/gen/wasm-dot.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "tasks/utils/wasm-loader.ts",
+      "inputs": {
+        "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs": {
+          "bytesInOutput": 8501249
+        },
+        "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/wasm.mjs": {
+          "bytesInOutput": 4474022
+        },
+        "https://esm.sh/@hpcc-js/wasm@2.23.0": {
+          "bytesInOutput": 0
+        },
+        "tasks/utils/wasm-loader.ts": {
+          "bytesInOutput": 19
+        }
+      },
+      "bytes": 12975457
+    }
+  }
+}

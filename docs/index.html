@@ -3,7 +3,7 @@
  * @file ./docs/index.html
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T18:09:48.146Z+02:00
+ * @lastmodified 2025-06-12T19:28:48.036Z+02:00
  * @description Główny plik montowania.
  */
 -->
@@ -38,12 +38,26 @@
       // Ustawiamy Monaco jako globalną zmienną, aby nasza aplikacja miała do niego dostęp
       window.monaco = monaco;
 
-      // Dopiero teraz, gdy Monaco jest gotowe, dynamicznie tworzymy tag <script>
-      // i wczytujemy nasz główny, zbudowany plik aplikacji.
-      const appScript = document.createElement('script');
-      appScript.type = 'module';
-      appScript.src = 'gen/main.js';
-      document.body.appendChild(appScript);
+      // Tworzymy funkcję do dynamicznego ładowania skryptów, aby kod był czystszy
+      function loadScript(src) {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = src;
+        document.body.appendChild(script);
+        // Zwracamy Promise, aby można było czekać na załadowanie (opcjonalne)
+        return new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = reject;
+        });
+      }
+
+      // 1. Najpierw ładujemy naszą ciężką bibliotekę Graphviz.
+      loadScript('gen/wasm-dot.js')
+        .then(() => {
+          // 2. Dopiero gdy jest gotowa, ładujemy główną aplikację.
+          return loadScript('gen/main.js');
+        })
+        .catch(err => console.error("Błąd ładowania skryptów aplikacji:", err));
     });
   </script>
   <!--<script type="module" src="gen/main.js"></script>-->

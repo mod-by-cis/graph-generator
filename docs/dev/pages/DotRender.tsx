@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotRender.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T18:09:08.210Z+02:00
+ * @lastmodified 2025-06-12T19:29:19.962Z+02:00
  * @description Komponentem sekcji tematycznej DotRender.
  */
 
@@ -12,7 +12,14 @@ import { VNode } from "$tsx-preact";
 import { useEffect, useRef, useState } from "$tsx-preact/hooks";
 import { dotContentSignal } from "../core/state-dot-current.ts";
 // Poprawny import funkcji z biblioteki
-import { Graphviz } from "$hpcc-graphviz";
+//import { Graphviz } from "$hpcc-graphviz";
+// Deklarujemy TypeScriptowi, że w globalnym zasięgu `window`
+// może istnieć obiekt `Graphviz`. To usuwa błędy typów.
+declare global {
+  interface Window {
+    Graphviz: any;
+  }
+}
 
 /**
  * Komponent odpowiedzialny za renderowanie kodu DOT do obrazka SVG
