@@ -282,7 +282,7 @@
       "format": "esm"
     },
     "docs/dev/core/state-dot-current.ts": {
-      "bytes": 950,
+      "bytes": 1392,
       "imports": [
         {
           "path": "https://esm.sh/@preact/signals@2.2.0",
@@ -408,7 +408,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 99783
+      "bytes": 100422
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -470,7 +470,7 @@
           "bytesInOutput": 238
         },
         "docs/dev/core/state-dot-current.ts": {
-          "bytesInOutput": 53
+          "bytesInOutput": 511
         },
         "docs/dev/pages/DotWriter.tsx": {
           "bytesInOutput": 1736
@@ -488,7 +488,7 @@
           "bytesInOutput": 644
         }
       },
-      "bytes": 28404
+      "bytes": 28862
     }
   }
 }
