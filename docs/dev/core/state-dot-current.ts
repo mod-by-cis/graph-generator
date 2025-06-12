@@ -2,7 +2,7 @@
  * @file ./docs/dev/core/state-dot-current.ts
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T14:54:28.410Z+02:00
+ * @lastmodified 2025-06-12T15:14:08.694Z+02:00
  * @description Współdzielony stan dla aktualnie edytowanego kodu w języku DOT.
  */
 

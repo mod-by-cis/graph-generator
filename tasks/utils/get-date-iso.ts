@@ -2,7 +2,7 @@
  * @file ./tasks/utils/get-date-iso.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T15:12:17.303+02:00
+ * @lastmodified 2025-06-12T15:16:47.352Z+02:00
  * @description Pomocnicze,wyświetla aktualny czas.
  */
 const date = new Date();
@@ -13,6 +13,6 @@ const absOffset = Math.abs(offset);
 const hours = String(Math.floor(absOffset / 60)).padStart(2, '0');
 const minutes = String(absOffset % 60).padStart(2, '0');
 
-const iso = date.toISOString().replace('Z', `${sign}${hours}:${minutes}`);
+const iso = date.toISOString().replace('Z', `Z${sign}${hours}:${minutes}`);
 
 console.log(iso);

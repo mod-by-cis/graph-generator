@@ -139,7 +139,7 @@
       "format": "esm"
     },
     "docs/dev/core/state-accordion.ts": {
-      "bytes": 5245,
+      "bytes": 5251,
       "imports": [
         {
           "path": "https://esm.sh/@preact/signals@2.2.0",
@@ -182,7 +182,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionField.tsx": {
-      "bytes": 1005,
+      "bytes": 1011,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -198,7 +198,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionFieldsPilot.tsx": {
-      "bytes": 8266,
+      "bytes": 8272,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -219,7 +219,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionFields.tsx": {
-      "bytes": 4524,
+      "bytes": 4530,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -260,7 +260,7 @@
       "format": "esm"
     },
     "docs/dev/pages/EduGraphs.tsx": {
-      "bytes": 533,
+      "bytes": 539,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -271,7 +271,7 @@
       "format": "esm"
     },
     "docs/dev/pages/EduDot.tsx": {
-      "bytes": 521,
+      "bytes": 527,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -281,9 +281,35 @@
       ],
       "format": "esm"
     },
-    "docs/dev/pages/DotWriter.tsx": {
-      "bytes": 533,
+    "docs/dev/core/state-dot-current.ts": {
+      "bytes": 950,
       "imports": [
+        {
+          "path": "https://esm.sh/@preact/signals@2.2.0",
+          "kind": "import-statement",
+          "original": "$tsx-preact-signal"
+        }
+      ],
+      "format": "esm"
+    },
+    "docs/dev/pages/DotWriter.tsx": {
+      "bytes": 3351,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "docs/dev/core/state-dot-current.ts",
+          "kind": "import-statement",
+          "original": "../core/state-dot-current.ts"
+        },
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
           "kind": "import-statement",
@@ -293,7 +319,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotRender.tsx": {
-      "bytes": 533,
+      "bytes": 539,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -304,7 +330,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotInsert.tsx": {
-      "bytes": 533,
+      "bytes": 539,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -315,7 +341,7 @@
       "format": "esm"
     },
     "docs/dev/pages/AboutThis.tsx": {
-      "bytes": 533,
+      "bytes": 539,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -326,7 +352,7 @@
       "format": "esm"
     },
     "docs/dev/main.tsx": {
-      "bytes": 1906,
+      "bytes": 1912,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -382,7 +408,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 93147
+      "bytes": 100474
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -390,13 +416,13 @@
       "entryPoint": "docs/dev/main.tsx",
       "inputs": {
         "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
-          "bytesInOutput": 10361
+          "bytesInOutput": 10371
         },
         "https://esm.sh/preact@10.26.8": {
           "bytesInOutput": 0
         },
         "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
-          "bytesInOutput": 1825
+          "bytesInOutput": 2692
         },
         "https://esm.sh/preact@10.26.8/hooks": {
           "bytesInOutput": 0
@@ -435,7 +461,7 @@
           "bytesInOutput": 3247
         },
         "docs/dev/ui/AccordionFields.tsx": {
-          "bytesInOutput": 1285
+          "bytesInOutput": 1284
         },
         "docs/dev/pages/EduGraphs.tsx": {
           "bytesInOutput": 241
@@ -443,8 +469,11 @@
         "docs/dev/pages/EduDot.tsx": {
           "bytesInOutput": 238
         },
+        "docs/dev/core/state-dot-current.ts": {
+          "bytesInOutput": 53
+        },
         "docs/dev/pages/DotWriter.tsx": {
-          "bytesInOutput": 241
+          "bytesInOutput": 1036
         },
         "docs/dev/pages/DotRender.tsx": {
           "bytesInOutput": 241
@@ -459,7 +488,7 @@
           "bytesInOutput": 644
         }
       },
-      "bytes": 26786
+      "bytes": 28510
     }
   }
 }
