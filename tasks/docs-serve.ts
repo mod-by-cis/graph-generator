@@ -1,7 +1,7 @@
 /**
  * @file ./tasks/docs-serve.ts
  * @author https://github.com/j-Cis
- * @version 0.0.1
+ * 
  * @lastmodified 2025-06-12T13:02:17.500Z
  * @description Server deweloperski.
  */

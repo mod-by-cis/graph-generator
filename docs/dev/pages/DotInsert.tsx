@@ -1,7 +1,7 @@
 /**
  * @file ./docs/dev/pages/DotInsert.tsx
  * @author https://github.com/j-Cis
- * @version 0.0.1
+ *
  * @lastmodified 2025-06-12T13:29:20.880Z
  * @description Komponentem sekcji tematycznej DotInsert.
  */

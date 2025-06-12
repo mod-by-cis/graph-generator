@@ -1,7 +1,7 @@
 // 
 // @file ./.vscode/settings.json
 // @author https://github.com/j-Cis
-// @version 0.0.1
+// 
 // @lastmodified 2025-06-12T13:26:42.390Z
 // @description Plik konfiguracyjny edytora vscode/vscodium
 // 
@@ -183,7 +183,8 @@
     "responsywne",
     "stackowania",
     "stefanzweifel",
-    "VNode"
+    "VNode",
+    "wieloliniową"
   ],
   // =================================================================
   //  4. NARZĘDZIA I ROZSZERZENIA

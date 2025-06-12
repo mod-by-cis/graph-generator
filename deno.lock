@@ -7,12 +7,15 @@
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/encoding@^1.0.5": "1.0.10",
     "jsr:@std/fmt@^1.0.8": "1.0.8",
+    "jsr:@std/fs@1.0.16": "1.0.16",
     "jsr:@std/html@^1.0.4": "1.0.4",
     "jsr:@std/http@^1.0.17": "1.0.17",
     "jsr:@std/media-types@^1.1.0": "1.1.0",
     "jsr:@std/net@^1.0.4": "1.0.4",
     "jsr:@std/path@*": "1.1.0",
+    "jsr:@std/path@1.0.8": "1.0.8",
     "jsr:@std/path@^1.0.6": "1.1.0",
+    "jsr:@std/path@^1.0.8": "1.1.0",
     "jsr:@std/path@^1.1.0": "1.1.0",
     "jsr:@std/streams@^1.0.9": "1.0.9"
   },
@@ -37,6 +40,12 @@
     "@std/fmt@1.0.8": {
       "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
     },
+    "@std/fs@1.0.16": {
+      "integrity": "81878f62b6eeda0bf546197fc3daa5327c132fee1273f6113f940784a468b036",
+      "dependencies": [
+        "jsr:@std/path@^1.0.8"
+      ]
+    },
     "@std/html@1.0.4": {
       "integrity": "eff3497c08164e6ada49b7f81a28b5108087033823153d065e3f89467dd3d50e"
     },
@@ -58,6 +67,9 @@
     },
     "@std/net@1.0.4": {
       "integrity": "2f403b455ebbccf83d8a027d29c5a9e3a2452fea39bb2da7f2c04af09c8bc852"
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
     },
     "@std/path@1.1.0": {
       "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
@@ -87,7 +99,11 @@
     "https://esm.sh/preact@10.26.8/hooks": "161d4d8a64ffce0d3241389770dfa6e8209b3157424ccfaa5920c7167b69ebba",
     "https://esm.sh/preact@10.26.8/hooks?target=denonext": "161d4d8a64ffce0d3241389770dfa6e8209b3157424ccfaa5920c7167b69ebba",
     "https://esm.sh/preact@10.26.8/jsx-runtime": "53ae918d4a68dc65cecf7ca4e211e2036b1328d1339a7872c6bc83e7732c3729",
-    "https://esm.sh/preact@10.26.8?target=denonext": "f6c6195e67293b6df707b53dd3075ca149604e1ba989c7832179b3c1b7e8a302"
+    "https://esm.sh/preact@10.26.8?target=denonext": "f6c6195e67293b6df707b53dd3075ca149604e1ba989c7832179b3c1b7e8a302",
+    "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod.ts": "9a68a1dc1270e0e4ce937f4bf7eb488f58b32540bceb7988699f65d95a0211e4",
+    "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod/main.ts": "374482d21b2685f2a7255b0ea7508cc991bafb8c22574f977e5a54cd13df66c5",
+    "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod/types.ts": "1c28abd472920a66a9f61ac0ad1a17afe2b91fbd55e054ca490b6b0063e2c4ec",
+    "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod/utils.ts": "166a96e3b39c400aa659f314491f12f308ad3a3eee5dd17d2b552cd6e6826474"
   },
   "workspace": {
     "dependencies": [

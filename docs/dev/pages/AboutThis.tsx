@@ -1,7 +1,7 @@
 /**
  * @file ./docs/dev/pages/AboutThis.tsx
  * @author https://github.com/j-Cis
- * @version 0.0.1
+ *
  * @lastmodified 2025-06-12T13:28:31.401Z
  * @description Komponentem sekcji tematycznej AboutThis.
  */

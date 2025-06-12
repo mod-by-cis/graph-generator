@@ -1,7 +1,7 @@
 /**
  * @file ./docs/dev/ui/AccordionFieldsPilot.tsx
  * @author https://github.com/j-Cis
- * @version 0.0.1
+ *
  * @lastmodified 2025-06-12T13:23:07.062Z
  * @description Komponentem sterownika do komponentów AccordionFields i AccordionField.
  */
