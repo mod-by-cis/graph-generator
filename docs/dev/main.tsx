@@ -7,9 +7,14 @@ import {
   AccordionFields,
   AccordionFieldsPilot,
 } from "./ui/AccordionFields.tsx";
+import PageEduGraphs from "./pages/EduGraphs.tsx";
+import PageEduDot from "./pages/EduDot.tsx";
+import PageDotWriter from "./pages/DotWriter.tsx";
+import PageDotRender from "./pages/DotRender.tsx";
+import PageDotInsert from "./pages/DotInsert.tsx";
 
 function LayoutStart() {
-  const ANCHOR_ID = "my-first-accordion";
+  const ANCHOR_ID = "graph-sections";
 
   return (
     <>
@@ -18,28 +23,23 @@ function LayoutStart() {
       <AccordionFields
         anchorTag={ANCHOR_ID}
       >
-        <AccordionField title="Ustawienia Główne">
-          <div>
-            <h3>Zawartość panelu 1</h3>
-            <p>Tutaj znajdują się opcje konfiguracji.</p>
-            <label>
-              Opcja A: <input type="checkbox" />
-            </label>
-          </div>
+        <AccordionField title="Grafy">
+          <PageEduGraphs />
+        </AccordionField>
+        <AccordionField title="Dot">
+          <PageEduDot />
         </AccordionField>
 
-        <AccordionField title="Profil Użytkownika">
-          <div>
-            <h3>Panel Profilu</h3>
-            <p>Informacje o zalogowanym użytkowniku.</p>
-          </div>
+        <AccordionField title="Wstaw..">
+          <PageDotInsert />
         </AccordionField>
 
-        <AccordionField title="Pomoc i Wsparcie">
-          <div>
-            <h3>Sekcja Pomocy</h3>
-            <p>FAQ i linki do dokumentacji.</p>
-          </div>
+        <AccordionField title="Pisz..">
+          <PageDotWriter />
+        </AccordionField>
+
+        <AccordionField title="Efekt..">
+          <PageDotRender />
         </AccordionField>
       </AccordionFields>
     </>
