@@ -2,7 +2,7 @@
  * @file ./docs/dev/core/state-accordion.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:19:01.961Z
+ * @lastmodified 2025-06-12T13:19:01.961Z+02:00
  * @description kontrolowanie stanu związane z komponentem AccordionFields.
  */
 

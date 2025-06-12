@@ -2,7 +2,7 @@
  * @file ./docs/dev/style/types.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:16:36.109Z
+ * @lastmodified 2025-06-12T13:16:36.109Z+02:00
  * @description typy dla dynamicznego css.
  */
 

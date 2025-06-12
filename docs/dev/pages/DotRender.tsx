@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotRender.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:29:58.528Z
+ * @lastmodified 2025-06-12T13:29:58.528Z+02:00
  * @description Komponentem sekcji tematycznej DotRender.
  */
 

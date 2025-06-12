@@ -2,7 +2,7 @@
  * @file ./tasks/utils/get-structure.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:56:38.962Z
+ * @lastmodified 2025-06-12T13:56:38.962Z+02:00
  * @description Pomocnicze, wyświetla strukture projektu.
  */
 

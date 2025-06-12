@@ -2,7 +2,7 @@
  * @file ./docs/dev/ui/AccordionFields.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:21:12.598Z
+ * @lastmodified 2025-06-12T13:21:12.598Z+02:00
  * @description Komponentem zbiorczego AccordionFields dla paneli AccordionField.
  */
 

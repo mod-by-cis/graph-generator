@@ -2,7 +2,7 @@
  * @file ./docs/dev/main.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:15:20.370Z
+ * @lastmodified 2025-06-12T13:15:20.370Z+02:00
  * @description Główny plik.
  */
 

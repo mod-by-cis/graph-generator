@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:30:39.314Z
+ * @lastmodified 2025-06-12T13:30:39.314Z+02:00
  * @description Komponentem sekcji tematycznej DotWriter.
  */
 

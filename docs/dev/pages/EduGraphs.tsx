@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/EduGraphs.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:31:53.000Z
+ * @lastmodified 2025-06-12T13:31:53.000Z+02:00
  * @description Komponentem sekcji tematycznej EduGraphs.
  */
 

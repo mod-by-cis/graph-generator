@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/EduDot.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T13:31:24.942Z
+ * @lastmodified 2025-06-12T13:31:24.942Z+02:00
  * @description Komponentem sekcji tematycznej EduDot.
  */
 

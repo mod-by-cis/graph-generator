@@ -2,7 +2,7 @@
  * @file ./tasks/docs-build.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:04:37.531Z
+ * @lastmodified 2025-06-12T13:04:37.531Z+02:00
  * @description Budowanie wydania.
  */
 import * as esbuild from "$esbuild/mod.js";
