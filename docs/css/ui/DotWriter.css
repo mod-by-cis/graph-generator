@@ -2,7 +2,7 @@
  * @file ./docs/css/ui/DotWriter.css
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T15:21:26.704Z+02:00
+ * @lastmodified 2025-06-12T15:43:34.195Z+02:00
  * @description Główne style dla komponentu DotWriter.
  */
 
@@ -31,71 +31,77 @@
   cursor: pointer;
 }
 
+/* Główny kontener edytora używa siatki (grid) */
 .dot-writer-editor {
   flex-grow: 1;
-  display: flex;
-  position: relative; /* Kluczowe dla nakładki */
-  overflow: auto; /* Przewijanie dla całego edytora */
+  display: grid;
+  grid-template-columns:
+    auto 1fr; /* Kolumna numerów dopasowuje się, reszta zajmuje przestrzeń */
+  overflow: hidden; /* Zapobiega podwójnym paskom przewijania */
 }
-
+/* Kolumna z numerami wierszy */
 .line-numbers {
   padding: 10px 8px;
   text-align: right;
-  color: #aaa;
+  color: #999;
   background-color: #f7f7f7;
   border-right: 1px solid #ddd;
-  font-family: monospace;
-  font-size: 14px;
-  user-select: none;
-}
-
-/* Używamy siatki, aby textarea i nakładka idealnie na siebie nachodziły */
-.editor-input, .editor-overlay {
-  grid-area: 1 / 1 / 2 / 2; /* Umieść oba elementy w tej samej komórce siatki */
-  margin: 0;
-  padding: 10px;
-  font-family: monospace;
+  font-family: "Fira Code", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.5;
-  border: none;
-  background-color: transparent;
+  user-select: none;
+  overflow-y: hidden; /* Ukrywamy jego własny pasek przewijania */
+}
+
+/* Kontener na pole tekstowe i nakładkę */
+.editor-main-area {
+  position: relative;
+  height: 100%;
+  overflow: hidden; /* Ważne, aby paski przewijania textarea były kontrolowane */
+}
+
+/* Nakładka i pole tekstowe - muszą mieć DOKŁADNIE takie same style! */
+.editor-input, .editor-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  resize: none;
-  outline: none;
+  margin: 0;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.5;
   box-sizing: border-box;
+  outline: none;
+  resize: none;
 }
 
-/* Właściwe pole tekstowe - tekst jest przezroczysty, bo widzimy go z nakładki */
+/* Właściwe pole tekstowe - tekst jest przezroczysty */
 .editor-input {
   color: transparent;
-  caret-color: black; /* Kursor pozostaje widoczny */
+  caret-color: black;
+  z-index: 1;
+  overflow: auto; /* To jest jedyny element, który ma prawo się przewijać */
 }
 
-/* Nakładka z widocznym tekstem i białymi znakami */
+/* Nakładka z widocznym tekstem - leży pod spodem */
 .editor-overlay {
-  pointer-events: none; /* Pozwala na klikanie "przez" nakładkę do textarea */
-  white-space: pre;
+  pointer-events: none; /* Pozwala klikać "przez" nakładkę */
   color: #333;
-}
-.editor-overlay span {
-  opacity: 0.5;
+  z-index: 0;
+  overflow: hidden; /* Nakładka sama się nie przewija */
 }
 
 /* Opcje zawijania wierszy */
 .editor-input.wrap, .editor-overlay.wrap {
   white-space: pre-wrap;
   word-wrap: break-word;
+  overflow-x: hidden; /* Ukryj poziomy pasek przewijania przy zawijaniu */
 }
 .editor-input.no-wrap, .editor-overlay.no-wrap {
   white-space: pre;
-}
-
-/* Synchronizacja przewijania - to jest uproszczenie */
-.dot-writer-editor {
-  position: relative;
-}
-.editor-input, .line-numbers {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  overflow-x: auto; /* Pokaż poziomy pasek przewijania, gdy nie zawijamy */
 }

@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T15:23:41.319Z+02:00
+ * @lastmodified 2025-06-12T15:39:56.076Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
@@ -24,23 +24,23 @@ export default function PageDotWriter(): VNode {
   const [wordWrap, setWordWrap] = useState<boolean>(false);
   const updateTimeout = useRef<number | null>(null);
 
+  // Refy do elementów DOM w celu synchronizacji przewijania
+  const lineNumbersRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const overlayRef = useRef<HTMLPreElement>(null);
+
   // Efekt do opóźnionej aktualizacji globalnego stanu
   useEffect(() => {
     // Anuluj poprzedni timer, jeśli istnieje
-    if (updateTimeout.current) {
-      clearTimeout(updateTimeout.current);
-    }
+    if (updateTimeout.current) clearTimeout(updateTimeout.current);
     // Ustaw nowy timer
     updateTimeout.current = setTimeout(() => {
-      console.log("Auto-updating signal after 20 seconds...");
       updateDotContent(localText);
     }, 20000); // 20 sekund
 
     // Funkcja czyszcząca, która anuluje timer, gdy komponent się odmontuje
     return () => {
-      if (updateTimeout.current) {
-        clearTimeout(updateTimeout.current);
-      }
+      if (updateTimeout.current) clearTimeout(updateTimeout.current);
     };
   }, [localText]); // Uruchom ponownie ten efekt za każdym razem, gdy zmieni się lokalny tekst
 
@@ -50,9 +50,7 @@ export default function PageDotWriter(): VNode {
   };
 
   const forceUpdateSignal = () => {
-    if (updateTimeout.current) {
-      clearTimeout(updateTimeout.current);
-    }
+    if (updateTimeout.current) clearTimeout(updateTimeout.current);
     console.log("Force-updating signal now!");
     updateDotContent(localText);
   };
@@ -61,9 +59,23 @@ export default function PageDotWriter(): VNode {
   const lineCount = useMemo(() => localText.split("\n").length, [localText]);
   const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
 
+  // Synchronizacja przewijania ---
+  const handleScroll = () => {
+    if (lineNumbersRef.current && textareaRef.current && overlayRef.current) {
+      const scrollTop = textareaRef.current.scrollTop;
+      const scrollLeft = textareaRef.current.scrollLeft;
+      // Synchronizuj pozycję pionową numerów wierszy
+      lineNumbersRef.current.scrollTop = scrollTop;
+      // Synchronizuj pozycję poziomą i pionową nakładki
+      overlayRef.current.scrollTop = scrollTop;
+      overlayRef.current.scrollLeft = scrollLeft;
+    }
+  };
+
   // Funkcja do wizualizacji białych znaków
   const renderTextWithWhitespace = (text: string) => {
-    return text
+    // Dodajemy pustą linię na końcu, aby zapobiec "ucięciu" ostatniej linii przy przewijaniu
+    return (text + "\n")
       .replace(/ /g, "·") // Zastąp spacje kropkami
       .replace(/\n/g, "¬\n"); // Pokaż znak końca linii
   };
@@ -72,26 +84,31 @@ export default function PageDotWriter(): VNode {
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
         <button onClick={() => setWordWrap((prev) => !prev)}>
-          {wordWrap ? "Wyłącz zawijanie" : "Włącz zawijanie"}
+          Zawijanie: {wordWrap ? "Wł." : "Wył."}
         </button>
-        <button onClick={forceUpdateSignal}>
-          Aktualizuj Stan
-        </button>
+        <button onClick={forceUpdateSignal}>Aktualizuj Stan</button>
       </div>
       <div class="dot-writer-editor">
-        <div class="line-numbers">
+        <div ref={lineNumbersRef} class="line-numbers">
           {lineNumbers.map((n) => <div key={n}>{n}</div>)}
         </div>
-        <textarea
-          class={`editor-input ${wordWrap ? "wrap" : "no-wrap"}`}
-          value={localText}
-          onInput={handleTextChange}
-          spellcheck={false}
-        />
-        {/* Nakładka do pokazywania białych znaków */}
-        <pre class={`editor-overlay ${wordWrap ? "wrap" : "no-wrap"}`}>
-          {renderTextWithWhitespace(localText)}
-        </pre>
+        <div class="editor-main-area">
+          <textarea
+            ref={textareaRef}
+            class={`editor-input ${wordWrap ? "wrap" : "no-wrap"}`}
+            value={localText}
+            onInput={handleTextChange}
+            onScroll={handleScroll} // Podpinamy handler przewijania
+            spellcheck={false}
+          />
+          <pre
+            ref={overlayRef}
+            aria-hidden="true"
+            class={`editor-overlay ${wordWrap ? "wrap" : "no-wrap"}`}
+          >
+            {renderTextWithWhitespace(localText)}
+          </pre>
+        </div>
       </div>
     </div>
   );
