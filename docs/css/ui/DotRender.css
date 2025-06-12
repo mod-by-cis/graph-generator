@@ -33,6 +33,8 @@
 .render-container {
   width: 100%;
   height: 100%;
+  display: flex !important;
+  flex-direction: column;
 }
 
 /* Upewniamy się, że wygenerowany SVG ładnie się skaluje */
@@ -40,6 +42,7 @@
   max-width: 100%;
   height: auto;
   display: block;
+  flex: 1 !important;
   margin: auto;
 }
 

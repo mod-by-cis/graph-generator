@@ -319,7 +319,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotRender.tsx": {
-      "bytes": 4827,
+      "bytes": 6705,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -423,7 +423,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 108260
+      "bytes": 111165
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -431,13 +431,13 @@
       "entryPoint": "docs/dev/main.tsx",
       "inputs": {
         "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
-          "bytesInOutput": 10381
+          "bytesInOutput": 10386
         },
         "https://esm.sh/preact@10.26.8": {
           "bytesInOutput": 0
         },
         "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
-          "bytesInOutput": 2691
+          "bytesInOutput": 2690
         },
         "https://esm.sh/preact@10.26.8/hooks": {
           "bytesInOutput": 0
@@ -491,7 +491,7 @@
           "bytesInOutput": 1735
         },
         "docs/dev/pages/DotRender.tsx": {
-          "bytesInOutput": 1695
+          "bytesInOutput": 2357
         },
         "docs/dev/pages/DotInsert.tsx": {
           "bytesInOutput": 241
@@ -503,7 +503,7 @@
           "bytesInOutput": 644
         }
       },
-      "bytes": 31128
+      "bytes": 31794
     }
   }
 }
