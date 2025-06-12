@@ -247,16 +247,19 @@ export function AccordionFieldsPilot(
         <>
           <button
             type="button"
-            class="af-pilot-trigger"
+            class="af-pilot-rotate"
             onClick={handleToggleArrow}
             title="Obróć"
           >
-            ↻
+            {state.value.arrow === "COL" ? "↵" : "↴"}
           </button>
           <button
             type="button"
-            class="af-pilot-trigger"
+            class="af-pilot-rotate"
             onClick={showRatioSelector}
+            style={state.value.arrow === "COL"
+              ? { transform: "rotate(90deg)" }
+              : {}}
             title="Zmień proporcje"
           >
             ◫

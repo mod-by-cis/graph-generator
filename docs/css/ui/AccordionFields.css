@@ -23,6 +23,7 @@
   justify-content: center;
 }
 
+.af-pilot-rotate,
 .af-pilot-trigger,
 .af-select-btn,
 .af-select-split-btn {
@@ -40,8 +41,19 @@
   min-height: 45px;
 }
 
-.af-pilot-trigger:hover {
+.af-pilot-rotate:hover,
+.af-pilot-trigger:hover,
+.af-select-btn:hover,
+.af-select-split-btn:hover {
   transform: scale(1.1);
+}
+.af-pilot-rotate:active,
+.af-pilot-trigger:active,
+.af-select-btn:active,
+.af-select-split-btn:active {
+  transform: scale(1.1);
+  background-color: rgba(251 245 113 / 0.7);
+  transition: transform 0.8s ease;
 }
 
 .af-controls-panel {

@@ -198,7 +198,7 @@
       "format": "esm"
     },
     "docs/dev/ui/AccordionFieldsPilot.tsx": {
-      "bytes": 7851,
+      "bytes": 8005,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -382,7 +382,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 90511
+      "bytes": 90771
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -432,7 +432,7 @@
           "bytesInOutput": 50
         },
         "docs/dev/ui/AccordionFieldsPilot.tsx": {
-          "bytesInOutput": 3159
+          "bytesInOutput": 3247
         },
         "docs/dev/ui/AccordionFields.tsx": {
           "bytesInOutput": 1285
@@ -459,7 +459,7 @@
           "bytesInOutput": 644
         }
       },
-      "bytes": 26698
+      "bytes": 26786
     }
   }
 }
