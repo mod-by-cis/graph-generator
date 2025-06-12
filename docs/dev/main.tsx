@@ -12,6 +12,7 @@ import PageEduDot from "./pages/EduDot.tsx";
 import PageDotWriter from "./pages/DotWriter.tsx";
 import PageDotRender from "./pages/DotRender.tsx";
 import PageDotInsert from "./pages/DotInsert.tsx";
+import PageAboutThis from "./pages/AboutThis.tsx";
 
 function LayoutStart() {
   const ANCHOR_ID = "graph-sections";
@@ -20,7 +21,7 @@ function LayoutStart() {
     <>
       <AccordionFieldsPilot
         forAnchor={ANCHOR_ID}
-        showAnchor="false"
+        showAnchor={false}
       />
 
       <AccordionFields
@@ -44,6 +45,10 @@ function LayoutStart() {
 
         <AccordionField viewID={4} title="Efekt..">
           <PageDotRender />
+        </AccordionField>
+
+        <AccordionField viewID={5} title="Efekt..">
+          <PageAboutThis />
         </AccordionField>
       </AccordionFields>
     </>

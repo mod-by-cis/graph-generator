@@ -314,8 +314,19 @@
       ],
       "format": "esm"
     },
+    "docs/dev/pages/AboutThis.tsx": {
+      "bytes": 337,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
     "docs/dev/main.tsx": {
-      "bytes": 1598,
+      "bytes": 1756,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -353,6 +364,11 @@
           "original": "./pages/DotInsert.tsx"
         },
         {
+          "path": "docs/dev/pages/AboutThis.tsx",
+          "kind": "import-statement",
+          "original": "./pages/AboutThis.tsx"
+        },
+        {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
           "kind": "import-statement",
           "original": "$tsx-preact/jsx-runtime"
@@ -366,7 +382,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 89673
+      "bytes": 90511
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -436,11 +452,14 @@
         "docs/dev/pages/DotInsert.tsx": {
           "bytesInOutput": 241
         },
+        "docs/dev/pages/AboutThis.tsx": {
+          "bytesInOutput": 241
+        },
         "docs/dev/main.tsx": {
-          "bytesInOutput": 599
+          "bytesInOutput": 644
         }
       },
-      "bytes": 26412
+      "bytes": 26698
     }
   }
 }
