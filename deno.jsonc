@@ -2,13 +2,14 @@
 // @file ./deno.jsonc
 // @author https://github.com/j-Cis
 // 
-// @lastmodified 2025-06-12T18:02:46.234Z+02:00
+// @lastmodified 2025-06-12T20:49:22.360Z+02:00
 // @description Plik konfiguracyjny projektu DENO@2.3.5
 // 
 {
   "tasks": {
     "web": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
     "gen": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
+    "gen:wasm": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build_wasm.ts",
     "u:t": "deno run ./tasks/utils/get-date-iso.ts",
     "u:f": "deno run --allow-read ./tasks/utils/get-structure.ts"    
   },

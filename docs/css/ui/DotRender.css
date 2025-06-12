@@ -2,7 +2,7 @@
  * @file ./docs/css/ui/DotRender.css
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T18:08:55.211Z+02:00
+ * @lastmodified 2025-06-12T20:39:24.749Z+02:00
  * @description Główne style dla komponentu DotRender.
  */
 
@@ -16,6 +16,7 @@
   overflow: auto;
   color: #ccc;
   font-family: sans-serif;
+  position: relative;
 }
 
 .render-status, .render-error {
@@ -40,4 +41,85 @@
   height: auto;
   display: block;
   margin: auto;
+}
+
+.render-controls {
+  opacity: 0.4;
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px;
+  gap: 5px;
+
+  grid-template-areas:
+    "areaTL  areaTT  areaTT  areaTR"
+    "areaLL  areaZP      .   areaRR"
+    "areaLL      .   areaZM  areaRR"
+    "areaBL  areaBB  areaBB  areaBR";
+  /* Pozycjonujemy panel absolutnie względem .dot-render-wrapper */
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
+  /* Dodajemy tło i inne style dla estetyki */
+  background-color: rgba(255 255 255 / 0.7);
+  backdrop-filter: blur(5px);
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.render-controls > button {
+  border-radius: 10px;
+  font-size: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(255 255 255 / 0.5);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0 0 0 / 0.15);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.render-controls > button:hover {
+  transform: scale(1.1);
+  border: black 2px solid;
+  background-color: rgb(255 255 255);
+  transition: transform 0.4s ease;
+}
+.render-controls > button:active {
+  transform: scale(1.1);
+  background-color: rgb(255 255 255);
+  transition: transform 0.8s ease;
+  border: black 2px solid;
+  filter: invert();
+}
+
+.render-controls_TL {
+  grid-area: areaTL;
+}
+.render-controls_TT {
+  grid-area: areaTT;
+}
+.render-controls_TR {
+  grid-area: areaTR;
+}
+.render-controls_LL {
+  grid-area: areaLL;
+}
+.render-controls_ZP {
+  grid-area: areaZP;
+}
+.render-controls_ZM {
+  grid-area: areaZM;
+}
+.render-controls_RR {
+  grid-area: areaRR;
+}
+.render-controls_BL {
+  grid-area: areaBL;
+}
+.render-controls_BB {
+  grid-area: areaBB;
+}
+.render-controls_BR {
+  grid-area: areaBR;
 }

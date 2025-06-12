@@ -2,7 +2,7 @@
  * @file ./tasks/docs-build.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T19:30:09.992Z+02:00
+ * @lastmodified 2025-06-12T20:30:54.206Z+02:00
  * @description Budowanie wydania.
  */
 import * as esbuild from "$esbuild/mod.js";
@@ -21,19 +21,7 @@ async function build() {
 
 
   try {
-    // --- ZADANIE 1: Zbuduj osobny plik dla Graphviz WASM ---
-    console.log("📦 Bundlowanie biblioteki Graphviz...");
-    const result1 = await esbuild.build({
-      entryPoints: ["./tasks/utils/wasm-loader.ts"],
-      outfile: "docs/gen/wasm-dot.js",
-      plugins: [...denoPlugins({ configPath: projectDeno })],
-      bundle: true,
-      minify: true,
-      format: "esm",
-      metafile: true,
-      sourcemap: true, 
-    });
-    console.log("✅ Biblioteka Graphviz została zbudowana.");
+    
 
     // --- ZADANIE 2: Zbuduj główny plik aplikacji, traktując Graphviz jako zewnętrzny ---
     console.log("📦 Bundlowanie głównej aplikacji...");
@@ -63,11 +51,7 @@ async function build() {
     console.log("✅ Główna aplikacja została zbudowana.");
 
     console.timeEnd("✅ Projekt zbudowany w");
-    if (result1.metafile) {
-      // Używamy JSON.stringify z dodatkowymi argumentami, aby plik był czytelny
-      await Deno.writeTextFile("docs/gen/wasm-dot.meta.json", JSON.stringify(result1.metafile, null, 2));
-      console.log(`✅ Plik metafile został zapisany w: ${"docs/gen/wasm-dot.meta.json"}`);
-    }
+    
     if (result2.metafile) {
       // Używamy JSON.stringify z dodatkowymi argumentami, aby plik był czytelny
       await Deno.writeTextFile("docs/gen/main.meta.json", JSON.stringify(result2.metafile, null, 2));

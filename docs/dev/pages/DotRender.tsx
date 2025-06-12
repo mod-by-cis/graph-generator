@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotRender.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T19:29:19.962Z+02:00
+ * @lastmodified 2025-06-12T20:19:07.031Z+02:00
  * @description Komponentem sekcji tematycznej DotRender.
  */
 
@@ -75,6 +75,90 @@ export default function PageDotRender(): VNode {
     <div class="dot-render-wrapper">
       {status && <div class="render-status">{status}</div>}
       {error && <div class="render-error">{error}</div>}
+
+      {/* --- NOWY KOD: PANEL KONTROLNY --- */}
+      <div class="render-controls">
+        <button
+          class="render-controls_ZP"
+          type="button"
+          title="Powiększ"
+        >
+          {/*onClick={() => handleZoom(1.25)}*/}
+          +
+        </button>
+        <button
+          class="render-controls_ZM"
+          type="button"
+          title="Pomniejsz"
+        >
+          {/*onClick={() => handleZoom(1 / 1.25)}*/}
+          -
+        </button>
+        <button
+          class="render-controls_TL"
+          type="button"
+          title="Góra-Lewo"
+        >
+          {/*onClick={() => handlePan(1, 1)}*/}
+          ⇖
+        </button>
+        <button
+          class="render-controls_TT"
+          type="button"
+          title="Góra"
+        >
+          {/*onClick={() => handlePan(0, 1)}*/}
+          ⇑
+        </button>
+        <button
+          class="render-controls_TR"
+          type="button"
+          title="Góra-Prawo"
+        >
+          {/*onClick={() => handlePan(-1, 1)}*/}
+          ⇗
+        </button>
+        <button
+          class="render-controls_LL"
+          type="button"
+          title="Lewo"
+        >
+          {/*onClick={() => handlePan(1, 0)}*/}
+          ⇐
+        </button>
+        <button
+          class="render-controls_RR"
+          type="button"
+          title="Prawo"
+        >
+          {/*onClick={() => handlePan(-1, 0)}*/}
+          ⇒
+        </button>
+        <button
+          class="render-controls_BL"
+          type="button"
+          title="Dół-Lewo"
+        >
+          {/*onClick={() => handlePan(1, -1)}*/}
+          ⇙
+        </button>
+        <button
+          class="render-controls_BB"
+          type="button"
+          title="Dół"
+        >
+          {/*onClick={() => handlePan(0, -1)}*/}
+          ⇓
+        </button>
+        <button
+          class="render-controls_BR"
+          type="button"
+          title="Dół-Prawo"
+        >
+          {/*onClick={() => handlePan(-1, -1)}*/}
+          ⇘
+        </button>
+      </div>
 
       <div
         ref={containerRef}
