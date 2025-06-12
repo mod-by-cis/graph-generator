@@ -2,155 +2,148 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T16:15:05.754Z+02:00
+ * @lastmodified 2025-06-12T16:50:12.009Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
 /** @jsxRuntime automatic */
 /** @jsxImportSource $tsx-preact */
 import { VNode } from "$tsx-preact";
-import { useEffect, useMemo, useRef, useState } from "$tsx-preact/hooks";
+import { useEffect, useRef } from "$tsx-preact/hooks";
 import {
   dotContentSignal,
   updateDotContent,
 } from "../core/state-dot-current.ts";
+import * as monaco from "$editor-monaco";
+
+// Flaga, aby upewnić się, że rejestracja języka i motywu wykona się tylko raz
+let isMonacoInitialized = false;
+
+function initializeMonaco() {
+  if (isMonacoInitialized) return;
+
+  // 1. Rejestracja niestandardowego języka "dot"
+  monaco.languages.register({ id: "dot" });
+
+  // 2. Definicja podświetlania składni dla języka "dot"
+  monaco.languages.setMonarchTokensProvider("dot", {
+    tokenizer: {
+      root: [
+        [/(graph|digraph|strict|node|edge|subgraph)/, "keyword"],
+        [/[a-zA-Z_][\w_]*/, "identifier"],
+        [/".*?"/, "string"],
+        [/(\/\/.*$)|(#.*$)/, "comment"],
+        [/\/\*/, { token: "comment", next: "@comment" }],
+        [/[{}\[\];=,-]/, "delimiter"],
+        [/->|--/, "operator"],
+      ],
+      comment: [
+        [/[^\/*]+/, "comment"],
+        [/\/\*/, "comment", "@push"],
+        ["\\*/", "comment", "@pop"],
+        [/[\/*]/, "comment"],
+      ],
+    },
+  });
+
+  // 3. Definicja niestandardowego motywu kolorystycznego
+  monaco.editor.defineTheme("myDotTheme", {
+    base: "vs-dark",
+    inherit: true,
+    rules: [
+      { token: "keyword", foreground: "C586C0", fontStyle: "bold" },
+      { token: "string", foreground: "CE9178" },
+      { token: "comment", foreground: "6A9955", fontStyle: "italic" },
+      { token: "identifier", foreground: "9CDCFE" },
+      { token: "operator", foreground: "D4D4D4" },
+      { token: "delimiter", foreground: "FFD700" },
+    ],
+    colors: {
+      "editor.background": "#1E1E1E",
+    },
+  });
+
+  isMonacoInitialized = true;
+}
 
 /**
- * Komponent edytora do pisania kodu w języku DOT.
+ * Komponent edytora opartego na Monaco Editor do pisania w języku DOT.
  */
 export default function PageDotWriter(): VNode {
-  // Stan lokalny, aby uniknąć aktualizacji globalnego sygnału przy każdym naciśnięciu klawisza
-  const [localText, setLocalText] = useState<string>(dotContentSignal.value);
-  const [wordWrap, setWordWrap] = useState<boolean>(true); // Domyślnie włączone
-
-  // Stan do przechowywania obliczonych wysokości dla każdej linii
-  const [lineHeights, setLineHeights] = useState<number[]>([]);
-
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const updateTimeout = useRef<number | null>(null);
-  // Refy do elementów DOM w celu synchronizacji przewijania
-  const lineNumbersRef = useRef<HTMLDivElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const overlayRef = useRef<HTMLPreElement>(null);
 
-  // Efekt do opóźnionej aktualizacji globalnego stanu
+  // Efekt, który tworzy i niszczy instancję edytora
   useEffect(() => {
-    // Anuluj poprzedni timer, jeśli istnieje
-    if (updateTimeout.current) clearTimeout(updateTimeout.current);
-    // Ustaw nowy timer
-    updateTimeout.current = setTimeout(() => {
-      updateDotContent(localText);
-    }, 20000); // 20 sekund
+    if (editorContainerRef.current) {
+      // Upewnij się, że język jest zarejestrowany
+      initializeMonaco();
 
-    // Funkcja czyszcząca, która anuluje timer, gdy komponent się odmontuje
-    return () => {
-      if (updateTimeout.current) clearTimeout(updateTimeout.current);
-    };
-  }, [localText]); // Uruchom ponownie ten efekt za każdym razem, gdy zmieni się lokalny tekst
+      // Tworzymy edytor wewnątrz naszego diva
+      const editor = monaco.editor.create(editorContainerRef.current, {
+        value: dotContentSignal.peek(), // .peek() odczytuje wartość bez subskrypcji
+        language: "dot",
+        theme: "myDotTheme",
+        automaticLayout: true, // Edytor automatycznie dopasuje się do rozmiaru kontenera
+        wordWrap: "on",
+        fontSize: 14,
+        tabSize: 2,
+        scrollBeyondLastLine: false,
+      });
 
-  // Efekt, który mierzy wysokość linii w nakładce <pre>
-  useEffect(() => {
-    if (overlayRef.current) {
-      // Dzielimy renderowany tekst na linie, aby zmierzyć każdą z osobna
-      // Usuwamy ostatnią pustą linię dodaną przez renderTextWithWhitespace
-      const renderedLines = overlayRef.current.innerHTML.split("\n").slice(
-        0,
-        -1,
-      );
-      const newHeights: number[] = [];
+      editorRef.current = editor;
 
-      // Tworzymy tymczasowy element do mierzenia
-      const measureNode = document.createElement("div");
-      measureNode.style.visibility = "hidden";
-      measureNode.style.position = "absolute";
-      // Musi mieć te same style, co nakładka, aby pomiar był dokładny
-      measureNode.className = `editor-overlay ${wordWrap ? "wrap" : "no-wrap"}`;
-      document.body.appendChild(measureNode);
+      // Słuchamy zmian w treści edytora
+      const subscription = editor.onDidChangeModelContent(() => {
+        const currentValue = editor.getValue();
 
-      // Mierzymy wysokość każdej wyrenderowanej linii
-      for (const line of renderedLines) {
-        measureNode.innerHTML = line || "&nbsp;"; // Używamy &nbsp; dla pustych linii
-        newHeights.push(measureNode.offsetHeight);
-      }
+        // Opóźniona aktualizacja globalnego stanu
+        if (updateTimeout.current) clearTimeout(updateTimeout.current);
+        updateTimeout.current = setTimeout(() => {
+          updateDotContent(currentValue);
+        }, 20000);
+      });
 
-      document.body.removeChild(measureNode);
-      setLineHeights(newHeights);
+      // Funkcja czyszcząca - kluczowa dla uniknięcia wycieków pamięci
+      return () => {
+        subscription.dispose(); // Usuń subskrypcję
+        editor.dispose(); // Zniszcz instancję edytora
+      };
     }
-  }, [localText, wordWrap]); // Mierz ponownie, gdy zmieni się tekst lub opcja zawijania
-
-  const handleTextChange = (e: Event) => {
-    const target = e.target as HTMLTextAreaElement;
-    setLocalText(target.value);
-  };
+  }, []); // Pusta tablica `[]` gwarantuje, że edytor stworzy się tylko raz
 
   const forceUpdateSignal = () => {
-    if (updateTimeout.current) clearTimeout(updateTimeout.current);
-    console.log("Force-updating signal now!");
-    updateDotContent(localText);
-  };
-
-  // Obliczamy liczbę wierszy, aby dynamicznie generować numery
-  const lineCount = useMemo(() => localText.split("\n").length, [localText]);
-  const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
-
-  // Synchronizacja przewijania ---
-  const handleScroll = () => {
-    if (lineNumbersRef.current && textareaRef.current && overlayRef.current) {
-      const { scrollTop, scrollLeft } = textareaRef.current;
-      // Synchronizuj pozycję pionową numerów wierszy
-      lineNumbersRef.current.scrollTop = scrollTop;
-      // Synchronizuj pozycję poziomą i pionową nakładki
-      overlayRef.current.scrollTop = scrollTop;
-      overlayRef.current.scrollLeft = scrollLeft;
+    if (editorRef.current) {
+      if (updateTimeout.current) clearTimeout(updateTimeout.current);
+      updateDotContent(editorRef.current.getValue());
     }
   };
 
-  // Funkcja do wizualizacji białych znaków
-  const renderTextWithWhitespace = (text: string) => {
-    // Dodajemy pustą linię na końcu, aby zapobiec "ucięciu" ostatniej linii przy przewijaniu
-    return (text + "\n")
-      .replace(/ /g, "·") // Zastąp spacje kropkami
-      .replace(/\n/g, "¬\n"); // Pokaż znak końca linii
+  const toggleWordWrap = () => {
+    if (editorRef.current) {
+      const currentOptions = editorRef.current.getOptions();
+      const currentWordWrap = currentOptions.get(
+        monaco.editor.EditorOption.wordWrap,
+      );
+      editorRef.current.updateOptions({
+        wordWrap: currentWordWrap === "on" ? "off" : "on",
+      });
+    }
   };
 
   return (
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
-        <button onClick={() => setWordWrap((prev) => !prev)}>
-          Zawijanie: {wordWrap ? "Wł." : "Wył."}
+        <button type="button" onClick={toggleWordWrap}>
+          Przełącz zawijanie
         </button>
-        <button onClick={forceUpdateSignal}>Aktualizuj Stan</button>
+        <button type="button" onClick={forceUpdateSignal}>
+          Aktualizuj Stan
+        </button>
       </div>
-      <div class="dot-writer-editor">
-        {/* Kolumna z numerami wierszy - teraz używa dynamicznych wysokości */}
-        <div ref={lineNumbersRef} class="line-numbers">
-          {lineHeights.map((height, index) => (
-            <div
-              key={index}
-              class="line-number"
-              style={{ height: `${height}px` }}
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-        <div class="editor-main-area">
-          <textarea
-            ref={textareaRef}
-            class={`editor-input ${wordWrap ? "wrap" : "no-wrap"}`}
-            value={localText}
-            onInput={handleTextChange}
-            onScroll={handleScroll} // Podpinamy handler przewijania
-            spellcheck={false}
-          />
-          <pre
-            ref={overlayRef}
-            aria-hidden="true"
-            class={`editor-overlay ${wordWrap ? "wrap" : "no-wrap"}`}
-          >
-            {renderTextWithWhitespace(localText)}
-          </pre>
-        </div>
-      </div>
+      {/* Ten div będzie hostem dla Monaco Editor */}
+      <div class="dot-writer-editor" ref={editorContainerRef}></div>
     </div>
   );
 }

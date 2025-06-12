@@ -2,7 +2,7 @@
  * @file ./docs/css/ui/DotWriter.css
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T16:14:53.677Z+02:00
+ * @lastmodified 2025-06-12T16:51:10.541Z+02:00
  * @description Główne style dla komponentu DotWriter.
  */
 
@@ -11,7 +11,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #fdfdfd;
+  overflow: hidden; /* Ważne, aby kontener nie był większy niż trzeba */
 }
 
 .dot-writer-toolbar {
@@ -21,6 +21,7 @@
   background-color: #f0f0f0;
   border-bottom: 1px solid #ddd;
   flex-shrink: 0;
+  z-index: 10; /* Toolbar nad edytorem */
 }
 
 .dot-writer-toolbar button {
@@ -31,86 +32,9 @@
   cursor: pointer;
 }
 
-/* Główny kontener edytora używa siatki (grid) */
+/* Kontener, w którym Monaco Editor będzie żył */
 .dot-writer-editor {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns:
-    auto 1fr; /* Kolumna numerów dopasowuje się, reszta zajmuje przestrzeń */
-  overflow: hidden; /* Zapobiega podwójnym paskom przewijania */
-}
-/* Kolumna z numerami wierszy */
-.line-numbers {
-  padding: 10px 8px;
-  text-align: right;
-  color: #999;
-  background-color: #f7f7f7;
-  border-right: 1px solid #ddd;
-  font-family: "Fira Code", "Courier New", monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  user-select: none;
-  overflow-y: hidden; /* Ukrywamy jego własny pasek przewijania */
-}
-
-/* Styl dla pojedynczego numeru wiersza */
-.line-number {
-  display: flex;
-  justify-content: flex-end; /* Wyrównaj do prawej */
-  align-items: flex-start; /* Wyrównaj do góry */
-  padding-top: 2px; /* Drobna korekta, aby lepiej pasowało */
-  box-sizing: border-box;
-}
-
-/* Kontener na pole tekstowe i nakładkę */
-.editor-main-area {
-  position: relative;
-  height: 100%;
-  overflow: hidden; /* Ważne, aby paski przewijania textarea były kontrolowane */
-}
-
-/* Nakładka i pole tekstowe - muszą mieć DOKŁADNIE takie same style! */
-.editor-input, .editor-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+  flex-grow: 1; /* Wypełnij resztę dostępnej przestrzeni */
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 10px;
-  border: none;
-  background: none;
-  font-family: "Fira Code", "Courier New", monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  box-sizing: border-box;
-  outline: none;
-  resize: none;
-}
-
-/* Właściwe pole tekstowe - tekst jest przezroczysty */
-.editor-input {
-  color: transparent;
-  caret-color: black;
-  z-index: 1;
-  overflow: auto; /* To jest jedyny element, który ma prawo się przewijać */
-}
-
-/* Nakładka z widocznym tekstem - leży pod spodem */
-.editor-overlay {
-  pointer-events: none; /* Pozwala klikać "przez" nakładkę */
-  color: #333;
-  z-index: 0;
-  overflow: hidden; /* Nakładka sama się nie przewija */
-}
-
-/* Opcje zawijania wierszy */
-.editor-input.wrap, .editor-overlay.wrap {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: hidden; /* Ukryj poziomy pasek przewijania przy zawijaniu */
-}
-.editor-input.no-wrap, .editor-overlay.no-wrap {
-  white-space: pre;
-  overflow-x: auto; /* Pokaż poziomy pasek przewijania, gdy nie zawijamy */
 }
