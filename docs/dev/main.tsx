@@ -84,7 +84,8 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
  // Ścieżka do naszego pliku sw.js
       .then(registration => {       
- // Logujemy sukces w konsoli deweloperskiej.        console.log('✅ Service Worker zarejestrowany pomyślnie. Zasięg:', registration.scope);      
+ // Logujemy sukces w konsoli deweloperskiej.
+        console.log('✅ Service Worker zarejestrowany pomyślnie. Zasięg:', registration.scope);      
 })
       .catch(error => {
         // Logujemy ewentualny błąd.
