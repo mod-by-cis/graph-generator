@@ -81,7 +81,7 @@ if ('serviceWorker' in navigator) {
  // Używamy eventu 'load', aby nie blokować początkowego renderowania strony.  
 // Rejestracja rozpocznie się dopiero, gdy strona będzie w pełni załadowana. 
  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('./sw.js')
  // Ścieżka do naszego pliku sw.js
       .then(registration => {       
  // Logujemy sukces w konsoli deweloperskiej.
