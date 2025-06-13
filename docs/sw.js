@@ -2,55 +2,65 @@
  * @file ./docs/sw.js
  * @author https://github.com/j-Cis
  * @description Service Worker dla Progressive Web App (PWA).
- * Odpowiada za działanie aplikacji w trybie offline poprzez
- * zapisywanie kluczowych zasobów w pamięci podręcznej przeglądarki.
+ * Wersja z niezawodnym zapisywaniem do cache, która oddziela
+ * pliki krytyczne od opcjonalnych, aby zwiększyć odporność na błędy.
  */
 
 // Unikalna nazwa dla naszej pamięci podręcznej. Zmiana tej nazwy
-// spowoduje, że Service Worker pobierze wszystkie pliki na nowo.
+// (np. na v2) spowoduje, że Service Worker pobierze wszystkie pliki na nowo.
 const CACHE_NAME = 'graph-generator-cache-v1';
 
-// Lista wszystkich plików, które są niezbędne do działania aplikacji offline.
-// To najważniejsza część konfiguracji.
-const FILES_TO_CACHE = [
-  // Pliki HTML i podstawowe zasoby
-  '/',
-  'index.html',
-  'manifest.json',
-
-  // Style CSS
-  'css/reset.css',
-  'css/main.css',
-  'css/ui/AccordionFields.css',
-  'css/ui/DotWriter.css',
-  'css/ui/DotRender.css',
-
-  // Ikony (jeśli istnieją w folderze /icons/)
-  'icons/icon-192.png',
-  'icons/icon-512.png',
-
-  // Wygenerowane skrypty JavaScript
-  'gen/main.js',
-  'gen/wasm-dot.js',
-
-  // Zdalne zależności, które musimy mieć offline
-  // Monaco Editor
-  'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js',
-  // Graphviz (silnik WASM)
-  'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@2.23.0/dist/graphviz.wasm'
+// Lista plików, które są KLUCZOWE dla działania aplikacji.
+// Jeśli któregoś z nich nie uda się zapisać, cała instalacja zawiedzie.
+const CRITICAL_FILES_TO_CACHE = [
+  './',
+  './index.html',
+  './manifest.json',
+  './css/reset.css',
+  './css/main.css',
+  './gen/main.js',
+  './gen/wasm-dot.js'
 ];
+
+// Lista plików, które są OPCJONALNE lub pochodzą z zewnętrznych źródeł.
+// Jeśli nie uda się ich zapisać, aplikacja nadal powinna działać.
+const OPTIONAL_FILES_TO_CACHE = [
+  './css/ui/AccordionFields.css',
+  './css/ui/DotWriter.css',
+  './css/ui/DotRender.css',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js',
+  './gen/graphviz.wasm' // Ładujemy naszą lokalną kopię
+];
+
 
 /**
  * Krok 1: Instalacja Service Workera.
- * Ten event jest wywoływany tylko raz, przy pierwszej instalacji.
- * Otwieramy naszą pamięć podręczną i dodajemy do niej wszystkie kluczowe pliki.
+ * Używamy nowej, bardziej niezawodnej logiki.
  */
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Instalacja...');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[ServiceWorker] Zapisywanie kluczowych zasobów w pamięci podręcznej.');
-      return cache.addAll(FILES_TO_CACHE);
+      console.log('[ServiceWorker] Zapisywanie kluczowych zasobów...');
+      
+      // Najpierw próbujemy zapisać pliki krytyczne.
+      // Jeśli to się nie uda, cały proces instalacji zawiedzie.
+      return cache.addAll(CRITICAL_FILES_TO_CACHE).then(() => {
+        console.log('[ServiceWorker] Zapisywanie opcjonalnych zasobów...');
+        
+        // Następnie próbujemy zapisać pliki opcjonalne, każdy z osobna.
+        // Nawet jeśli jeden z nich zawiedzie, nie przerwie to instalacji.
+        const promises = OPTIONAL_FILES_TO_CACHE.map((url) => {
+          // Używamy cache.add() dla każdego pliku i łapiemy błędy indywidualnie.
+          return cache.add(url).catch(err => {
+            console.warn(`[ServiceWorker] Nie udało się zapisać opcjonalnego pliku: ${url}`, err);
+          });
+        });
+        
+        return Promise.all(promises);
+      });
     })
   );
   self.skipWaiting();
@@ -88,11 +98,9 @@ self.addEventListener('fetch', (event) => {
       // Jeśli żądany plik znajduje się w naszej pamięci podręcznej,
       // zwracamy go natychmiast, bez odwoływania się do sieci.
       if (response) {
-        // console.log('[ServiceWorker] Znaleziono w cache:', event.request.url);
         return response;
       }
       // Jeśli pliku nie ma w cache, próbujemy go normalnie pobrać z sieci.
-      // console.log('[ServiceWorker] Nie znaleziono w cache, pobieranie z sieci:', event.request.url);
       return fetch(event.request);
     })
   );
