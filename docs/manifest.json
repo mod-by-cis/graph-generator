@@ -3,8 +3,8 @@
   "short_name": "GraphGen",
   "description": "Aplikacja do wizualizacji grafów w języku DOT.",
   
-  "scope": "/graph-generator/",
-  "start_url": "/graph-generator/",
+  "scope": ".",
+  "start_url": ".",
 
   "display": "standalone",
   "background_color": "#2a2a2e",
