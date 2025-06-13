@@ -8,7 +8,7 @@
 
 // Unikalna nazwa dla naszej pamięci podręcznej. Zmiana tej nazwy
 // (np. na v2) spowoduje, że Service Worker pobierze wszystkie pliki na nowo.
-const CACHE_NAME = 'graph-generator-cache-v1';
+const CACHE_NAME = 'graph-generator-cache-v1b';
 
 // Lista plików, które są KLUCZOWE dla działania aplikacji.
 // Jeśli któregoś z nich nie uda się zapisać, cała instalacja zawiedzie.
