@@ -2,7 +2,7 @@
  * @file ./docs/css/reset.css
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:10:25.270Z+02:00
+ * @lastmodified 2025-06-13T22:57:25.270Z+02:00
  * @description Resetowanie predefiniowanych ustawień różnych przeglądarek.
  */
 
@@ -46,6 +46,11 @@ body {
   width: 100%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased; /* Lepsze renderowanie czcionek na WebKit */
+
+/* Ta właściwość mówi przeglądarce, aby wyłączyła domyślne gesty
+     takie jak pinch-to-zoom i double-tap-to-zoom, pozwalając jednocześnie
+     na normalne przewijanie (pan). To jest nowoczesny standard. */
+  touch-action: manipulation;
 }
 
 /* 4. Uprość resetowanie stylów list
@@ -105,3 +110,5 @@ h6 {
   height: 100%; /* Upewnij się, że kontener aplikacji również zajmuje pełną wysokość */
   width: 100%;
 }
+
+  
