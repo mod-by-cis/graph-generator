@@ -61,7 +61,7 @@ export default function PageAboutThis(): VNode {
         arrow: 'COL',
         ratio: '3:2',
         // Używamy tytułów, które są zdefiniowane w main.tsx
-        visiblePanels: ['Pisz..', 'Efekt..'],
+        visiblePanels: ['Pisz..', 'Zobacz..'],
       };
     } else {
       console.warn(`[AboutThis] Nie znaleziono stanu dla kotwicy: ${anchor}`);
