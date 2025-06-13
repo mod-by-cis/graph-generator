@@ -73,3 +73,22 @@ if (rootElement) {
     'Nie znaleziono elementu startowego #root. Upewnij się, że w pliku HTML istnieje element <div id="root"></div>.',
   );
 }
+
+
+// --- REJESTRACJA SERVICE WORKERA ---
+// Sprawdzamy, czy przeglądarka w ogóle wspiera Service Workery.
+if ('serviceWorker' in navigator) { 
+ // Używamy eventu 'load', aby nie blokować początkowego renderowania strony.  
+// Rejestracja rozpocznie się dopiero, gdy strona będzie w pełni załadowana. 
+ window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+ // Ścieżka do naszego pliku sw.js
+      .then(registration => {       
+ // Logujemy sukces w konsoli deweloperskiej.        console.log('✅ Service Worker zarejestrowany pomyślnie. Zasięg:', registration.scope);      
+})
+      .catch(error => {
+        // Logujemy ewentualny błąd.
+        console.error('❌ Rejestracja Service Workera nie powiodła się:', error);
+      });
+  });
+}
