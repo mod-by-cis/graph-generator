@@ -6,7 +6,7 @@
  */
 
 // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-const CACHE_NAME = 'graph-generator-cache-final-v1f';
+const CACHE_NAME = 'graph-generator-cache-final-v1g';
 
 // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
 // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
