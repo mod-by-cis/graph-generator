@@ -11,3 +11,38 @@
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
+.example-button {
+  /* Podstawowe style */
+  display: inline-block; /* Umożliwia ustawienie marginesów i paddingu */
+  background-color: yellow;
+  color: #1a1a1a; /* Ciemny kolor tekstu dla kontrastu */
+  border: 2px solid #e0b800; /* Ciemniejsza ramka dla głębi */
+  cursor: pointer;
+
+  /* Typografia */
+  font-size: 20px;
+  font-weight: bold;
+
+  /* Odstępy i wygląd */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  
+  /* Animacja dla płynnych przejść */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+/* Stan po najechaniu myszą (działa również przy dotknięciu na mobile) */
+.example-button:hover {
+  transform: translateY(-3px); /* Lekkie uniesienie przycisku */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Wyraźniejszy cień */
+}
+
+/* Stan w momencie aktywnego kliknięcia/dotknięcia */
+.example-button:active {
+  transform: translateY(-1px); /* Lekkie wciśnięcie */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  /* Filtr odwracający kolory, dający efekt "włączenia" */
+  filter: invert(1);
+}
