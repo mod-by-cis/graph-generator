@@ -44,7 +44,7 @@ function parseRatio(ratio: string): [number, number] {
  */
 function AccordionFields({
   anchorTag,
-  initialDivider = "ROW",
+  initialDivider = "COL",
   firstViewID,
   children,
 }: ContainerProps): VNode {
