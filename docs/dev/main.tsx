@@ -34,7 +34,7 @@ function LayoutStart() {
 
       <AccordionFields
         anchorTag={ANCHOR_ID}
-        firstViewID={[3, 4]}
+        firstViewID={[4, 5]}
       >
         <AccordionField viewID={0} title="o grafach..">
           <PageEduGraphs />
@@ -51,7 +51,7 @@ function LayoutStart() {
           <PageDotWriter />
         </AccordionField>
 
-        <AccordionField viewID={4} title="Efekt..">
+        <AccordionField viewID={4} title="Zobacz..">
           <PageDotRender />
         </AccordionField>
 
