@@ -6,7 +6,7 @@
  */
 
 // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-const CACHE_NAME = 'graph-generator-cache-final-v1g';
+const CACHE_NAME = 'graph-generator-cache-final-v1h';
 
 // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
 // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
@@ -14,14 +14,14 @@ const FILES_TO_CACHE = [
   // --- Pliki krytyczne ---
   '/graph-generator/',
   '/graph-generator/index.html',
-  '/graph-generator/manifest.json',
+  '/graph-generator/manifest.webmanifest',
   
   // --- Style ---
   '/graph-generator/css/reset.css',
-  '/graph-generator/css/main.css',
   '/graph-generator/css/ui/AccordionFields.css',
   '/graph-generator/css/ui/DotWriter.css',
   '/graph-generator/css/ui/DotRender.css',
+  '/graph-generator/css/main.css',
 
   // --- Wygenerowane Skrypty, Mapy i Metadane ---
   '/graph-generator/gen/main.js',
@@ -33,7 +33,13 @@ const FILES_TO_CACHE = [
   '/graph-generator/gen/lastBuild.txt',
   
   // --- Ikony ---
-  '/graph-generator/icons/icon-192.png',
+  '/graph-generator/icons/favicon.ico',
+  '/graph-generator/icons/icon-048.png',
+  '/graph-generator/icons/icon-128.png',
+  '/graph-generator/icons/icon-144.png',
+  '/graph-generator/icons/icon-152.png',
+  '/graph-generator/icons/icon-180.png',
+  '/graph-generator/icons/icon-384.png',
   '/graph-generator/icons/icon-512.png',
 
   // --- Zależności z CDN ---

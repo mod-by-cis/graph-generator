@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-14T15:02:38.027Z+02:00
+ * @lastmodified 2025-06-14T18:02:38.027Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
@@ -63,18 +63,20 @@ function initializeMonaco(monaco: any) {
   });
 
   // Rejestracja dostawcy formatowania dla języka DOT
-  monaco.languages.registerDocumentFormattingEditProvider('dot', {
+  monaco.languages.registerDocumentFormattingEditProvider("dot", {
     provideDocumentFormattingEdits(model: any) {
       // Prosta logika formatowania: wcięcie każdej linii
       const text = model.getValue();
-      const lines = text.split('\n');
-      const formatted = lines.map((line: string) => line.trim() ? '  ' + line.trim() : '').join('\n');
-      
+      const lines = text.split("\n");
+      const formatted = lines.map((line: string) =>
+        line.trim() ? "  " + line.trim() : ""
+      ).join("\n");
+
       return [{
         range: model.getFullModelRange(),
         text: formatted,
       }];
-    }
+    },
   });
 
   isMonacoInitialized = true;
@@ -134,32 +136,32 @@ export default function PageDotWriter(): VNode {
       });
     }
   };
-  
+
   const handleFormat = () => {
-    editorRef.current?.getAction('editor.action.formatDocument').run();
+    editorRef.current?.getAction("editor.action.formatDocument").run();
   };
 
   const handleCopy = () => {
     if (editorRef.current) {
       navigator.clipboard.writeText(editorRef.current.getValue())
         .then(() => console.log("Skopiowano do schowka!"))
-        .catch(err => console.error("Błąd kopiowania:", err));
+        .catch((err) => console.error("Błąd kopiowania:", err));
     }
   };
-  
+
   const handleClear = () => {
     if (editorRef.current) {
-      editorRef.current.setValue('');
+      editorRef.current.setValue("");
     }
   };
-  
+
   const handlePaste = async () => {
     if (editorRef.current) {
       try {
         const text = await navigator.clipboard.readText();
-        editorRef.current.executeEdits('', [{
+        editorRef.current.executeEdits("", [{
           range: editorRef.current.getSelection(),
-          text: text
+          text: text,
         }]);
       } catch (err) {
         console.error("Błąd wklejania:", err);
@@ -170,15 +172,37 @@ export default function PageDotWriter(): VNode {
   return (
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
-        {/* --- ZAKTUALIZOWANE PRZYCISKI Z IKONAMI --- */}
-        <button type="button" onClick={toggleWordWrap} title="Przełącz zawijanie">↰</button>
-        <button type="button" onClick={forceUpdateSignal} title="Wymuś aktualizację stanu">✓</button>
+        <button
+          type="button"
+          onClick={forceUpdateSignal}
+          title="Wymuś aktualizację stanu"
+        >
+          ✓
+        </button>
         <div class="toolbar-separator"></div>
-        <button type="button" onClick={handleFormat} title="Formatuj kod">🪄</button>
-        <button type="button" onClick={handleCopy} title="Kopiuj całość">📋</button>
+        <button type="button" onClick={handleCopy} title="Kopiuj całość">
+          📋
+        </button>
         <button type="button" onClick={handlePaste} title="Wklej">📥</button>
+        <button type="button" onClick={handleFormat} title="Formatuj kod">
+          🪄
+        </button>
+        <button
+          type="button"
+          onClick={toggleWordWrap}
+          title="Przełącz zawijanie"
+        >
+          ↰
+        </button>
         <div class="toolbar-separator"></div>
-        <button type="button" class="clear-btn" onClick={handleClear} title="Wyczyść edytor">🗑️</button>
+        <button
+          type="button"
+          class="clear-btn"
+          onClick={handleClear}
+          title="Wyczyść edytor"
+        >
+          🗑️
+        </button>
       </div>
       <div class="dot-writer-editor" ref={editorContainerRef}></div>
     </div>
