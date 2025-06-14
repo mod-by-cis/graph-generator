@@ -6,7 +6,7 @@
  */
 
 // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-const CACHE_NAME = 'graph-generator-cache-final-v1ai';
+const CACHE_NAME = 'graph-generator-cache-final-v1ak';
 
 // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
 // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
@@ -47,6 +47,8 @@ const FILES_TO_CACHE = [
   'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js'
 ];
 
+
+// 1. Instalacja Service Workera
 self.addEventListener('install', (event) => {
   console.log(`[ServiceWorker] Instalacja nowej wersji: ${CACHE_NAME}`);
   event.waitUntil(
@@ -59,11 +61,14 @@ self.addEventListener('install', (event) => {
       console.error("Nie udało się zapisać jednego z plików z listy. Sprawdź, czy wszystkie ścieżki są poprawne.", FILES_TO_CACHE);
     })
   );
+  // Zmuś nowego Service Workera do natychmiastowej aktywacji po instalacji.
   self.skipWaiting();
 });
 
+// 2. Aktywacja Service Workera
 self.addEventListener('activate', (event) => {
   console.log(`[ServiceWorker] Aktywacja nowej wersji: ${CACHE_NAME}`);
+  // Usuń wszystkie stare, nieużywane już wersje cache.
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(keyList.map((key) => {
@@ -74,9 +79,12 @@ self.addEventListener('activate', (event) => {
       }));
     })
   );
+  // Pozwól nowemu SW przejąć kontrolę nad wszystkimi otwartymi kartami.
   return self.clients.claim();
 });
 
+// 3. Przechwytywanie zapytań sieciowych (Fetch)
+/*
 self.addEventListener('fetch', (event) => {
   // Dla żądań nawigacyjnych (otwieranie strony) zawsze próbuj najpierw z sieci.
   if (event.request.mode === 'navigate') {
@@ -95,4 +103,33 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request);
     })
   );
+});
+*/
+self.addEventListener('fetch', (event) => {
+  // Użyjemy prostej i niezawodnej strategii: "Network falling back to cache".
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        // Jeśli odpowiedź z sieci jest poprawna, zapiszmy ją w cache na przyszłość.
+        if (response && response.status === 200 && event.request.method === 'GET') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return response;
+      })
+      .catch(() => {
+        // Jeśli sieć zawiedzie (jesteś offline), spróbuj znaleźć odpowiedź w cache.
+        return caches.match(event.request);
+      })
+  );
+});
+
+// 4. Komunikacja z aplikacją
+self.addEventListener('message', (event) => {
+  // Nasłuchuj na wiadomość od przycisku "Zaktualizuj PWA"
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

@@ -356,7 +356,7 @@
       "format": "esm"
     },
     "docs/dev/pages/AboutThis.tsx": {
-      "bytes": 9533,
+      "bytes": 11995,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -438,7 +438,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 129033
+      "bytes": 132517
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -512,13 +512,13 @@
           "bytesInOutput": 241
         },
         "docs/dev/pages/AboutThis.tsx": {
-          "bytesInOutput": 6110
+          "bytesInOutput": 7134
         },
         "docs/dev/main.tsx": {
           "bytesInOutput": 948
         }
       },
-      "bytes": 39240
+      "bytes": 40264
     }
   }
 }

@@ -1,7 +1,7 @@
 /**
  * @file ./docs/dev/pages/AboutThis.tsx
  * @author https://github.com/j-Cis
- * @lastmodified 2025-06-14T19:01:00.000Z+02:00
+ * @lastmodified 2025-06-14T18:37:39.462Z+02:00
  * @description Komponent strony "O Aplikacji" z sekcjami językowymi.
  */
 
@@ -54,15 +54,58 @@ const InfoSection = (
 export default function PageAboutThis(): VNode {
   // Stan do zarządzania promptem instalacji PWA
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  // ---  Stan i funkcje dla aktualizacji PWA ---
+  const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+  const [newWorker, setNewWorker] = useState<ServiceWorker | null>(null);
 
   useEffect(() => {
-    const handler = (e: Event) => {
+    // Nasłuchujemy na zdarzenie instalacji (dla przycisku "Zainstaluj")
+    const installHandler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", installHandler);
+
+    // Nasłuchujemy na niestandardowe zdarzenie z pwa-loader.js
+    const updateHandler = (e: CustomEvent<ServiceWorker>) => {
+      setIsUpdateAvailable(true);
+      setNewWorker(e.detail);
+    };
+    window.addEventListener("swUpdate", updateHandler as EventListener);
+
+    // Sprzątanie po odmontowaniu komponentu
+    return () => {
+      window.removeEventListener("beforeinstallprompt", installHandler);
+      window.removeEventListener("swUpdate", updateHandler as EventListener);
+    };
   }, []);
+
+  // Funkcja, która aktywuje nowego Service Workera
+  const handlePwaUpdate = () => {
+    if (newWorker) {
+      newWorker.postMessage({ type: "SKIP_WAITING" });
+    }
+  };
+
+  // Funkcja, która wymusza twarde przeładowanie
+  const handleForceReload = () => {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
+  const handlePwaInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`PWA install outcome: ${outcome}`);
+      setDeferredPrompt(null);
+    }
+  };
 
   // --- POPRAWIONA LOGIKA PRZYCISKU ---
   const handleShowExample = () => {
@@ -99,15 +142,6 @@ export default function PageAboutThis(): VNode {
     }
   };
 
-  const handlePwaInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`PWA install outcome: ${outcome}`);
-      setDeferredPrompt(null);
-    }
-  };
-
   const englishFlags = ["🇬🇧", "🇺🇸", "🇨🇦", "🇦🇺", "🇪🇺", "🇳🇿", "🇮🇪"];
 
   return (
@@ -140,6 +174,27 @@ export default function PageAboutThis(): VNode {
             Zainstaluj Aplikację
           </button>
         )}
+        <div class="pwa-controls-container">
+          <h4>Zarządzanie Aplikacją</h4>
+          <div class="pwa-button-group">
+            {isUpdateAvailable && (
+              <button
+                type="button"
+                class="pwa-action-button"
+                onClick={handlePwaUpdate}
+              >
+                Zaktualizuj PWA
+              </button>
+            )}
+            <button
+              type="button"
+              class="pwa-action-button secondary"
+              onClick={handleForceReload}
+            >
+              Wymuś Ponowne Wczytanie
+            </button>
+          </div>
+        </div>
 
         <h4>Nawigacja i Obsługa</h4>
         <p>
@@ -230,6 +285,27 @@ export default function PageAboutThis(): VNode {
             Install App
           </button>
         )}
+        <div class="pwa-controls-container">
+          <h4>Application Management</h4>
+          <div class="pwa-button-group">
+            {isUpdateAvailable && (
+              <button
+                type="button"
+                class="pwa-action-button"
+                onClick={handlePwaUpdate}
+              >
+                Update to New Version
+              </button>
+            )}
+            <button
+              type="button"
+              class="pwa-action-button secondary"
+              onClick={handleForceReload}
+            >
+              Force Reload
+            </button>
+          </div>
+        </div>
 
         <h4>Navigation and Usage</h4>
         <p>

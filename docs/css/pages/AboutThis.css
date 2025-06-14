@@ -198,3 +198,39 @@
   border-radius: 25%; /* Opcjonalnie: zaokrąglone rogi */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
+.pwa-controls-container {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.pwa-button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.pwa-action-button {
+  padding: 8px 16px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pwa-action-button:hover {
+  background-color: #0056b3;
+}
+
+.pwa-action-button.secondary {
+  background-color: transparent;
+  color: #007bff;
+}
+
+.pwa-action-button.secondary:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
