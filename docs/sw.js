@@ -19,8 +19,9 @@ const FILES_TO_CACHE = [
   // --- Style ---
   '/graph-generator/css/reset.css',
   '/graph-generator/css/ui/AccordionFields.css',
-  '/graph-generator/css/ui/DotWriter.css',
-  '/graph-generator/css/ui/DotRender.css',
+  '/graph-generator/css/pages/DotWriter.css',
+  '/graph-generator/css/pages/DotRender.css',
+  '/graph-generator/css/pages/AboutThis.css',
   '/graph-generator/css/main.css',
 
   // --- Wygenerowane Skrypty, Mapy i Metadane ---

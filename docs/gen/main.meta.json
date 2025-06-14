@@ -293,7 +293,7 @@
       "format": "esm"
     },
     "docs/dev/pages/DotWriter.tsx": {
-      "bytes": 3895,
+      "bytes": 6055,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -356,8 +356,23 @@
       "format": "esm"
     },
     "docs/dev/pages/AboutThis.tsx": {
-      "bytes": 539,
+      "bytes": 9533,
       "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "docs/dev/core/state-accordion.ts",
+          "kind": "import-statement",
+          "original": "../core/state-accordion.ts"
+        },
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
           "kind": "import-statement",
@@ -367,7 +382,7 @@
       "format": "esm"
     },
     "docs/dev/main.tsx": {
-      "bytes": 1912,
+      "bytes": 2778,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -423,7 +438,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 111165
+      "bytes": 129033
     },
     "docs/gen/main.js": {
       "imports": [],
@@ -431,7 +446,7 @@
       "entryPoint": "docs/dev/main.tsx",
       "inputs": {
         "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
-          "bytesInOutput": 10386
+          "bytesInOutput": 10391
         },
         "https://esm.sh/preact@10.26.8": {
           "bytesInOutput": 0
@@ -461,7 +476,7 @@
           "bytesInOutput": 0
         },
         "docs/dev/core/state-accordion.ts": {
-          "bytesInOutput": 671
+          "bytesInOutput": 670
         },
         "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs": {
           "bytesInOutput": 375
@@ -473,10 +488,10 @@
           "bytesInOutput": 50
         },
         "docs/dev/ui/AccordionFieldsPilot.tsx": {
-          "bytesInOutput": 3247
+          "bytesInOutput": 3246
         },
         "docs/dev/ui/AccordionFields.tsx": {
-          "bytesInOutput": 1284
+          "bytesInOutput": 1283
         },
         "docs/dev/pages/EduGraphs.tsx": {
           "bytesInOutput": 241
@@ -488,7 +503,7 @@
           "bytesInOutput": 509
         },
         "docs/dev/pages/DotWriter.tsx": {
-          "bytesInOutput": 1735
+          "bytesInOutput": 3006
         },
         "docs/dev/pages/DotRender.tsx": {
           "bytesInOutput": 2357
@@ -497,13 +512,13 @@
           "bytesInOutput": 241
         },
         "docs/dev/pages/AboutThis.tsx": {
-          "bytesInOutput": 241
+          "bytesInOutput": 6110
         },
         "docs/dev/main.tsx": {
-          "bytesInOutput": 644
+          "bytesInOutput": 948
         }
       },
-      "bytes": 31794
+      "bytes": 39240
     }
   }
 }

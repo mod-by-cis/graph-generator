@@ -34,29 +34,29 @@ function LayoutStart() {
 
       <AccordionFields
         anchorTag={ANCHOR_ID}
-        firstViewID={[4, 5]}
+        firstViewID={[0]}
       >
-        <AccordionField viewID={0} title="o grafach..">
+        <AccordionField viewID={0} title="o tym..">
+          <PageAboutThis />
+        </AccordionField>
+
+        <AccordionField viewID={1} title="o grafach..">
           <PageEduGraphs />
         </AccordionField>
-        <AccordionField viewID={1} title="o dot..">
+        <AccordionField viewID={2} title="o dot..">
           <PageEduDot />
         </AccordionField>
 
-        <AccordionField viewID={2} title="Wstaw..">
+        <AccordionField viewID={3} title="Wstaw..">
           <PageDotInsert />
         </AccordionField>
 
-        <AccordionField viewID={3} title="Pisz..">
+        <AccordionField viewID={4} title="Pisz..">
           <PageDotWriter />
         </AccordionField>
 
-        <AccordionField viewID={4} title="Zobacz..">
+        <AccordionField viewID={5} title="Zobacz..">
           <PageDotRender />
-        </AccordionField>
-
-        <AccordionField viewID={5} title="o tym..">
-          <PageAboutThis />
         </AccordionField>
       </AccordionFields>
     </>
@@ -74,22 +74,32 @@ if (rootElement) {
   );
 }
 
+// --- REJESTRACJA SERVICE WORKERA ---
 
-// --- REJESTRACJA SERVICE WORKERA ---
 // Sprawdzamy, czy przeglądarka w ogóle wspiera Service Workery.
-if ('serviceWorker' in navigator) { 
- // Używamy eventu 'load', aby nie blokować początkowego renderowania strony.  
-// Rejestracja rozpocznie się dopiero, gdy strona będzie w pełni załadowana. 
- window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
- // Ścieżka do naszego pliku sw.js
-      .then(registration => {       
- // Logujemy sukces w konsoli deweloperskiej.
-        console.log('✅ Service Worker zarejestrowany pomyślnie. Zasięg:', registration.scope);      
-})
-      .catch(error => {
+if ("serviceWorker" in navigator) {
+  // Używamy eventu 'load', aby nie blokować początkowego renderowania strony.
+
+  // Rejestracja rozpocznie się dopiero, gdy strona będzie w pełni załadowana.
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      // Ścieżka do naszego pliku sw.js
+
+      .then((registration) => {
+        // Logujemy sukces w konsoli deweloperskiej.
+        console.log(
+          "✅ Service Worker zarejestrowany pomyślnie. Zasięg:",
+          registration.scope,
+        );
+      })
+      .catch((error) => {
         // Logujemy ewentualny błąd.
-        console.error('❌ Rejestracja Service Workera nie powiodła się:', error);
-      });
-  });
-}
+
+        console.error(
+          "❌ Rejestracja Service Workera nie powiodła się:",
+          error,
+        );
+      });
+  });
+}

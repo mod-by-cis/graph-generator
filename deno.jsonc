@@ -25,6 +25,10 @@
       "dom.asynciterable",
       "dom",
       "dom.iterable",
+      "webworker",
+      "webworker.asynciterable",
+      "webworker.importscripts",
+      "webworker.iterable",      
       "esnext",
       "es2024"
     ]
