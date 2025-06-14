@@ -2,7 +2,7 @@
  * @file ./tasks/docs-serve.ts
  * @author https://github.com/j-Cis
  * 
- * @lastmodified 2025-06-12T13:02:17.500Z+02:00
+ * @lastmodified 2025-06-14T18:17:07.886Z+02:00
  * @description Server deweloperski.
  */
 import { serveDir } from "$deno-http/file-server";
@@ -12,7 +12,7 @@ import { fromFileUrl, join, relative  } from "$deno-path";
 const rootPath = fromFileUrl(new URL("../", import.meta.url));
 const docsPath = `${rootPath}docs`;
 const devPath = join(docsPath, "dev");
-const lastBuildPath = join(docsPath, "gen", "lastBuild.txt");
+const lastBuildPath = join(docsPath, "gen", "main.lastBuild.txt");
 
 // --- Konfiguracja Live Reload ---
 const clients = new Set<WebSocket>();
