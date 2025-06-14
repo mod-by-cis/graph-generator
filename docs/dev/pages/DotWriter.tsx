@@ -2,7 +2,7 @@
  * @file ./docs/dev/pages/DotWriter.tsx
  * @author https://github.com/j-Cis
  *
- * @lastmodified 2025-06-12T17:07:38.027Z+02:00
+ * @lastmodified 2025-06-14T15:02:38.027Z+02:00
  * @description Komponent edytora do pisania kodu w języku DOT.
  */
 
@@ -61,6 +61,22 @@ function initializeMonaco(monaco: any) {
     ],
     colors: { "editor.background": "#1E1E1E" },
   });
+
+  // Rejestracja dostawcy formatowania dla języka DOT
+  monaco.languages.registerDocumentFormattingEditProvider('dot', {
+    provideDocumentFormattingEdits(model: any) {
+      // Prosta logika formatowania: wcięcie każdej linii
+      const text = model.getValue();
+      const lines = text.split('\n');
+      const formatted = lines.map((line: string) => line.trim() ? '  ' + line.trim() : '').join('\n');
+      
+      return [{
+        range: model.getFullModelRange(),
+        text: formatted,
+      }];
+    }
+  });
+
   isMonacoInitialized = true;
 }
 
@@ -70,7 +86,6 @@ export default function PageDotWriter(): VNode {
   const updateTimeout = useRef<number | null>(null);
 
   useEffect(() => {
-    // Sprawdzamy, czy `monaco` zostało już wczytane przez skrypt w HTML
     if (editorContainerRef.current && window.monaco) {
       const monaco = window.monaco;
       initializeMonaco(monaco);
@@ -81,6 +96,7 @@ export default function PageDotWriter(): VNode {
         theme: "myDotTheme",
         automaticLayout: true,
         wordWrap: "on",
+        mouseWheelZoom: false,
       });
       editorRef.current = editor;
 
@@ -92,11 +108,14 @@ export default function PageDotWriter(): VNode {
       });
 
       return () => {
-        subscription.dispose();
-        editor.dispose();
+        if (editorRef.current) {
+          subscription.dispose();
+          editorRef.current.dispose();
+          editorRef.current = null;
+        }
       };
     }
-  }, []); // Uruchom tylko raz, po zamontowaniu
+  }, []);
 
   const forceUpdateSignal = () => {
     if (editorRef.current) {
@@ -106,21 +125,60 @@ export default function PageDotWriter(): VNode {
   };
 
   const toggleWordWrap = () => {
-    if (editorRef.current) {
+    if (editorRef.current && window.monaco) {
       const currentWordWrap = editorRef.current.getOption(
-        monaco.editor.EditorOption.wordWrap,
+        window.monaco.editor.EditorOption.wordWrap,
       );
       editorRef.current.updateOptions({
         wordWrap: currentWordWrap === "on" ? "off" : "on",
       });
     }
   };
+  
+  const handleFormat = () => {
+    editorRef.current?.getAction('editor.action.formatDocument').run();
+  };
+
+  const handleCopy = () => {
+    if (editorRef.current) {
+      navigator.clipboard.writeText(editorRef.current.getValue())
+        .then(() => console.log("Skopiowano do schowka!"))
+        .catch(err => console.error("Błąd kopiowania:", err));
+    }
+  };
+  
+  const handleClear = () => {
+    if (editorRef.current) {
+      editorRef.current.setValue('');
+    }
+  };
+  
+  const handlePaste = async () => {
+    if (editorRef.current) {
+      try {
+        const text = await navigator.clipboard.readText();
+        editorRef.current.executeEdits('', [{
+          range: editorRef.current.getSelection(),
+          text: text
+        }]);
+      } catch (err) {
+        console.error("Błąd wklejania:", err);
+      }
+    }
+  };
 
   return (
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
-        <button onClick={toggleWordWrap}>Przełącz zawijanie</button>
-        <button onClick={forceUpdateSignal}>Aktualizuj Stan</button>
+        {/* --- ZAKTUALIZOWANE PRZYCISKI Z IKONAMI --- */}
+        <button type="button" onClick={toggleWordWrap} title="Przełącz zawijanie">↰</button>
+        <button type="button" onClick={forceUpdateSignal} title="Wymuś aktualizację stanu">✓</button>
+        <div class="toolbar-separator"></div>
+        <button type="button" onClick={handleFormat} title="Formatuj kod">🪄</button>
+        <button type="button" onClick={handleCopy} title="Kopiuj całość">📋</button>
+        <button type="button" onClick={handlePaste} title="Wklej">📥</button>
+        <div class="toolbar-separator"></div>
+        <button type="button" class="clear-btn" onClick={handleClear} title="Wyczyść edytor">🗑️</button>
       </div>
       <div class="dot-writer-editor" ref={editorContainerRef}></div>
     </div>
