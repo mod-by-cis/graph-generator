@@ -36,4 +36,14 @@
   flex-grow: 1; /* Wypełnij resztę dostępnej przestrzeni */
   width: 100%;
   height: 100%;
+
+
+  /* 1. Mówimy przeglądarce, aby na tym elemencie zezwalała tylko na 
+        przewijanie w pionie i poziomie, blokując wszystkie inne gesty,
+        w tym pinch-to-zoom. */
+  touch-action: pan-x pan-y;
+  
+  /* 2. (Opcjonalnie, ale zalecane) Zapobiega "wyciekaniu" przewijania
+        na całą stronę, gdy użytkownik dojedzie do końca edytora. */
+  overscroll-behavior: contain;
 }
