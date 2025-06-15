@@ -239,5 +239,6 @@
     "**/docs/gen/**": true,
     "**/.git/**": true,
     "**/.history/**": true
-  }
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false
 }
