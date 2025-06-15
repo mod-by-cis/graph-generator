@@ -109,6 +109,19 @@ export function PageDotWriter(): VNode {
         }, 20000);
       });
 
+      // ---  POPRAWKA: Blokowanie gestu "pinch-to-zoom" ---
+      const container = editorContainerRef.current;
+      const preventZoom = (e: TouchEvent) => {
+        // Jeśli gest dotykowy używa dwóch lub więcej palców, zablokuj domyślną akcję przeglądarki
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      };
+      
+      container.addEventListener('touchstart', preventZoom);
+      container.addEventListener('touchmove', preventZoom);
+
+
       return () => {
         if (editorRef.current) {
           subscription.dispose();
