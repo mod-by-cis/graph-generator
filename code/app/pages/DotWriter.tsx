@@ -79,7 +79,7 @@ function initializeMonaco(monaco: any) {
   isMonacoInitialized = true;
 }
 
-export default function PageDotWriter(): VNode {
+export function PageDotWriter(): VNode {
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<any | null>(null);
   const updateTimeout = useRef<number | null>(null);
