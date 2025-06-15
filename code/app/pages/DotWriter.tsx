@@ -15,19 +15,20 @@ import {
   updateDotContent,
 } from "../core/state-dot-current.ts";
 
-// Deklarujemy TypeScriptowi, że w globalnym zasięgu `window`
-// może istnieć obiekt `monaco`. To usuwa błędy typów.
+// Deklaracje globalne
 declare global {
   interface Window {
     monaco: any;
+    showOpenFilePicker?: any;
+    showSaveFilePicker?: any;
   }
 }
 
-// Flaga, aby upewnić się, że konfiguracja wykona się tylko raz
+// Flaga i funkcja inicjalizująca Monaco
 let isMonacoInitialized = false;
 function initializeMonaco(monaco: any) {
   if (isMonacoInitialized) return;
-
+  
   monaco.languages.register({ id: "dot" });
   monaco.languages.setMonarchTokensProvider("dot", {
     tokenizer: {
@@ -61,17 +62,13 @@ function initializeMonaco(monaco: any) {
     ],
     colors: { "editor.background": "#1E1E1E" },
   });
-
-  // Rejestracja dostawcy formatowania dla języka DOT
   monaco.languages.registerDocumentFormattingEditProvider("dot", {
     provideDocumentFormattingEdits(model: any) {
-      // Prosta logika formatowania: wcięcie każdej linii
       const text = model.getValue();
       const lines = text.split("\n");
       const formatted = lines.map((line: string) =>
         line.trim() ? "  " + line.trim() : ""
       ).join("\n");
-
       return [{
         range: model.getFullModelRange(),
         text: formatted,
@@ -82,10 +79,11 @@ function initializeMonaco(monaco: any) {
   isMonacoInitialized = true;
 }
 
-export function PageDotWriter(): VNode {
+export default function PageDotWriter(): VNode {
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<any | null>(null);
   const updateTimeout = useRef<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (editorContainerRef.current && window.monaco) {
@@ -109,18 +107,14 @@ export function PageDotWriter(): VNode {
         }, 20000);
       });
 
-      // ---  POPRAWKA: Blokowanie gestu "pinch-to-zoom" ---
       const container = editorContainerRef.current;
       const preventZoom = (e: TouchEvent) => {
-        // Jeśli gest dotykowy używa dwóch lub więcej palców, zablokuj domyślną akcję przeglądarki
         if (e.touches.length > 1) {
           e.preventDefault();
         }
       };
-      
       container.addEventListener('touchstart', preventZoom);
       container.addEventListener('touchmove', preventZoom);
-
 
       return () => {
         if (editorRef.current) {
@@ -128,6 +122,8 @@ export function PageDotWriter(): VNode {
           editorRef.current.dispose();
           editorRef.current = null;
         }
+        container.removeEventListener('touchstart', preventZoom);
+        container.removeEventListener('touchmove', preventZoom);
       };
     }
   }, []);
@@ -182,42 +178,90 @@ export function PageDotWriter(): VNode {
     }
   };
 
+  const handleSaveFile = async () => {
+    if (!editorRef.current) return;
+    const content = editorRef.current.getValue();
+    if (window.showSaveFilePicker) {
+      try {
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'graph.dot',
+          types: [{ description: 'Pliki DOT Graphviz', accept: { 'text/plain': ['.dot', '.gv'] } }],
+        });
+        const writable = await fileHandle.createWritable();
+        await writable.write(content);
+        await writable.close();
+      } catch (err) {
+        if (err.name !== 'AbortError') console.error("Błąd zapisu pliku:", err);
+      }
+    } else {
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'graph.dot';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const handleOpenFile = async () => {
+    if (window.showOpenFilePicker) {
+      try {
+        const [fileHandle] = await window.showOpenFilePicker({
+          types: [{ description: 'Pliki DOT', accept: { 'text/plain': ['.dot', '.gv'] } }],
+        });
+        const file = await fileHandle.getFile();
+        const content = await file.text();
+        editorRef.current?.setValue(content);
+      } catch (err) {
+        if (err.name !== 'AbortError') console.error("Błąd otwierania pliku:", err);
+      }
+    } else {
+      fileInputRef.current?.click();
+    }
+  };
+
+  const handleFileChange = (event: Event) => {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        editorRef.current?.setValue(content);
+      };
+      reader.readAsText(file);
+    }
+  };
+
   return (
     <div class="dot-writer-container">
       <div class="dot-writer-toolbar">
-        <button
-          type="button"
-          onClick={forceUpdateSignal}
-          title="Wymuś aktualizację stanu"
-        >
-          ✓
-        </button>
+        <button type="button" onClick={forceUpdateSignal} title="Wymuś aktualizację stanu">✓</button>
         <div class="toolbar-separator"></div>
-        <button type="button" onClick={handleCopy} title="Kopiuj całość">
-          📋
-        </button>
+        <button type="button" onClick={handleCopy} title="Kopiuj całość">📋</button>
         <button type="button" onClick={handlePaste} title="Wklej">📥</button>
-        <button type="button" onClick={handleFormat} title="Formatuj kod">
-          🪄
-        </button>
-        <button
-          type="button"
-          onClick={toggleWordWrap}
-          title="Przełącz zawijanie"
-        >
-          ↰
-        </button>
+        <button type="button" onClick={handleFormat} title="Formatuj kod">🪄</button>
+        <button type="button" onClick={toggleWordWrap} title="Przełącz zawijanie">↰</button>
         <div class="toolbar-separator"></div>
-        <button
-          type="button"
-          class="clear-btn"
-          onClick={handleClear}
-          title="Wyczyść edytor"
-        >
-          🗑️
-        </button>
+        <button type="button" class="clear-btn" onClick={handleClear} title="Wyczyść edytor">🗑️</button>
+        
+        {/* Przyciski do obsługi plików przeniesione na koniec */}
+        <div class="toolbar-separator"></div>
+        <button type="button" onClick={handleSaveFile} title="Zapisz plik">💾</button>
+        <button type="button" onClick={handleOpenFile} title="Otwórz plik">📂</button>
       </div>
       <div class="dot-writer-editor" ref={editorContainerRef}></div>
+      
+      {/* Ukryty input, używany tylko jako fallback */}
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        style={{ display: 'none' }} 
+        accept=".dot,.gv,text/plain"
+        onChange={handleFileChange}
+      />
     </div>
   );
 }
