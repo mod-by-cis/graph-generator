@@ -126,6 +126,18 @@
       user-select: none;
       /* Standard syntax */
     }
+
+
+/*
+ * Ta reguła zapobiega automatycznemu powiększaniu widoku po dotknięciu edytora.
+ * Przeglądarki mobilne (zwłaszcza iOS) powiększają stronę, gdy fokus jest
+ * na elemencie <input> lub <textarea> z czcionką mniejszą niż 16px.
+ * Ta reguła wymusza minimalny rozmiar czcionki na wewnętrznym, ukrytym
+ * polu tekstowym Monaco, nie wpływając na wygląd kodu, który jest renderowany osobno.
+*/
+.monaco-editor textarea {
+  font-size: 16px !important;
+}
   </style>
   <link rel="icon" type="image/x-icon" href="ico/favicon.ico">
   <link rel="manifest" href="gen/manifest.webmanifest" />
