@@ -48,7 +48,7 @@ jobs:
       # Krok 3: Uruchomienie zadania z deno.jsonc
       - name: Run build task
       # run: deno run -A ./tasks/docs-build.ts # Użyj -A lub określ konkretne uprawnienia
-        run: deno task gen # Bardziej idiomatyczne i zintegrowane z deno.jsonc
+        run: deno task gen:main # Bardziej idiomatyczne i zintegrowane z deno.jsonc
       
       # Krok 4: Commit i push zmian
       - name: Commit and push changes
