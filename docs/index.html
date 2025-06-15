@@ -129,15 +129,34 @@
 
 
 /*
- * Ta reguła zapobiega automatycznemu powiększaniu widoku po dotknięciu edytora.
- * Przeglądarki mobilne (zwłaszcza iOS) powiększają stronę, gdy fokus jest
- * na elemencie <input> lub <textarea> z czcionką mniejszą niż 16px.
- * Ta reguła wymusza minimalny rozmiar czcionki na wewnętrznym, ukrytym
- * polu tekstowym Monaco, nie wpływając na wygląd kodu, który jest renderowany osobno.
-*/
+ * Ta reguła jest kluczowa. Celuje ona we wszystkie pola <input> i <textarea>
+ * w całej aplikacji i ustawia im minimalny rozmiar czcionki na 16px.
+ * Jest to "magiczna liczba", przy której przeglądarki na iOS przestają
+ * automatycznie powiększać widok po uzyskaniu fokusu.
+ * Używamy `!important`, aby mieć pewność, że ta reguła nadpisze
+ * wszelkie inne style, w tym te z biblioteki Monaco Editor.
+ */
+input,
+textarea {
+  font-size: 16px !important;
+}
+
+/*
+ * Dodatkowo, celujemy bezpośrednio we wewnętrzne pole tekstowe Monaco Editor,
+ * aby mieć 100% pewności, że reguła zostanie zastosowana.
+ */
 .monaco-editor textarea {
   font-size: 16px !important;
 }
+
+/*
+ * Ta reguła jest dodatkowym zabezpieczeniem. Mówi ona kontenerowi edytora,
+ * aby blokował domyślne gesty systemowe, takie jak pinch-to-zoom.
+ */
+.dot-writer-editor {
+  touch-action: pan-x pan-y;
+}
+
   </style>
   <link rel="icon" type="image/x-icon" href="ico/favicon.ico">
   <link rel="manifest" href="gen/manifest.webmanifest" />
