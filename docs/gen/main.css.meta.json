@@ -1,0 +1,69 @@
+{
+  "inputs": {
+    "code/app/pages/AboutThis.css": {
+      "bytes": 5177,
+      "imports": []
+    },
+    "code/app/pages/DotWriter.css": {
+      "bytes": 880,
+      "imports": []
+    },
+    "code/app/pages/DotRender.css": {
+      "bytes": 2857,
+      "imports": []
+    },
+    "code/lib/ui/AccordionFields.css": {
+      "bytes": 3531,
+      "imports": []
+    },
+    "code/app/main.css": {
+      "bytes": 297,
+      "imports": [
+        {
+          "path": "code/app/pages/AboutThis.css",
+          "kind": "import-rule",
+          "original": "./pages/AboutThis.css"
+        },
+        {
+          "path": "code/app/pages/DotWriter.css",
+          "kind": "import-rule",
+          "original": "./pages/DotWriter.css"
+        },
+        {
+          "path": "code/app/pages/DotRender.css",
+          "kind": "import-rule",
+          "original": "./pages/DotRender.css"
+        },
+        {
+          "path": "code/lib/ui/AccordionFields.css",
+          "kind": "import-rule",
+          "original": "../lib/ui/AccordionFields.css"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "docs/gen/main.css": {
+      "imports": [],
+      "entryPoint": "code/app/main.css",
+      "inputs": {
+        "code/app/pages/AboutThis.css": {
+          "bytesInOutput": 3165
+        },
+        "code/app/pages/DotWriter.css": {
+          "bytesInOutput": 404
+        },
+        "code/app/pages/DotRender.css": {
+          "bytesInOutput": 1805
+        },
+        "code/lib/ui/AccordionFields.css": {
+          "bytesInOutput": 2406
+        },
+        "code/app/main.css": {
+          "bytesInOutput": 0
+        }
+      },
+      "bytes": 7781
+    }
+  }
+}

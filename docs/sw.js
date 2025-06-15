@@ -6,47 +6,45 @@
  */
 
 // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-const CACHE_NAME = 'graph-generator-cache-final-v1ak';
+const CACHE_NAME = 'graph-generator-cache-final-v1BA';
 
 // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
 // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
 const FILES_TO_CACHE = [
+
   // --- Pliki krytyczne ---
   '/graph-generator/',
   '/graph-generator/index.html',
-  '/graph-generator/manifest.webmanifest',
-  
-  // --- Style ---
-  '/graph-generator/css/reset.css',
-  '/graph-generator/css/ui/AccordionFields.css',
-  '/graph-generator/css/pages/DotWriter.css',
-  '/graph-generator/css/pages/DotRender.css',
-  '/graph-generator/css/pages/AboutThis.css',
-  '/graph-generator/css/main.css',
+  '/graph-generator/gen/manifest.webmanifest',
 
-  // --- Wygenerowane Skrypty, Mapy i Metadane ---
-  '/graph-generator/gen/main.js',
-  '/graph-generator/gen/main.js.map',
-  '/graph-generator/gen/main.meta.json',
-  '/graph-generator/gen/wasm-dot.js',
-  '/graph-generator/gen/wasm-dot.js.map',
-  '/graph-generator/gen/wasm-dot.meta.json',
-  '/graph-generator/gen/lastBuild.txt',
   
+  // --- Wygenerowane Skrypty i STyle---
+  '/graph-generator/gen/main.mjs',
+  '/graph-generator/gen/main.mjs.lastBuild.txt',
+  '/graph-generator/gen/main.css',
+  '/graph-generator/gen/main.css.lastBuild.txt',
+  '/graph-generator/gen/wasm-dot.mjs',
+  '/graph-generator/gen/wasm-dot.mjs.lastBuild.txt',
+
+  //'/graph-generator/gen/pwa-loader.js',
+  //'/graph-generator/gen/pwa-loader.js.lastBuild.txt',
+  //'/graph-generator/gen/sw.js',
+  //'/graph-generator/gen/sw.js.lastBuild.txt',
+  '/graph-generator/sw.js',
+
   // --- Ikony ---
-  '/graph-generator/icons/favicon.ico',
-  '/graph-generator/icons/icon-048.png',
-  '/graph-generator/icons/icon-128.png',
-  '/graph-generator/icons/icon-144.png',
-  '/graph-generator/icons/icon-152.png',
-  '/graph-generator/icons/icon-180.png',
-  '/graph-generator/icons/icon-384.png',
-  '/graph-generator/icons/icon-512.png',
+  '/graph-generator/ico/favicon.ico',
+  '/graph-generator/ico/icon-048.png',
+  '/graph-generator/ico/icon-128.png',
+  '/graph-generator/ico/icon-144.png',
+  '/graph-generator/ico/icon-152.png',
+  '/graph-generator/ico/icon-180.png',
+  '/graph-generator/ico/icon-384.png',
+  '/graph-generator/ico/icon-512.png', 
 
   // --- Zależności z CDN ---
   'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js'
-];
-
+]
 
 // 1. Instalacja Service Workera
 self.addEventListener('install', (event) => {

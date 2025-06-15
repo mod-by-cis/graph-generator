@@ -1,17 +1,9 @@
-// 
-// @file ./deno.jsonc
-// @author https://github.com/j-Cis
-// 
-// @lastmodified 2025-06-12T20:49:22.360Z+02:00
-// @description Plik konfiguracyjny projektu DENO@2.3.5
-// 
 {
   "tasks": {
-    "web": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
-    "gen": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
+    "dev:view": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
+    "gen:main": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
     "gen:wasm": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build_wasm.ts",
-    "u:t": "deno run ./tasks/utils/get-date-iso.ts",
-    "u:f": "deno run --allow-read ./tasks/utils/get-structure.ts"    
+    "gen:pwa": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/pwa-build.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -34,16 +26,17 @@
     ]
   },
   "imports": {
+    "$deno-http": "jsr:@std/http@^1.0.17",
+    "$deno-path": "jsr:@std/path@^1.1.0",
+    "$deno-fs": "jsr:@std/fs@^1.0.18",
+    "$deno-assert": "jsr:@std/assert@^1.0.13",
     "$esbuild": "https://deno.land/x/esbuild@v0.25.5",
     "$esbuild/": "https://deno.land/x/esbuild@v0.25.5/",
     "$esbuild-deno": "jsr:@luca/esbuild-deno-loader@^0.11.1",
-    "$deno-http": "jsr:@std/http@^1.0.17",
-    "$deno-path": "jsr:@std/path@^1.1.0",
+    "$hpcc-graphviz": "https://esm.sh/@hpcc-js/wasm@2.23.0",
     "$tsx-preact": "https://esm.sh/preact@10.26.8",
     "$tsx-preact/": "https://esm.sh/preact@10.26.8/",
     "$tsx-preact-signal": "https://esm.sh/@preact/signals@2.2.0",
-    "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/",
-    "$hpcc-graphviz": "https://esm.sh/@hpcc-js/wasm@2.23.0",
-    "$byCIS-read-structure-dir": "https://raw.githubusercontent.com/mod-by-cis/read-structure-dir/refs/tags/v0.1.1/mod.ts"
+    "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/"
   }
 }

@@ -1,0 +1,551 @@
+{
+  "inputs": {
+    "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
+      "bytes": 11582,
+      "imports": [],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8": {
+      "bytes": 83,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/preact.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
+      "bytes": 3789,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "./preact.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8/hooks": {
+      "bytes": 134,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/preact.mjs"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/hooks.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/hooks.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/@preact/signals-core@1.9.0/denonext/signals-core.mjs": {
+      "bytes": 4358,
+      "imports": [],
+      "format": "esm"
+    },
+    "https://esm.sh/@preact/signals-core@1.9.0?target=denonext": {
+      "bytes": 113,
+      "imports": [
+        {
+          "path": "https://esm.sh/@preact/signals-core@1.9.0/denonext/signals-core.mjs",
+          "kind": "import-statement",
+          "original": "/@preact/signals-core@1.9.0/denonext/signals-core.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8/hooks?target=denonext": {
+      "bytes": 134,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/preact.mjs"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/hooks.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/hooks.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8?target=denonext": {
+      "bytes": 83,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/preact.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/@preact/signals@2.2.0/denonext/signals.mjs": {
+      "bytes": 3704,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8?target=denonext",
+          "kind": "import-statement",
+          "original": "/preact@^10.26.8?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks?target=denonext",
+          "kind": "import-statement",
+          "original": "/preact@^10.26.8/hooks?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/@preact/signals-core@1.9.0?target=denonext",
+          "kind": "import-statement",
+          "original": "/@preact/signals-core@^1.9.0?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/@preact/signals-core@1.9.0?target=denonext",
+          "kind": "import-statement",
+          "original": "/@preact/signals-core@^1.9.0?target=denonext"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/@preact/signals@2.2.0": {
+      "bytes": 245,
+      "imports": [
+        {
+          "path": "https://esm.sh/@preact/signals-core@1.9.0?target=denonext",
+          "kind": "import-statement",
+          "original": "/@preact/signals-core@^1.9.0?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks?target=denonext",
+          "kind": "import-statement",
+          "original": "/preact@^10.26.8/hooks?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8?target=denonext",
+          "kind": "import-statement",
+          "original": "/preact@^10.26.8?target=denonext"
+        },
+        {
+          "path": "https://esm.sh/@preact/signals@2.2.0/denonext/signals.mjs",
+          "kind": "import-statement",
+          "original": "/@preact/signals@2.2.0/denonext/signals.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/core/state-accordion.ts": {
+      "bytes": 5251,
+      "imports": [
+        {
+          "path": "https://esm.sh/@preact/signals@2.2.0",
+          "kind": "import-statement",
+          "original": "$tsx-preact-signal"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs": {
+      "bytes": 1789,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "./preact.mjs"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "./preact.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "https://esm.sh/preact@10.26.8/jsx-runtime": {
+      "bytes": 146,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/preact.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/preact.mjs"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs",
+          "kind": "import-statement",
+          "original": "/preact@10.26.8/denonext/jsx-runtime.mjs"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/lib/ui/AccordionField.tsx": {
+      "bytes": 1011,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/lib/ui/AccordionFieldsPilot.tsx": {
+      "bytes": 8279,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "code/app/core/state-accordion.ts",
+          "kind": "import-statement",
+          "original": "../../app/core/state-accordion.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/lib/ui/AccordionFields.tsx": {
+      "bytes": 4542,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "code/app/core/state-accordion.ts",
+          "kind": "import-statement",
+          "original": "../../app/core/state-accordion.ts"
+        },
+        {
+          "path": "code/lib/ui/AccordionField.tsx",
+          "kind": "import-statement",
+          "original": "./AccordionField.tsx"
+        },
+        {
+          "path": "../../app/types/css.ts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "code/lib/ui/AccordionFieldsPilot.tsx",
+          "kind": "import-statement",
+          "original": "./AccordionFieldsPilot.tsx"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/config/path.ts": {
+      "bytes": 102,
+      "imports": [],
+      "format": "esm"
+    },
+    "code/app/pages/AboutThis.tsx": {
+      "bytes": 12066,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "code/app/core/state-accordion.ts",
+          "kind": "import-statement",
+          "original": "../core/state-accordion.ts"
+        },
+        {
+          "path": "code/config/path.ts",
+          "kind": "import-statement",
+          "original": "../../config/path.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/EduGraphs.tsx": {
+      "bytes": 509,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/EduDot.tsx": {
+      "bytes": 519,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/core/state-dot-current.ts": {
+      "bytes": 1392,
+      "imports": [
+        {
+          "path": "https://esm.sh/@preact/signals@2.2.0",
+          "kind": "import-statement",
+          "original": "$tsx-preact-signal"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/DotWriter.tsx": {
+      "bytes": 6047,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "code/app/core/state-dot-current.ts",
+          "kind": "import-statement",
+          "original": "../core/state-dot-current.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/DotInsert.tsx": {
+      "bytes": 531,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/DotRender.tsx": {
+      "bytes": 6697,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/hooks",
+          "kind": "import-statement",
+          "original": "$tsx-preact/hooks"
+        },
+        {
+          "path": "code/app/core/state-dot-current.ts",
+          "kind": "import-statement",
+          "original": "../core/state-dot-current.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/pages/_mod.ts": {
+      "bytes": 201,
+      "imports": [
+        {
+          "path": "code/app/pages/AboutThis.tsx",
+          "kind": "import-statement",
+          "original": "./AboutThis.tsx"
+        },
+        {
+          "path": "code/app/pages/EduGraphs.tsx",
+          "kind": "import-statement",
+          "original": "./EduGraphs.tsx"
+        },
+        {
+          "path": "code/app/pages/EduDot.tsx",
+          "kind": "import-statement",
+          "original": "./EduDot.tsx"
+        },
+        {
+          "path": "code/app/pages/DotWriter.tsx",
+          "kind": "import-statement",
+          "original": "./DotWriter.tsx"
+        },
+        {
+          "path": "code/app/pages/DotInsert.tsx",
+          "kind": "import-statement",
+          "original": "./DotInsert.tsx"
+        },
+        {
+          "path": "code/app/pages/DotRender.tsx",
+          "kind": "import-statement",
+          "original": "./DotRender.tsx"
+        }
+      ],
+      "format": "esm"
+    },
+    "code/app/main.tsx": {
+      "bytes": 2618,
+      "imports": [
+        {
+          "path": "https://esm.sh/preact@10.26.8",
+          "kind": "import-statement",
+          "original": "$tsx-preact"
+        },
+        {
+          "path": "code/lib/ui/AccordionFields.tsx",
+          "kind": "import-statement",
+          "original": "../lib/ui/AccordionFields.tsx"
+        },
+        {
+          "path": "code/app/pages/_mod.ts",
+          "kind": "import-statement",
+          "original": "./pages/_mod.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "docs/gen/main.mjs.map": {
+      "imports": [],
+      "exports": [],
+      "inputs": {},
+      "bytes": 132664
+    },
+    "docs/gen/main.mjs": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "code/app/main.tsx",
+      "inputs": {
+        "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
+          "bytesInOutput": 10391
+        },
+        "https://esm.sh/preact@10.26.8": {
+          "bytesInOutput": 0
+        },
+        "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
+          "bytesInOutput": 2690
+        },
+        "https://esm.sh/preact@10.26.8/hooks": {
+          "bytesInOutput": 0
+        },
+        "https://esm.sh/@preact/signals-core@1.9.0/denonext/signals-core.mjs": {
+          "bytesInOutput": 4232
+        },
+        "https://esm.sh/@preact/signals-core@1.9.0?target=denonext": {
+          "bytesInOutput": 0
+        },
+        "https://esm.sh/preact@10.26.8/hooks?target=denonext": {
+          "bytesInOutput": 0
+        },
+        "https://esm.sh/preact@10.26.8?target=denonext": {
+          "bytesInOutput": 0
+        },
+        "https://esm.sh/@preact/signals@2.2.0/denonext/signals.mjs": {
+          "bytesInOutput": 2619
+        },
+        "https://esm.sh/@preact/signals@2.2.0": {
+          "bytesInOutput": 0
+        },
+        "code/app/core/state-accordion.ts": {
+          "bytesInOutput": 670
+        },
+        "https://esm.sh/preact@10.26.8/denonext/jsx-runtime.mjs": {
+          "bytesInOutput": 375
+        },
+        "https://esm.sh/preact@10.26.8/jsx-runtime": {
+          "bytesInOutput": 0
+        },
+        "code/lib/ui/AccordionField.tsx": {
+          "bytesInOutput": 50
+        },
+        "code/lib/ui/AccordionFieldsPilot.tsx": {
+          "bytesInOutput": 3246
+        },
+        "code/lib/ui/AccordionFields.tsx": {
+          "bytesInOutput": 1283
+        },
+        "code/config/path.ts": {
+          "bytesInOutput": 13
+        },
+        "code/app/pages/AboutThis.tsx": {
+          "bytesInOutput": 7134
+        },
+        "code/app/pages/_mod.ts": {
+          "bytesInOutput": 0
+        },
+        "code/app/pages/EduGraphs.tsx": {
+          "bytesInOutput": 241
+        },
+        "code/app/pages/EduDot.tsx": {
+          "bytesInOutput": 238
+        },
+        "code/app/core/state-dot-current.ts": {
+          "bytesInOutput": 509
+        },
+        "code/app/pages/DotWriter.tsx": {
+          "bytesInOutput": 3006
+        },
+        "code/app/pages/DotInsert.tsx": {
+          "bytesInOutput": 241
+        },
+        "code/app/pages/DotRender.tsx": {
+          "bytesInOutput": 2357
+        },
+        "code/app/main.tsx": {
+          "bytesInOutput": 948
+        }
+      },
+      "bytes": 40278
+    }
+  }
+}

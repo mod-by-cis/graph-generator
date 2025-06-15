@@ -1,0 +1,27 @@
+{
+  "inputs": {
+    "code/pwa/loader.ts": {
+      "bytes": 1994,
+      "imports": []
+    }
+  },
+  "outputs": {
+    "docs/gen/pwa-loader.js.map": {
+      "imports": [],
+      "exports": [],
+      "inputs": {},
+      "bytes": 2887
+    },
+    "docs/gen/pwa-loader.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "code/pwa/loader.ts",
+      "inputs": {
+        "code/pwa/loader.ts": {
+          "bytesInOutput": 793
+        }
+      },
+      "bytes": 833
+    }
+  }
+}

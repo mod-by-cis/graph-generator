@@ -2,7 +2,7 @@
 # @file ./.github/workflows/docs-build.yml
 # @author https://github.com/j-Cis
 # 
-# @lastmodified 2025-06-12T13:33:51.178Z+02:00
+# @lastmodified 2025-06-15T13:33:51.178Z+02:00
 # @description automatyzacja github.
 #
 
@@ -16,8 +16,9 @@ on:
       - main # Uruchom tylko dla gałęzi main
     paths:
       # Uruchom, jeśli zmienią się pliki źródłowe...
-      - 'docs/dev/**/*.ts'
-      - 'docs/dev/**/*.tsx'
+      - 'code/*.ts'
+      - 'code/*.tsx'
+      - 'code/*.css'
       # ...lub skrypt budujący...
       - 'tasks/docs-build.ts' 
       # ...lub konfiguracja Deno.
@@ -42,7 +43,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v2 # Zgodnie z https://github.com/denoland/setup-deno
         with:
-          deno-version: v2.3.5 # wersja Deno
+          deno-version: v2.3.6 # wersja Deno
 
       # Krok 3: Uruchomienie zadania z deno.jsonc
       - name: Run build task
@@ -53,14 +54,17 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "ci: auto-build main.js of docs"
+          commit_message: "ci: auto-build main.mjs of docs"
           
           # Wszystkie pliki podajemy jako jedną, wieloliniową listę
           file_pattern: |
-            docs/gen/main.js
-            docs/gen/main.js.map
-            docs/gen/lastBuild.txt
-            docs/gen/meta.json
+            docs/gen/main.mjs
+            docs/gen/main.mjs.map
+            docs/gen/main.mjs.lastBuild.txt
+            docs/gen/main.mjs.meta.json
+            docs/gen/main.css
+            docs/gen/main.css.lastBuild.txt
+            docs/gen/main.css.meta.json
             
           # Opcjonalnie, dla lepszej czytelności historii Git
           commit_user_name: GitHub Actions Bot

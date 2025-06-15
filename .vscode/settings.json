@@ -134,7 +134,7 @@
   // --- Formatowanie przy Zapisie i Formatery ---
   "editor.formatOnSave": true,
   "[typescript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
@@ -158,7 +158,8 @@
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
   },
   "[dot]": {
     "editor.defaultFormatter": "tintinweb.graphviz-interactive-preview"
@@ -224,7 +225,6 @@
   // --- Wykluczenia z Widoku i Wyszukiwania ---
   "files.exclude": {
     "**/deno.lock": true,
-    "**/docs/gen": true,
     "**/node_modules": true
   },
   "search.exclude": {
@@ -236,6 +236,7 @@
     "**/node_modules": true
   },
   "files.readonlyInclude": {
+    "**/docs/gen/**": true,
     "**/.git/**": true,
     "**/.history/**": true
   }

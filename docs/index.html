@@ -1,40 +1,140 @@
-<!--
-/**
- * @file ./docs/index.html
- * @author https://github.com/j-Cis
- * 
- * @lastmodified 2025-06-12T19:28:48.036Z+02:00
- * @description Główny plik montowania.
- */
--->
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#FCFDE4" />
-  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
-  <link rel="apple-touch-icon" href="icons/icon-180.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png" />
-  <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png" />
-  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="GraphDotGen" />
-  
-  <!-- --- Koniec dodatkowych tagów --- -->
+  <!-- 🔽 Reset stylów DOMYŚLNYCH - PIORYTET  -->
+  <style>
+    /* === Nowoczesny Reset CSS === */
 
-  <title>graph-generator</title>
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/ui/AccordionFields.css" />
-  <link rel="stylesheet" href="css/pages/DotWriter.css" />
-  <link rel="stylesheet" href="css/pages/DotRender.css" />
-  <link rel="stylesheet" href="css/pages/AboutThis.css" />
-  <link rel="stylesheet" href="css/main.css" />
+    /* 1. Użyj bardziej intuicyjnego modelu pudełkowego dla wszystkich elementów.
+  Padding i border nie będą już powiększać elementów.
+*/
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    /* 2. Usuń domyślne marginesy.
+ */
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    ul,
+    ol,
+    li,
+    figure,
+    figcaption,
+    blockquote,
+    dl,
+    dd {
+      margin: 0;
+    }
+
+    /* 3. Ustaw `html` i `body` na pełną wysokość i szerokość okna przeglądarki.
+  To jest bezpośrednia odpowiedź na Twoją prośbę.
+  Dodatkowo, `line-height` poprawia czytelność tekstu.
+*/
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      /* Lepsze renderowanie czcionek na WebKit */
+
+      /* Ta właściwość mówi przeglądarce, aby wyłączyła domyślne gesty
+        takie jak pinch-to-zoom i double-tap-to-zoom, pozwalając jednocześnie
+       na normalne przewijanie (pan). To jest nowoczesny standard. */
+      touch-action: manipulation;
+    }
+
+    /* 4. Uprość resetowanie stylów list
+ */
+    ul,
+    ol {
+      padding: 0;
+      list-style: none;
+    }
+
+    /* 5. Spraw, aby media (obrazki, wideo) były domyślnie responsywne.
+  Nie będą "wystawać" poza swój kontener.
+*/
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* 6. Zapewnij, aby elementy formularzy dziedziczyły style czcionek.
+  Dzięki temu przyciski, pola tekstowe itp. będą wyglądać spójnie z resztą tekstu.
+*/
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    /* 7. Usuń domyślne dekoracje tekstu z linków.
+ */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* 8. Unikaj przepełnienia tekstu (text overflow).
+ */
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      overflow-wrap: break-word;
+    }
+
+    /* 9. Stwórz kontekst "stackowania" na elemencie root aplikacji.
+  To bardziej zaawansowana technika, która zapobiega problemom z `z-index` w przyszłości.
+*/
+    #root {
+      isolation: isolate;
+      height: 100%;
+      /* Upewnij się, że kontener aplikacji również zajmuje pełną wysokość */
+      width: 100%;
+    }
+
+    .non-select {
+      -webkit-user-select: none;
+      /* Safari */
+      -ms-user-select: none;
+      /* IE 10 and IE 11 */
+      user-select: none;
+      /* Standard syntax */
+    }
+  </style>
+  <link rel="icon" type="image/x-icon" href="ico/favicon.ico">
+  <link rel="manifest" href="gen/manifest.webmanifest" />
+  <link rel="stylesheet" href="gen/main.css" />
+  <link rel="apple-touch-icon" href="ico/icon-180.png" />
+  <link rel="apple-touch-icon" href="ico/icon-152.png" sizes="152x152" />
+  <link rel="apple-touch-icon" href="ico/icon-167.png" sizes="167x167" />
+  <link rel="apple-touch-icon" href="ico/icon-180.png" sizes="180x180" />
+  <link rel="apple-touch-icon" href="ico/icon-192.png" sizes="192x192" />
 </head>
 
 <body>
@@ -68,15 +168,14 @@
       }
 
       // 1. Najpierw ładujemy naszą ciężką bibliotekę Graphviz.
-      loadScript('gen/wasm-dot.js')
+      loadScript('gen/wasm-dot.mjs')
         .then(() => {
           // 2. Dopiero gdy jest gotowa, ładujemy główną aplikację.
-          return loadScript('gen/main.js');
+          return loadScript('gen/main.mjs');
         })
         .catch(err => console.error("Błąd ładowania skryptów aplikacji:", err));
     });
   </script>
-  <!--<script type="module" src="gen/main.js"></script>-->
 </body>
 
 </html>

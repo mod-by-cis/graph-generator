@@ -4,9 +4,10 @@
  * * @lastmodified 2025-06-14T18:11:32.178Z+02:00
  * @description Budowanie wydania wasm-dot.
  */
-import { build } from "./utils/esbuild.ts";
 
+import ClassEsbuildManager, { EnumTask, EnumTimestampMode } from "../logic/esbuild.ts";
 
-build("Biblioteka Graphviz","wasm-dot","./tasks/utils/wasm-loader.ts",false,false,[]);
-
-
+const builder = ClassEsbuildManager.ES__INIT();
+builder.task = EnumTask.WASM_MJS;
+await builder.runBuild();
+builder.ES__STOP();

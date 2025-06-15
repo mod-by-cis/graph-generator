@@ -1,11 +1,17 @@
 /**
  * @file ./tasks/docs-build.ts
  * @author https://github.com/j-Cis * 
- * * @lastmodified 2025-06-14T18:11:32.178Z+02:00
+ * * @lastmodified 2025-06-15T18:11:32.178Z+02:00
  * @description Budowanie wydania.
  */
-import { build } from "./utils/esbuild.ts";
 
+import ClassEsbuildManager, { EnumTask, EnumTimestampMode } from "../logic/esbuild.ts";
 
+const builder = ClassEsbuildManager.ES__INIT();
 
-build("Główna aplikacja","main","docs/dev/main.tsx",true,true,["https://esm.sh/@hpcc-js/wasm@2.23.0"]);
+builder.task = EnumTask.MAIN_MJS;
+await builder.runBuild();
+builder.task = EnumTask.MAIN_CSS;
+await builder.runBuild();
+
+builder.ES__STOP();
