@@ -14,7 +14,7 @@ const icons = Object.values(allIcons.png).map(icon => {
     sizes: `${icon.sizePX}x${icon.sizePX}`,
     type: "image/png"
   };
-  // Zgodnie z Twoim plikiem, dodajemy `purpose` dla ikon 192 i 512
+  //  dodajemy `purpose` dla ikon 192 i 512
   if (icon.sizePX === 192) {
     iconEntry.purpose = "any";
   } else if (icon.sizePX === 512) {
@@ -23,10 +23,10 @@ const icons = Object.values(allIcons.png).map(icon => {
   return iconEntry;
 });
 
-// Tworzymy obiekt manifestu, odzwierciedlający w 100% Twój plik JSON
+// Tworzymy obiekt manifestu,
 const manifest = {
-  name: "Graph Generator",
-  short_name: "GraphGen",
+  name: "Graph Render with Dot Editor",
+  short_name: "GraphDot",
   description: "Aplikacja do wizualizacji i edycji grafów w języku DOT.",
   scope: `${publicPath}/`,
   start_url: `${publicPath}/`,

@@ -9,8 +9,9 @@ export enum EnumTask {
   MAIN_CSS = "main.css",
   MAIN_MJS = "main.mjs",
   WASM_MJS = "wasm-dot.mjs",
-  PWA_LOADER = "pwa-loader.js",
-  PWA_SW = "sw.js",
+  PWA_MANIFEST = "manifest.webmanifest",
+  PWA_SW_LOADER = "pwa-loader.js",
+  PWA_SW_VERSION = "sw.js",
 }
 
 /**
@@ -49,6 +50,9 @@ import { assert } from "$deno-assert";
 import * as esbuild from "$esbuild/mod.js";
 import { denoPlugins } from "$esbuild-deno";
 
+import TEXT__PWA_SW from "../code/pwa/text_sw.ts";
+import TEXT__PWA_SW_LOADER from "../code/pwa/text_sw-loader.ts";
+import OBJECT_PWA_MANIFEST from "../code/pwa/manifest.ts"
 
 
 /**
@@ -60,6 +64,7 @@ export default class ClassEsbuildManager {
   readonly #pathRoot: string;
   readonly #pathDeno: string;
   readonly #pathDist: string;
+  readonly #pathPWA: string;
   readonly #mapTaskConfig: ReadonlyMap<EnumTask, TypeTaskConfig>;
   #taskCurrent: EnumTask = EnumTask.NONE;
 
@@ -68,6 +73,7 @@ export default class ClassEsbuildManager {
     this.#pathRoot = fromFileUrl(new URL("../", import.meta.url));
     this.#pathDeno = join(this.#pathRoot, "deno.jsonc");
     this.#pathDist = join(this.#pathRoot, "docs/gen");
+    this.#pathPWA = join(this.#pathRoot, "docs/pwa");
 
     this.#mapTaskConfig = new Map<EnumTask, TypeTaskConfig>([
       [
@@ -104,22 +110,22 @@ export default class ClassEsbuildManager {
           outputExt: ".mjs",
         },
       ],
-      [
-        EnumTask.PWA_LOADER, {
-          subject: "PWA Loader (TS -> JS)",
-          entryPoints: ["code/pwa/loader.ts"],
-          outputFilename: "pwa-loader",
-          outputExt: ".js",
-        },
-      ],
-      [
-        EnumTask.PWA_SW, {
-          subject: "Service Worker (TS -> JS)",
-          entryPoints: ["code/pwa/sw.ts"],
-          outputFilename: "sw",
-          outputExt: ".js",
-        },
-      ],
+      //[
+      //  EnumTask.PWA_SW_LOADER, {
+      //    subject: "PWA Loader (TS -> JS)",
+      //    entryPoints: ["code/pwa/loader.ts"],
+      //    outputFilename: "pwa-loader",
+      //    outputExt: ".js",
+      //  },
+      //],
+      //[
+      //  EnumTask.PWA_SW_VERSION, {
+      //    subject: "Service Worker (TS -> JS)",
+      //    entryPoints: ["code/pwa/sw.ts"],
+      //    outputFilename: "sw",
+      //    outputExt: ".js",
+      //  },
+      //],
     ]);
   }
 
@@ -145,6 +151,37 @@ export default class ClassEsbuildManager {
   }
 
   public async runBuild(): Promise<void> {
+    if(this.#taskCurrent === EnumTask.PWA_SW_VERSION || this.#taskCurrent === EnumTask.PWA_SW_LOADER || this.#taskCurrent === EnumTask.PWA_MANIFEST){
+      
+      if(this.#taskCurrent === EnumTask.PWA_SW_VERSION){
+        Deno.writeTextFile(
+          join(this.#pathPWA,EnumTask.PWA_SW_VERSION),
+          TEXT__PWA_SW(this.#timestampNEW.ts('-','-','-'))
+        );
+        console.log(`✅ ServiceWorker PWA zapisany w: ${join(this.#pathPWA,EnumTask.PWA_SW_VERSION)}`);
+        this.#timestampSET(this.#pathPWA,EnumTask.PWA_SW_VERSION);
+      }
+      if(this.#taskCurrent === EnumTask.PWA_SW_LOADER){
+        Deno.writeTextFile(
+          join(this.#pathPWA,EnumTask.PWA_SW_LOADER),
+          TEXT__PWA_SW_LOADER()
+        );
+        console.log(`✅ Loader PWA/SW zapisany w: ${join(this.#pathPWA,EnumTask.PWA_SW_LOADER)}`);
+        this.#timestampSET(this.#pathPWA,EnumTask.PWA_SW_LOADER);
+      }
+      if(this.#taskCurrent === EnumTask.PWA_MANIFEST){
+        Deno.writeTextFile(
+          join(this.#pathPWA,EnumTask.PWA_MANIFEST),
+          JSON.stringify(OBJECT_PWA_MANIFEST, null, 2)
+        );
+        console.log(`✅ Manifest PWA zapisany w: ${join(this.#pathPWA,EnumTask.PWA_MANIFEST)}`);
+        this.#timestampSET(this.#pathPWA,EnumTask.PWA_MANIFEST);
+      }
+
+      return;
+    }
+
+
     const configTask = this.#mapTaskConfig.get(this.#taskCurrent);
 
     if (!configTask) {
@@ -223,35 +260,79 @@ export default class ClassEsbuildManager {
         console.error(`❌ Nie można zarządzać datą: brak konfiguracji dla zadania ${taskEnum}`);
         return null;
     }
-    const pathOutputRelative = join("docs/gen", `${configTask.outputFilename}${configTask.outputExt}`);
-    const pathBuiltFile = join(this.#pathRoot, pathOutputRelative);
-    const pathLastBuild = `${pathBuiltFile}.lastBuild.txt`;
+    //const pathOutputRelative = join("docs/gen", `${configTask.outputFilename}${configTask.outputExt}`);
+    //const pathBuiltFile = join(this.#pathRoot, pathOutputRelative);
+    //const pathLastBuild = `${pathBuiltFile}.lastBuild.txt`;
 
     switch (mode) {
       case EnumTimestampMode.GET:
-        try {
-          const timestamp = await Deno.readTextFile(pathLastBuild);
-          return timestamp.trim();
-        } catch (err) {
-          if (err instanceof Deno.errors.NotFound) return null;
-          console.error(`❌ Błąd podczas odczytu pliku znacznika czasu "${pathLastBuild}":`, err.message);
-          return null;
-        }
+        return await this.#timestampGET(join(this.#pathRoot,"docs/gen"),`${configTask.outputFilename}${configTask.outputExt}`);
+        //try {
+        //  const timestamp = await Deno.readTextFile(pathLastBuild);
+        //  return timestamp.trim();
+        //} catch (err) {
+        //  if (err instanceof Deno.errors.NotFound) return null;
+        //  console.error(`❌ Błąd podczas odczytu pliku znacznika czasu "${pathLastBuild}":`, err.message);
+        //  return null;
+        //}
 
       case EnumTimestampMode.SET: {
-        const now = new Date();
-        const timezoneOffset = now.getTimezoneOffset();
-        const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
-        const offsetMinutes = Math.abs(timezoneOffset) % 60;
-        const offsetSign = timezoneOffset <= 0 ? "+" : "-";
-        const pad = (num: number) => String(num).padStart(2, '0');
-        const timestamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}${offsetSign}${pad(offsetHours)}:${pad(offsetMinutes)}`;
-
-        await Deno.writeTextFile(pathLastBuild, timestamp);
-        console.log(`  - Znacznik czasu zapisany: ${pathLastBuild.replace(this.#pathRoot, ".")}`);
+        await this.#timestampSET(join(this.#pathRoot,"docs/gen"),`${configTask.outputFilename}${configTask.outputExt}`);
+        //const timestamp = this.#timestampNEW.ts();
+        //const timezones = this.#timestampNEW.tz();
+        //await Deno.writeTextFile(pathLastBuild, timestamp+timezones);
+        //console.log(`  - Znacznik czasu zapisany: ${pathLastBuild.replace(this.#pathRoot, ".")}`);
         return null;
       }
     }
+  }
+  async #timestampGET(pathForTimestamp:string|URL, nameOfTimestamp:string): Promise<string | null>{
+    const pathABS = join(pathForTimestamp,nameOfTimestamp+'.lastBuild.txt');
+    const pathREL = pathABS.replace(this.#pathRoot, ".");
+    try {
+      const timestamp = await Deno.readTextFile(pathABS);
+      return timestamp.trim();
+    } catch (err) {
+      if (err instanceof Deno.errors.NotFound) return null;
+      console.error(`❌ Błąd podczas odczytu pliku znacznika czasu "${pathREL}":`, err.message);
+      return null;
+    }
+  }
+  async #timestampSET(pathForTimestamp:string|URL, nameOfTimestamp:string): Promise<string>{
+    const timestamp = this.#timestampNEW.ts();
+    const timezones = this.#timestampNEW.tz();
+    const pathABS = join(pathForTimestamp,nameOfTimestamp+'.lastBuild.txt');
+    const pathREL = pathABS.replace(this.#pathRoot, ".");
+    await Deno.writeTextFile(pathABS, timestamp+timezones);
+    console.log(`  - Znacznik czasu zapisany: ${pathREL}`);
+    return timestamp+timezones;
+  }
+
+  get #timestampNEW(): {
+    Y: number;
+    MDd: [number,number,number];
+    HMSz: [number,number,number,number];
+    Z: [string,number,number];
+    l: (zer: number, num: number) => string;
+    ts: (sD?:string,sDT?:string,sT?:string) => string;
+    tz: (sT?:string,sS?:string,sign?:boolean) => string;
+  } {
+    const now = new Date();
+    const timezoneOffset = now.getTimezoneOffset();
+    const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+    const offsetMinutes = Math.abs(timezoneOffset) % 60;
+    const offsetSign = timezoneOffset <= 0 ? "+" : "-";
+    const offsetName = timezoneOffset <= 0 ? "plus" : "minus";
+    const pad = (num: number) => String(num).padStart(2, '0');    
+    return {
+      Y:now.getFullYear(), 
+      MDd:[now.getMonth() + 1, now.getDate(),(1+(now.getDay() + 6) % 7)], 
+      HMSz:[now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds()],
+      Z:[offsetSign,offsetHours,offsetMinutes],
+      l:(zer:number, num: number) => String(num).padStart(zer, '0'),
+      ts:(sD:string='-',sDT:string='T',sT:string=':') => `${now.getFullYear()}${sD}${pad(now.getMonth() + 1)}${sD}${pad(now.getDate())}${sD}${(1+(now.getDay() + 6) % 7)}${sDT}${pad(now.getHours())}${sT}${pad(now.getMinutes())}${sT}${pad(now.getSeconds())}${sT}${pad(now.getMilliseconds())}`,
+      tz:(sT:string=':',sS:string='',sign: boolean=true) =>`${sS}${sign?offsetSign:offsetName}}${sS}${pad(offsetHours)}${sT}${pad(offsetMinutes)}`
+    };    
   }
 
   async #assertFileExists(path: string): Promise<void> {

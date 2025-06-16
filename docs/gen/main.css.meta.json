@@ -1,15 +1,19 @@
 {
   "inputs": {
     "code/app/pages/AboutThis.css": {
-      "bytes": 5177,
+      "bytes": 4941,
       "imports": []
     },
     "code/app/pages/DotWriter.css": {
-      "bytes": 880,
+      "bytes": 1269,
       "imports": []
     },
     "code/app/pages/DotRender.css": {
-      "bytes": 2857,
+      "bytes": 2730,
+      "imports": []
+    },
+    "code/app/pages/EduDot.css": {
+      "bytes": 1921,
       "imports": []
     },
     "code/lib/ui/AccordionFields.css": {
@@ -17,7 +21,7 @@
       "imports": []
     },
     "code/app/main.css": {
-      "bytes": 297,
+      "bytes": 327,
       "imports": [
         {
           "path": "code/app/pages/AboutThis.css",
@@ -33,6 +37,11 @@
           "path": "code/app/pages/DotRender.css",
           "kind": "import-rule",
           "original": "./pages/DotRender.css"
+        },
+        {
+          "path": "code/app/pages/EduDot.css",
+          "kind": "import-rule",
+          "original": "./pages/EduDot.css"
         },
         {
           "path": "code/lib/ui/AccordionFields.css",
@@ -51,10 +60,13 @@
           "bytesInOutput": 3165
         },
         "code/app/pages/DotWriter.css": {
-          "bytesInOutput": 404
+          "bytesInOutput": 457
         },
         "code/app/pages/DotRender.css": {
           "bytesInOutput": 1805
+        },
+        "code/app/pages/EduDot.css": {
+          "bytesInOutput": 1468
         },
         "code/lib/ui/AccordionFields.css": {
           "bytesInOutput": 2406
@@ -63,7 +75,7 @@
           "bytesInOutput": 0
         }
       },
-      "bytes": 7781
+      "bytes": 9302
     }
   }
 }

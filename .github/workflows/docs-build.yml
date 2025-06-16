@@ -48,7 +48,7 @@ jobs:
       # Krok 3: Uruchomienie zadania z deno.jsonc
       - name: Run build task
       # run: deno run -A ./tasks/docs-build.ts # Użyj -A lub określ konkretne uprawnienia
-        run: deno task gen:main # Bardziej idiomatyczne i zintegrowane z deno.jsonc
+        run: deno task build --targetFor=main # Bardziej idiomatyczne i zintegrowane z deno.jsonc
       
       # Krok 4: Commit i push zmian
       - name: Commit and push changes
@@ -58,13 +58,15 @@ jobs:
           
           # Wszystkie pliki podajemy jako jedną, wieloliniową listę
           file_pattern: |
+            docs/gen/main.css
+            docs/gen/main.css.lastBuild.txt
+            docs/gen/main.css.meta.json
             docs/gen/main.mjs
             docs/gen/main.mjs.map
             docs/gen/main.mjs.lastBuild.txt
             docs/gen/main.mjs.meta.json
-            docs/gen/main.css
-            docs/gen/main.css.lastBuild.txt
-            docs/gen/main.css.meta.json
+            docs/pwa/sw.js
+            docs/pwa/sw.js.lastBuild.txt
             
           # Opcjonalnie, dla lepszej czytelności historii Git
           commit_user_name: GitHub Actions Bot

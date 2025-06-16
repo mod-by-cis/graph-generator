@@ -28,7 +28,7 @@
       "format": "esm"
     },
     "code/lib/wasm/loader-wasm-dot.ts": {
-      "bytes": 467,
+      "bytes": 454,
       "imports": [
         {
           "path": "https://esm.sh/@hpcc-js/wasm@2.23.0",
@@ -44,7 +44,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 13571340
+      "bytes": 13571314
     },
     "docs/gen/wasm-dot.mjs": {
       "imports": [],

@@ -3,6 +3,8 @@
  * @author https://github.com/j-Cis
  * @description Service Worker w TypeScript, wiernie odtwarzający logikę z sw.js.
  */
+
+
 // @ts-nocheck
 import { allIcons, dirWithBuild } from "../config/path.ts";
 
@@ -158,3 +160,5 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
+
+

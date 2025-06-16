@@ -168,6 +168,8 @@
   "cSpell.language": "en,pl-PL,pl",
   "cSpell.words": [
     "accordion",
+    "beforeinstallprompt",
+    "Bundlowanie",
     "commituje",
     "denoland",
     "denonext",
@@ -183,10 +185,13 @@
     "Inicjalizacja",
     "lastmodified",
     "loadera",
+    "odmontowaniu",
     "odmontowany",
     "odmontowywany",
+    "PIORYTET",
     "preact",
     "predefiniowanych",
+    "promptem",
     "propsów",
     "propsy",
     "rankdir",
@@ -195,8 +200,13 @@
     "stackowania",
     "stefanzweifel",
     "VNode",
+    "Waćpaństwo",
     "wieloliniową",
-    "Wyrenderuj"
+    "Workera",
+    "Workerem",
+    "Workery",
+    "Wyrenderuj",
+    "zdebugować"
   ],
   // =================================================================
   //  4. NARZĘDZIA I ROZSZERZENIA

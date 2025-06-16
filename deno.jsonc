@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev:view": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
+    "start": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
+    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/build.ts",
     "gen:main": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
     "gen:wasm": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build_wasm.ts",
     "gen:pwa": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/pwa-build.ts"
@@ -26,10 +27,11 @@
     ]
   },
   "imports": {
+    "$deno-assert": "jsr:@std/assert@^1.0.13",
+    "$deno-cli": "jsr:@std/cli@^1.0.20",
+    "$deno-fs": "jsr:@std/fs@^1.0.18",
     "$deno-http": "jsr:@std/http@^1.0.17",
     "$deno-path": "jsr:@std/path@^1.1.0",
-    "$deno-fs": "jsr:@std/fs@^1.0.18",
-    "$deno-assert": "jsr:@std/assert@^1.0.13",
     "$esbuild": "https://deno.land/x/esbuild@v0.25.5",
     "$esbuild/": "https://deno.land/x/esbuild@v0.25.5/",
     "$esbuild-deno": "jsr:@luca/esbuild-deno-loader@^0.11.1",

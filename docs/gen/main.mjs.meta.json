@@ -260,7 +260,7 @@
       "format": "esm"
     },
     "code/config/path.ts": {
-      "bytes": 102,
+      "bytes": 1383,
       "imports": [],
       "format": "esm"
     },
@@ -306,19 +306,8 @@
       ],
       "format": "esm"
     },
-    "code/app/pages/EduDot.tsx": {
-      "bytes": 519,
-      "imports": [
-        {
-          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
-          "kind": "import-statement",
-          "original": "$tsx-preact/jsx-runtime"
-        }
-      ],
-      "format": "esm"
-    },
     "code/app/core/state-dot-current.ts": {
-      "bytes": 1392,
+      "bytes": 1337,
       "imports": [
         {
           "path": "https://esm.sh/@preact/signals@2.2.0",
@@ -328,8 +317,34 @@
       ],
       "format": "esm"
     },
+    "code/app/pages/EduDot.tsx": {
+      "bytes": 5770,
+      "imports": [
+        {
+          "path": "$tsx-preact",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "code/app/core/state-dot-current.ts",
+          "kind": "import-statement",
+          "original": "../core/state-dot-current.ts"
+        },
+        {
+          "path": "code/app/core/state-accordion.ts",
+          "kind": "import-statement",
+          "original": "../core/state-accordion.ts"
+        },
+        {
+          "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
+          "kind": "import-statement",
+          "original": "$tsx-preact/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
     "code/app/pages/DotWriter.tsx": {
-      "bytes": 6047,
+      "bytes": 8612,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -355,7 +370,7 @@
       "format": "esm"
     },
     "code/app/pages/DotInsert.tsx": {
-      "bytes": 531,
+      "bytes": 509,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -366,7 +381,7 @@
       "format": "esm"
     },
     "code/app/pages/DotRender.tsx": {
-      "bytes": 6697,
+      "bytes": 7741,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -392,7 +407,7 @@
       "format": "esm"
     },
     "code/app/pages/_mod.ts": {
-      "bytes": 201,
+      "bytes": 195,
       "imports": [
         {
           "path": "code/app/pages/AboutThis.tsx",
@@ -428,7 +443,7 @@
       "format": "esm"
     },
     "code/app/main.tsx": {
-      "bytes": 2618,
+      "bytes": 2622,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -459,7 +474,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 132664
+      "bytes": 149058
     },
     "docs/gen/main.mjs": {
       "imports": [],
@@ -467,19 +482,19 @@
       "entryPoint": "code/app/main.tsx",
       "inputs": {
         "https://esm.sh/preact@10.26.8/denonext/preact.mjs": {
-          "bytesInOutput": 10391
+          "bytesInOutput": 10385
         },
         "https://esm.sh/preact@10.26.8": {
           "bytesInOutput": 0
         },
         "https://esm.sh/preact@10.26.8/denonext/hooks.mjs": {
-          "bytesInOutput": 2690
+          "bytesInOutput": 2751
         },
         "https://esm.sh/preact@10.26.8/hooks": {
           "bytesInOutput": 0
         },
         "https://esm.sh/@preact/signals-core@1.9.0/denonext/signals-core.mjs": {
-          "bytesInOutput": 4232
+          "bytesInOutput": 4244
         },
         "https://esm.sh/@preact/signals-core@1.9.0?target=denonext": {
           "bytesInOutput": 0
@@ -515,10 +530,10 @@
           "bytesInOutput": 1283
         },
         "code/config/path.ts": {
-          "bytesInOutput": 13
+          "bytesInOutput": 839
         },
         "code/app/pages/AboutThis.tsx": {
-          "bytesInOutput": 7134
+          "bytesInOutput": 7133
         },
         "code/app/pages/_mod.ts": {
           "bytesInOutput": 0
@@ -526,26 +541,26 @@
         "code/app/pages/EduGraphs.tsx": {
           "bytesInOutput": 241
         },
-        "code/app/pages/EduDot.tsx": {
-          "bytesInOutput": 238
-        },
         "code/app/core/state-dot-current.ts": {
           "bytesInOutput": 509
         },
+        "code/app/pages/EduDot.tsx": {
+          "bytesInOutput": 4109
+        },
         "code/app/pages/DotWriter.tsx": {
-          "bytesInOutput": 3006
+          "bytesInOutput": 4576
         },
         "code/app/pages/DotInsert.tsx": {
           "bytesInOutput": 241
         },
         "code/app/pages/DotRender.tsx": {
-          "bytesInOutput": 2357
+          "bytesInOutput": 3318
         },
         "code/app/main.tsx": {
-          "bytesInOutput": 948
+          "bytesInOutput": 952
         }
       },
-      "bytes": 40278
+      "bytes": 47576
     }
   }
 }

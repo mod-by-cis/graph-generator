@@ -86,7 +86,7 @@ if ("serviceWorker" in navigator) {
   // Rejestracja rozpocznie się dopiero, gdy strona będzie w pełni załadowana.
 
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js")
+    navigator.serviceWorker.register("./pwa/sw.js")
       // Ścieżka do naszego pliku sw.js
 
       .then((registration) => {
