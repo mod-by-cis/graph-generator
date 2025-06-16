@@ -318,7 +318,7 @@
       "format": "esm"
     },
     "code/app/pages/EduDot.tsx": {
-      "bytes": 5770,
+      "bytes": 6451,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -474,7 +474,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 149058
+      "bytes": 149898
     },
     "docs/gen/main.mjs": {
       "imports": [],
@@ -545,7 +545,7 @@
           "bytesInOutput": 509
         },
         "code/app/pages/EduDot.tsx": {
-          "bytesInOutput": 4109
+          "bytesInOutput": 4169
         },
         "code/app/pages/DotWriter.tsx": {
           "bytesInOutput": 4576
@@ -560,7 +560,7 @@
           "bytesInOutput": 952
         }
       },
-      "bytes": 47576
+      "bytes": 47636
     }
   }
 }
