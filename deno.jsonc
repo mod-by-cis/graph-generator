@@ -1,10 +1,7 @@
 {
   "tasks": {
     "start": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
-    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/build.ts",
-    "gen:main": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build.ts",
-    "gen:wasm": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/docs-build_wasm.ts",
-    "gen:pwa": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/pwa-build.ts"
+    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/build.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

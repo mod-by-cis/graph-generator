@@ -152,7 +152,7 @@ export function PageEduDot(): VNode {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Oficjalna Dokumentacja Graphviz
+              [graphviz.org] Oficjalna Dokumentacja Graphviz
             </a>{" "}
             - Najlepsze i najbardziej kompletne źródło wiedzy.
           </li>
@@ -163,7 +163,7 @@ export function PageEduDot(): VNode {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Pełna Lista Atrybutów
+              [graphviz.org] Pełna Lista Atrybutów
             </a>{" "}
             - Wszystkie możliwe opcje do stylizacji węzłów, krawędzi i grafów.
           </li>
@@ -174,9 +174,68 @@ export function PageEduDot(): VNode {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Galeria Przykładów
+              [graphviz.org] Galeria Przykładów
             </a>{" "}
             - Ogromna galeria inspirujących grafów stworzonych za pomocą DOT.
+          </li>
+          <li>
+            🔗{" "}
+            <a
+              href="https://www.graphviz.org/pdf/dotguide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              [graphviz.org] Głębszy opis (PDF)
+            </a>{" "}
+            - Plik PDF zawierający dogłębną analizę języka DOT.
+          </li>
+          <li>
+            🔗{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/DOT_(graph_description_language)"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              [en.wikipedia.org] WIKIPEDIA
+            </a>{" "}
+            -
+          </li>
+          <li>
+            🔗{" "}
+            <a
+              href="https://graphs.grevian.org/example"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              [graphs.grevian.org] Najczęstsze wzorce użycia
+            </a>{" "}
+            - Interaktywny cheat sheet (można pominąć interaktywność i kopiować
+            kod)
+          </li>
+          <li>
+            🔗{" "}
+            <a
+              href="https://renenyffenegger.ch/notes/tools/Graphviz/examples/index"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              [renenyffenegger.ch] Tutorial: Graphviz DOT Language (przystępny
+              przewodnik)
+            </a>{" "}
+            - Zbiór tematycznych przykładów z krótkimi wyjaśnieniami
+          </li>
+
+          <li>
+            🔗{" "}
+            <a
+              href="https://graphviz.gitlab.io/doc/info/lang.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              [graphviz.gitlab.io] DOT Language
+            </a>{" "}
+            - Abstract grammar for defining Graphviz nodes, edges, graphs,
+            subgraphs, and clusters.
           </li>
         </ul>
       </DocSection>

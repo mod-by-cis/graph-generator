@@ -10,7 +10,7 @@
 import { VNode } from "$tsx-preact";
 import { useEffect, useState } from "$tsx-preact/hooks";
 import { getAccordionState } from "../core/state-accordion.ts";
-import { dirWithIcons, dirWithBuild } from "../../config/path.ts";
+import { dirWithBuild, dirWithIcons } from "../../config/path.ts";
 
 // --- Komponenty Pomocnicze dla Czystości Kodu ---
 
@@ -143,6 +143,30 @@ export function PageAboutThis(): VNode {
     }
   };
 
+  const handleShowEduDot = () => {
+    const anchor = "graph-sections";
+    const stateSignal = getAccordionState(anchor);
+    if (stateSignal) {
+      const currentState = stateSignal.peek();
+      const EduDot = currentState.fieldTitles[2];
+      if (EduDot) {
+        stateSignal.value = {
+          ...currentState,
+          mode: "single",
+          visiblePanels: [EduDot, null],
+          // Opcjonalnie: zamykamy panel "O Aplikacji", aby pokazać przykład
+          // isOpen: false
+        };
+      } else {
+        console.error(
+          "Błąd: Nie można znaleźć paneli o viewID 4 i 5. Sprawdź, czy są one zdefiniowane w main.tsx.",
+        );
+      }
+    } else {
+      console.warn(`[AboutThis] Nie znaleziono stanu dla kotwicy: ${anchor}`);
+    }
+  };
+
   const englishFlags = ["🇬🇧", "🇺🇸", "🇨🇦", "🇦🇺", "🇪🇺", "🇳🇿", "🇮🇪"];
 
   return (
@@ -154,6 +178,14 @@ export function PageAboutThis(): VNode {
           Aplikacja ta, zrodzona z miłości do porządku i klarowności, służy do
           kreacji wizualizacji z dynamicznie pisanego kodu w języku DOT.
         </p>
+
+        <button
+          type="button"
+          class="example-button"
+          onClick={handleShowEduDot}
+        >
+          O języku "DOT"
+        </button>
 
         <h4>Aplikacja Progresywna (PWA)</h4>
         <p>
@@ -269,6 +301,14 @@ export function PageAboutThis(): VNode {
           is an interactive tool for data visualization. It allows for easy
           creation, editing, and rendering of graphs using the DOT language.
         </p>
+
+        <button
+          type="button"
+          class="example-button"
+          onClick={handleShowEduDot}
+        >
+          About language "DOT"
+        </button>
 
         <h4>Progressive Web App (PWA)</h4>
         <p>
