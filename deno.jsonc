@@ -36,6 +36,7 @@
     "$tsx-preact": "https://esm.sh/preact@10.26.8",
     "$tsx-preact/": "https://esm.sh/preact@10.26.8/",
     "$tsx-preact-signal": "https://esm.sh/@preact/signals@2.2.0",
-    "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/"
+    "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/",
+    "$$polyfills":"./code/polyfills.ts"
   }
 }

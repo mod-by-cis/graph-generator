@@ -14,7 +14,7 @@ import {
   AccordionField,
   AccordionFields,
   AccordionFieldsPilot,
-} from "../lib/ui/AccordionFields.tsx";
+} from "./ui/AccordionFields.tsx";
 
 import {
   PageAboutThis,

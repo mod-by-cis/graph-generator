@@ -1,0 +1,199 @@
+/**
+ * @file ./docs/css/ui/AccordionFields.css
+ * @author https://github.com/j-Cis
+ * 
+ * * @lastmodified 2025-06-12T13:13:11.138Z+02:00
+ * @description Główne style dla komponentu AccordionFields.
+ */
+
+/* --- Styl dla Kontrolera (Pilota) --- */
+
+.af-pilot-wrapper {
+  /* Możesz pozycjonować ten wrapper absolutnie, gdziekolwiek chcesz na stronie, np. */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 20px;
+}
+
+.af-pilot-rotate,
+.af-pilot-trigger {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  opacity: 50%;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.af-pilot-rotate,
+.af-pilot-trigger,
+.af-select-btn,
+.af-select-split-btn {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.af-select-btn,
+.af-select-split-btn {
+  border-radius: 10px;
+  font-size: 18px;
+  min-height: 45px;
+}
+
+.af-pilot-rotate:hover,
+.af-pilot-trigger:hover,
+.af-select-btn:hover,
+.af-select-split-btn:hover {
+  transform: scale(1.1);
+}
+.af-pilot-rotate:active,
+.af-pilot-trigger:active,
+.af-select-btn:active,
+.af-select-split-btn:active {
+  transform: scale(1.1);
+  background-color: rgba(251 245 113 / 0.7);
+  transition: transform 0.8s ease;
+}
+
+.af-controls-panel {
+  position: absolute;
+  bottom: calc(100% + 20px); /* Panel pojawia się nad przyciskiem */
+  right: 0;
+  width: 265px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border: 1px solid #eee;
+  animation: af-fade-in 0.2s ease-out;
+}
+
+.af-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.af-controls-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.af-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+}
+
+.af-controls-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.af-controls-panel li {
+  padding: 8px;
+  border-radius: 4px;
+}
+.af-controls-panel li:hover {
+  background-color: #f5f5f5;
+}
+
+@keyframes af-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Styl dla Kontenera Paneli --- */
+
+.af-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #fafafa;
+  border: 1px dashed #ddd;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.af-row {
+  flex-direction: row;
+}
+
+.af-col {
+  flex-direction: column;
+}
+
+.af-button-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.af-button-grid-col2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.af-title-group {
+  display: flex;
+  width: 100%;
+}
+
+.af-select-btn {
+  flex-grow: 1;
+  text-align: left;
+  /* ... inne style przycisku */
+}
+
+.af-select-split-btn {
+  flex-shrink: 0;
+  padding: 8px 10px;
+  margin-left: 5px;
+  /* ... inne style przycisku */
+}
+
+.af-panel {
+  overflow: auto; /* Paski przewijania w razie potrzeby */
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.af-panel-single {
+  width: 100%;
+  height: 100%;
+}
+
+.af-visual-divider {
+  background-color: #e0e0e0;
+}
+
+.af-container.af-row .af-visual-divider {
+  width: 2px;
+  height: 100%;
+}
+
+.af-container.af-col .af-visual-divider {
+  width: 100%;
+  height: 2px;
+}

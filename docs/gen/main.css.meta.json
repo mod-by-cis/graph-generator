@@ -16,12 +16,12 @@
       "bytes": 1921,
       "imports": []
     },
-    "code/lib/ui/AccordionFields.css": {
+    "code/app/ui/AccordionFields.css": {
       "bytes": 3531,
       "imports": []
     },
     "code/app/main.css": {
-      "bytes": 327,
+      "bytes": 322,
       "imports": [
         {
           "path": "code/app/pages/AboutThis.css",
@@ -44,9 +44,9 @@
           "original": "./pages/EduDot.css"
         },
         {
-          "path": "code/lib/ui/AccordionFields.css",
+          "path": "code/app/ui/AccordionFields.css",
           "kind": "import-rule",
-          "original": "../lib/ui/AccordionFields.css"
+          "original": "./ui/AccordionFields.css"
         }
       ]
     }
@@ -68,7 +68,7 @@
         "code/app/pages/EduDot.css": {
           "bytesInOutput": 1468
         },
-        "code/lib/ui/AccordionFields.css": {
+        "code/app/ui/AccordionFields.css": {
           "bytesInOutput": 2406
         },
         "code/app/main.css": {

@@ -53,7 +53,7 @@ import { denoPlugins } from "$esbuild-deno";
 import TEXT__PWA_SW from "../code/pwa/text_sw.ts";
 import TEXT__PWA_SW_LOADER from "../code/pwa/text_sw-loader.ts";
 import OBJECT_PWA_MANIFEST from "../code/pwa/manifest.ts"
-
+import { TimeSnap } from "./TimeSnap.ts";
 
 /**
  * Zarządza procesem budowania z esbuild .
@@ -105,7 +105,7 @@ export default class ClassEsbuildManager {
         EnumTask.WASM_MJS,
         {
           subject: "Loader biblioteki Graphviz (TS -> MJS)",
-          entryPoints: ["code/lib/wasm/loader-wasm-dot.ts"],
+          entryPoints: ["code/app/lib/wasm/loader-wasm-dot.ts"],
           outputFilename: "wasm-dot",
           outputExt: ".mjs",
         },
@@ -299,13 +299,14 @@ export default class ClassEsbuildManager {
     }
   }
   async #timestampSET(pathForTimestamp:string|URL, nameOfTimestamp:string): Promise<string>{
-    const timestamp = this.#timestampNEW.ts();
-    const timezones = this.#timestampNEW.tz();
+    //const timestamp = this.#timestampNEW.ts();
+    //const timezones = this.#timestampNEW.tz();
+    const stamp = TimeSnap.stampWRITE('_');
     const pathABS = join(pathForTimestamp,nameOfTimestamp+'.lastBuild.txt');
     const pathREL = pathABS.replace(this.#pathRoot, ".");
-    await Deno.writeTextFile(pathABS, timestamp+timezones);
+    await Deno.writeTextFile(pathABS, stamp);
     console.log(`  - Znacznik czasu zapisany: ${pathREL}`);
-    return timestamp+timezones;
+    return stamp;
   }
 
   get #timestampNEW(): {

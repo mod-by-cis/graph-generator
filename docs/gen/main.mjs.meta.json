@@ -181,7 +181,7 @@
       ],
       "format": "esm"
     },
-    "code/lib/ui/AccordionField.tsx": {
+    "code/app/ui/AccordionField.tsx": {
       "bytes": 1011,
       "imports": [
         {
@@ -197,8 +197,8 @@
       ],
       "format": "esm"
     },
-    "code/lib/ui/AccordionFieldsPilot.tsx": {
-      "bytes": 8279,
+    "code/app/ui/AccordionFieldsPilot.tsx": {
+      "bytes": 8272,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -208,7 +208,7 @@
         {
           "path": "code/app/core/state-accordion.ts",
           "kind": "import-statement",
-          "original": "../../app/core/state-accordion.ts"
+          "original": "../core/state-accordion.ts"
         },
         {
           "path": "https://esm.sh/preact@10.26.8/jsx-runtime",
@@ -218,8 +218,8 @@
       ],
       "format": "esm"
     },
-    "code/lib/ui/AccordionFields.tsx": {
-      "bytes": 4542,
+    "code/app/ui/AccordionFields.tsx": {
+      "bytes": 4528,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -234,20 +234,20 @@
         {
           "path": "code/app/core/state-accordion.ts",
           "kind": "import-statement",
-          "original": "../../app/core/state-accordion.ts"
+          "original": "../core/state-accordion.ts"
         },
         {
-          "path": "code/lib/ui/AccordionField.tsx",
+          "path": "code/app/ui/AccordionField.tsx",
           "kind": "import-statement",
           "original": "./AccordionField.tsx"
         },
         {
-          "path": "../../app/types/css.ts",
+          "path": "../types/css.ts",
           "kind": "import-statement",
           "external": true
         },
         {
-          "path": "code/lib/ui/AccordionFieldsPilot.tsx",
+          "path": "code/app/ui/AccordionFieldsPilot.tsx",
           "kind": "import-statement",
           "original": "./AccordionFieldsPilot.tsx"
         },
@@ -265,7 +265,7 @@
       "format": "esm"
     },
     "code/app/pages/AboutThis.tsx": {
-      "bytes": 13178,
+      "bytes": 13235,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -443,7 +443,7 @@
       "format": "esm"
     },
     "code/app/main.tsx": {
-      "bytes": 2622,
+      "bytes": 2617,
       "imports": [
         {
           "path": "https://esm.sh/preact@10.26.8",
@@ -451,9 +451,9 @@
           "original": "$tsx-preact"
         },
         {
-          "path": "code/lib/ui/AccordionFields.tsx",
+          "path": "code/app/ui/AccordionFields.tsx",
           "kind": "import-statement",
-          "original": "../lib/ui/AccordionFields.tsx"
+          "original": "./ui/AccordionFields.tsx"
         },
         {
           "path": "code/app/pages/_mod.ts",
@@ -474,7 +474,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 154404
+      "bytes": 154438
     },
     "docs/gen/main.mjs": {
       "imports": [],
@@ -520,13 +520,13 @@
         "https://esm.sh/preact@10.26.8/jsx-runtime": {
           "bytesInOutput": 0
         },
-        "code/lib/ui/AccordionField.tsx": {
+        "code/app/ui/AccordionField.tsx": {
           "bytesInOutput": 50
         },
-        "code/lib/ui/AccordionFieldsPilot.tsx": {
+        "code/app/ui/AccordionFieldsPilot.tsx": {
           "bytesInOutput": 3246
         },
-        "code/lib/ui/AccordionFields.tsx": {
+        "code/app/ui/AccordionFields.tsx": {
           "bytesInOutput": 1283
         },
         "code/config/path.ts": {
