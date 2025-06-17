@@ -156,7 +156,7 @@ export default class ClassEsbuildManager {
       if(this.#taskCurrent === EnumTask.PWA_SW_VERSION){
         Deno.writeTextFile(
           join(this.#pathPWA,EnumTask.PWA_SW_VERSION),
-          TEXT__PWA_SW(this.#timestampNEW.ts('-','-','-'))
+          TEXT__PWA_SW(TimeSnap.stampWRITE('-'))
         );
         console.log(`✅ ServiceWorker PWA zapisany w: ${join(this.#pathPWA,EnumTask.PWA_SW_VERSION)}`);
         this.#timestampSET(this.#pathPWA,EnumTask.PWA_SW_VERSION);
