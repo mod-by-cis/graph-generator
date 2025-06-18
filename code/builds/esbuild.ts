@@ -29,6 +29,7 @@ export interface TypeTaskOptions {
   isCssOnly?: boolean;
   usePreact?: boolean;
   external?: string[];
+  define?: { APP_VERSION?: string },
 }
 
 /**
@@ -56,12 +57,13 @@ import OBJECT_PWA_MANIFEST from "../pwa/manifest.ts"
 import { TimeSnap } from "../utils/TimeSnap.ts";
 import logBox,{type logBoxColorOptions, type logBoxStyleOptions} from "../utils/logBox.ts";
 
-const sH1:logBoxColorOptions = {color:0xC0BD94, bgColor:0x5D5730,boxColor:0x403C21};
-const sH2:logBoxColorOptions = {color:0x94C0C0, bgColor:0x30535D,boxColor:0x213940};
-const sH3:logBoxColorOptions = {color:  0xAC94C0, bgColor:0x53305D,boxColor:0x352140};
+//const sH1:logBoxColorOptions = {color:0xC0BD94, bgColor:0x5D5730,boxColor:0x403C21};
+//const sH2:logBoxColorOptions = {color:0x94C0C0, bgColor:0x30535D,boxColor:0x213940};
+//const sH3:logBoxColorOptions = {color:  0xAC94C0, bgColor:0x53305D,boxColor:0x352140};
 const sH4:logBoxColorOptions = {color:  0xC09494, bgColor:0x5D3030,boxColor:0x402121};
-const sT1:logBoxStyleOptions = {bold:true};
+//const sT1:logBoxStyleOptions = {bold:true};
 
+const VERSION = TimeSnap.stampWRITE('-');
 /**
  * Zarządza procesem budowania z esbuild .
  */
@@ -91,6 +93,7 @@ export default class ClassEsbuildManager {
           outputFilename: "main",
           outputExt: ".mjs",
           options: {
+            define: { "APP_VERSION": JSON.stringify(VERSION) },
             usePreact: true,
             external: ["https://esm.sh/@hpcc-js/wasm@2.23.0"] //["$hpcc-graphviz"],
           },
@@ -167,6 +170,10 @@ export default class ClassEsbuildManager {
         jsOptions.external = optionsTask.external;
     }
 
+    if (optionsTask.define) {
+      jsOptions.define = optionsTask.define;
+    }
+
     return jsOptions;
   }
 
@@ -175,7 +182,7 @@ export default class ClassEsbuildManager {
   async #writeFileAsPWA(taskChosen:EnumTask): Promise<void> {
       await Deno.writeTextFile(
         join(this.#pathOutputPWA, taskChosen),
-        this.#taskCurrent === EnumTask.PWA_SW_VERSION ? TEXT__PWA_SW(TimeSnap.stampWRITE('-')) : this.#taskCurrent === EnumTask.PWA_SW_LOADER ? TEXT__PWA_SW_LOADER() : this.#taskCurrent === EnumTask.PWA_MANIFEST ? JSON.stringify(OBJECT_PWA_MANIFEST, null, 2):''
+        this.#taskCurrent === EnumTask.PWA_SW_VERSION ? TEXT__PWA_SW(VERSION) : this.#taskCurrent === EnumTask.PWA_SW_LOADER ? TEXT__PWA_SW_LOADER() : this.#taskCurrent === EnumTask.PWA_MANIFEST ? JSON.stringify(OBJECT_PWA_MANIFEST, null, 2):''
       );
       const description = this.#taskCurrent === EnumTask.PWA_SW_VERSION ? 'ServiceWorker PWA' : this.#taskCurrent === EnumTask.PWA_SW_LOADER ? 'Loader PWA/SW' : this.#taskCurrent === EnumTask.PWA_MANIFEST ? 'Manifest PWA':'';
       console.log(`✅ ${description} zapisany w: ${join(this.#pathOutputPWA,taskChosen)}`);
@@ -222,7 +229,7 @@ export default class ClassEsbuildManager {
     }
   }
   async #timestampSET(pathForTimestamp:string|URL, nameOfTimestamp:string): Promise<string>{
-    const stamp = TimeSnap.stampWRITE('_');
+    const stamp = VERSION;
     const pathABS = join(pathForTimestamp,nameOfTimestamp+'.lastBuild.txt');
     const pathREL = pathABS.replace(this.#pathRoot, ".");
     await Deno.writeTextFile(pathABS, stamp);
@@ -309,6 +316,7 @@ export default class ClassEsbuildManager {
         minify: true,
         metafile: true,
         logLevel: "info",
+
     };
 
     const specificOptions = this.#getEsbuildSpecificOptions(optionsTask);

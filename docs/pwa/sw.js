@@ -6,7 +6,7 @@
    */
   
   // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-  const CACHE_NAME = 'graph-gen-by-cis--cache-version-2025w25d3-06d18-00m36s14t08q34-inc02m00';
+  const CACHE_NAME = 'graph-gen-by-cis--cache-version-2025w25d3-06d18-08m33s31t03q07-inc02m00';
   
   // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
   // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
