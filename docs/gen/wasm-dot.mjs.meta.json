@@ -27,7 +27,7 @@
       ],
       "format": "esm"
     },
-    "code/app/lib/wasm/loader-wasm-dot.ts": {
+    "code/builds/loader-wasm-dot.ts": {
       "bytes": 454,
       "imports": [
         {
@@ -44,12 +44,12 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 13571318
+      "bytes": 13571312
     },
     "docs/gen/wasm-dot.mjs": {
       "imports": [],
       "exports": [],
-      "entryPoint": "code/app/lib/wasm/loader-wasm-dot.ts",
+      "entryPoint": "code/builds/loader-wasm-dot.ts",
       "inputs": {
         "https://esm.sh/@hpcc-js/wasm@2.23.0/denonext/duckdb.mjs": {
           "bytesInOutput": 8501249
@@ -60,7 +60,7 @@
         "https://esm.sh/@hpcc-js/wasm@2.23.0": {
           "bytesInOutput": 0
         },
-        "code/app/lib/wasm/loader-wasm-dot.ts": {
+        "code/builds/loader-wasm-dot.ts": {
           "bytesInOutput": 19
         }
       },

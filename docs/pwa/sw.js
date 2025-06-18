@@ -6,7 +6,7 @@
    */
   
   // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-  const CACHE_NAME = 'graph-gen-by-cis--cache-version-2025w25d2-06d17-08m34s54t23q27-inc02m00';
+  const CACHE_NAME = 'graph-gen-by-cis--cache-version-2025w25d3-06d18-00m36s14t08q34-inc02m00';
   
   // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
   // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
@@ -30,7 +30,7 @@
     '/graph-generator/ico/favicon.ico',
     '/graph-generator/ico/icon-048.png',
     '/graph-generator/ico/icon-128.png',
-    '/graph-generator/ico/icon-144.png',
+  
     '/graph-generator/ico/icon-152.png',
     '/graph-generator/ico/icon-180.png',
     '/graph-generator/ico/icon-384.png',

@@ -38,7 +38,7 @@ export default function TEXT__PWA_SW(timestamp:string):string{
     '/graph-generator/ico/favicon.ico',
     '/graph-generator/ico/icon-048.png',
     '/graph-generator/ico/icon-128.png',
-    '/graph-generator/ico/icon-144.png',
+  
     '/graph-generator/ico/icon-152.png',
     '/graph-generator/ico/icon-180.png',
     '/graph-generator/ico/icon-384.png',

@@ -31,9 +31,10 @@ const AppIcon = () => (
 );
 
 const InfoSection = (
-  { title, flags, children }: {
+  { title, flags, version, children }: {
     title: string;
     flags: string[];
+    version: string;
     children: VNode;
   },
 ) => (
@@ -44,6 +45,7 @@ const InfoSection = (
         {flags.map((flag) => <FlagIcon key={flag} flag={flag} />)}
       </div>
       <h1>{title}</h1>
+      <p class="header-version">[{version}]</p>
     </header>
     <div class="about-this-content">
       {children}
@@ -59,6 +61,7 @@ export function PageAboutThis(): VNode {
   // ---  Stan i funkcje dla aktualizacji PWA ---
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
   const [newWorker, setNewWorker] = useState<ServiceWorker | null>(null);
+  const [appVersion, setAppVersion] = useState<string>("Pobieranie...");
 
   useEffect(() => {
     // Nasłuchujemy na zdarzenie instalacji (dla przycisku "Zainstaluj")
@@ -81,6 +84,23 @@ export function PageAboutThis(): VNode {
       window.removeEventListener("swUpdate", updateHandler as EventListener);
     };
   }, []);
+
+  // Logika wczytywania wersji z pliku (bez zmian)
+  const fetchVersion = async () => {
+    try { ///graph-generator
+      const response = await fetch("/pwa/sw.js.lastBuild.txt");
+      if (response.ok) {
+        const versionText = await response.text();
+        setAppVersion(versionText.trim());
+      } else {
+        setAppVersion("???-???-???");
+      }
+    } catch (error) {
+      console.error("Błąd wczytywania wersji aplikacji:", error);
+      setAppVersion("Błąd odczytu");
+    }
+  };
+  fetchVersion();
 
   // Funkcja, która aktywuje nowego Service Workera
   const handlePwaUpdate = () => {

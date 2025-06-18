@@ -1,7 +1,7 @@
 {
   "tasks": {
-    "start": "deno run --allow-net --allow-read --watch ./tasks/docs-serve.ts",
-    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./tasks/build.ts"
+    "start": "deno run --allow-net --allow-read --watch ./code/tasks/start.ts",
+    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run ./code/tasks/build.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -26,6 +26,7 @@
   "imports": {
     "$deno-assert": "jsr:@std/assert@^1.0.13",
     "$deno-cli": "jsr:@std/cli@^1.0.20",
+    "$deno-cli-format": "jsr:@std/fmt@^1.0.8",
     "$deno-fs": "jsr:@std/fs@^1.0.18",
     "$deno-http": "jsr:@std/http@^1.0.17",
     "$deno-path": "jsr:@std/path@^1.1.0",
@@ -37,6 +38,7 @@
     "$tsx-preact/": "https://esm.sh/preact@10.26.8/",
     "$tsx-preact-signal": "https://esm.sh/@preact/signals@2.2.0",
     "$tsx-preact-signal/": "https://esm.sh/@preact/signals@2.2.0/",
-    "$$polyfills":"./code/polyfills.ts"
+    "$$polyfills":"./code/polyfills.ts",
+    "$$utils": "./code/reExports.ts"
   }
 }

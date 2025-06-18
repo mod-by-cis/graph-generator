@@ -20,7 +20,7 @@ on:
       - 'code/*.tsx'
       - 'code/*.css'
       # ...lub skrypt budujący...
-      - 'tasks/docs-build.ts' 
+      - 'code/tasks/build.ts' 
       # ...lub konfiguracja Deno.
       - 'deno.jsonc'    
 
