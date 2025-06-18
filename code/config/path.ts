@@ -8,7 +8,7 @@ export const allIcons = {
     icon_032:{file: `${dirWithIcons}/icon-032.png`, sizePX:32  , length:   2220},
     icon_048:{file: `${dirWithIcons}/icon-048.png`, sizePX:48  , length:   4412},
     icon_128:{file: `${dirWithIcons}/icon-128.png`, sizePX:128 , length:  25723},
-   // icon_144:{file: `${dirWithIcons}/icon-144.png`, sizePX:144 , length:  31607},
+    icon_144:{file: `${dirWithIcons}/icon-144.png`, sizePX:144 , length:  31607},
     icon_152:{file: `${dirWithIcons}/icon-152.png`, sizePX:152 , length:  34782},
     icon_167:{file: `${dirWithIcons}/icon-167.png`, sizePX:167 , length:  41189},
     icon_180:{file: `${dirWithIcons}/icon-180.png`, sizePX:180 , length:  47062},

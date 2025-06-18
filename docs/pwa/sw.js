@@ -6,7 +6,7 @@
    */
   
   // Nowa, unikalna nazwa, aby wymusić aktualizację na wszystkich urządzeniach.
-  const CACHE_NAME = 'graph-gen-by-cis--cache-version-2025w25d3-06d18-08m33s31t03q07-inc02m00';
+  const CACHE_NAME = 'graph-dot-by-cis--cache-2025w25d3-06d18-11m50s22t35q42-inc02m00';
   
   // Pełna i poprawna lista plików do zapisania w pamięci podręcznej.
   // Wszystkie ścieżki są absolutne, aby poprawnie działały na GitHub Pages.
@@ -37,12 +37,12 @@
     '/graph-generator/ico/icon-512.png', 
 
     // --- ZNACZNIKI WERSJI ----
-    '/graph-generator/pwa/manifest.webmanifest.lastBuild.txt',
-    '/graph-generator/pwa/sw.js.lastBuild.txt',
-    '/graph-generator/pwa/pwa-loader.js.lastBuild.txt',
-    '/graph-generator/gen/wasm-dot.mjs.lastBuild.txt',
-    '/graph-generator/gen/main.mjs.lastBuild.txt',
-    '/graph-generator/gen/main.css.lastBuild.txt',
+    '/graph-generator/pwa/manifest.webmanifest.snapVERSION.txt',
+    '/graph-generator/pwa/sw.js.snapVERSION.txt',
+    '/graph-generator/pwa/pwa-loader.js.snapVERSION.txt',
+    '/graph-generator/gen/wasm-dot.mjs.snapVERSION.txt',
+    '/graph-generator/gen/main.mjs.snapVERSION.txt',
+    '/graph-generator/gen/main.css.snapVERSION.txt',
   
     // --- Zależności z CDN ---
     'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js'

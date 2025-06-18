@@ -1,4 +1,5 @@
 import "./polyfills.ts";
+import { fromFileUrl, join } from "$deno-path";
 export class TimeSnap {
     // # --- GRUPA ROKU ---
     /**
@@ -328,4 +329,27 @@ export class TimeSnap {
             timesnap.TZ
         ));
     }
-}  
+    static async fileSAVE(pathOfRoot: string | URL, pathForTimestamp: string | URL, nameOfTimestamp: string, snapVERSION:string): Promise<string | null> {
+        const pathABS = join(pathForTimestamp, nameOfTimestamp + '.snapVERSION.txt');
+        pathOfRoot = typeof pathOfRoot == "string" ? pathOfRoot : fromFileUrl(pathOfRoot);
+        const pathREL = pathABS.replace(pathOfRoot, ".");
+        await Deno.writeTextFile(pathABS, snapVERSION);
+        console.log(`  - Znacznik czasu zapisany: ${pathREL}`);
+        return snapVERSION;
+    }
+
+    static async fileLOAD(pathOfRoot: string | URL, pathForTimestamp: string | URL, nameOfTimestamp: string): Promise<string | null>{
+        const pathABS = join(pathForTimestamp, nameOfTimestamp + '.snapVERSION.txt');
+        pathOfRoot = typeof pathOfRoot == "string" ? pathOfRoot : fromFileUrl(pathOfRoot);
+        const pathREL = pathABS.replace(pathOfRoot, ".");
+        try {
+            const snapVERSION:string = await Deno.readTextFile(pathABS);
+            return snapVERSION.trim();
+        } catch (err) {
+            if (err instanceof Deno.errors.NotFound) return null;
+            console.error(`❌ Błąd podczas odczytu pliku znacznika czasu "${pathREL}":`, err.message);
+            return null;    
+        
+        }
+    }  
+}

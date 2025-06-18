@@ -260,12 +260,12 @@
       "format": "esm"
     },
     "code/config/path.ts": {
-      "bytes": 1385,
+      "bytes": 1383,
       "imports": [],
       "format": "esm"
     },
     "code/app/pages/AboutThis.tsx": {
-      "bytes": 13323,
+      "bytes": 13321,
       "imports": [
         {
           "path": "$tsx-preact",
@@ -474,7 +474,7 @@
       "imports": [],
       "exports": [],
       "inputs": {},
-      "bytes": 154519
+      "bytes": 154574
     },
     "docs/gen/main.mjs": {
       "imports": [],
@@ -530,7 +530,7 @@
           "bytesInOutput": 1283
         },
         "code/config/path.ts": {
-          "bytesInOutput": 779
+          "bytesInOutput": 839
         },
         "code/app/pages/AboutThis.tsx": {
           "bytesInOutput": 7759
@@ -560,7 +560,7 @@
           "bytesInOutput": 952
         }
       },
-      "bytes": 49653
+      "bytes": 49713
     }
   }
 }

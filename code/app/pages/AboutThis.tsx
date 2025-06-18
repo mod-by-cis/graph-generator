@@ -40,13 +40,13 @@ const InfoSection = (
   },
 ) => (
   <section class="about-this-section">
+    <p class="header-version">[{APP_VERSION}]</p>
     <AppIcon />
     <header class="about-this-header">
       <div class="flag-container">
         {flags.map((flag) => <FlagIcon key={flag} flag={flag} />)}
       </div>
       <h1>{title}</h1>
-      <p class="header-version">[{APP_VERSION}]</p>
     </header>
     <div class="about-this-content">
       {children}

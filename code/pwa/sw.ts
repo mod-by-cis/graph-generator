@@ -6,7 +6,7 @@
 
 
 // @ts-nocheck
-import { allIcons, dirWithBuild } from "../config/path.ts";
+import { allIcons } from "../config/path.ts";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -18,20 +18,20 @@ const publicPath = "/graph-generator";
 const CRITICAL_FILES = [
   `${publicPath}/`,
   `${publicPath}/index.html`,
-  `${publicPath}/${dirWithBuild}/manifest.webmanifest`,
+  `${publicPath}/pwa/manifest.webmanifest`,
 ];
 
 const GENERATED_FILES = [
-  `${publicPath}/${dirWithBuild}/pwa-loader.js`,
-  `${publicPath}/${dirWithBuild}/pwa-loader.js.lastBuild.txt`,
-  `${publicPath}/${dirWithBuild}/sw.js`,
-  `${publicPath}/${dirWithBuild}/sw.js.lastBuild.txt`,
-  `${publicPath}/${dirWithBuild}/wasm-dot.mjs`,
-  `${publicPath}/${dirWithBuild}/wasm-dot.mjs.lastBuild.txt`,
-  `${publicPath}/${dirWithBuild}/main.mjs`,
-  `${publicPath}/${dirWithBuild}/main.mjs.lastBuild.txt`,
-  `${publicPath}/${dirWithBuild}/main.css`,
-  `${publicPath}/${dirWithBuild}/main.css.lastBuild.txt`,
+  `${publicPath}/pwa/pwa-loader.js`,
+  `${publicPath}/pwa/pwa-loader.js.snapVERSION.txt`,
+  `${publicPath}/pwa/sw.js`,
+  `${publicPath}/pwa/sw.js.snapVERSION.txt`,
+  `${publicPath}/gen/wasm-dot.mjs`,
+  `${publicPath}/gen/wasm-dot.mjs.snapVERSION.txt`,
+  `${publicPath}/gen/main.mjs`,
+  `${publicPath}/gen/main.mjs.snapVERSION.txt`,
+  `${publicPath}/gen/main.css`,
+  `${publicPath}/gen/main.css.snapVERSION.txt`,
 ];
 
 const ICON_FILES = Object.values(allIcons.png).map(icon => `${publicPath}/${icon.file}`);

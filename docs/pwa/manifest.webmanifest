@@ -34,6 +34,11 @@
       "type": "image/png"
     },
     {
+      "src": "/graph-generator/ico/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
       "src": "/graph-generator/ico/icon-152.png",
       "sizes": "152x152",
       "type": "image/png"

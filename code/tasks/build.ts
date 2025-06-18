@@ -4,8 +4,8 @@
  */
 
 import { parseArgs } from "$deno-cli";
-import ClassEsbuildManager, { EnumTask } from "../builds/esbuild.ts";
-
+import ClassEsbuildManager from "../builds/esbuild.ts";
+import { TASK_RESERVE_CONFIG, EnumTask } from "../builds/deff.ts";
 
 const args = parseArgs(Deno.args, {
   string: ["targetFor"],
@@ -36,7 +36,7 @@ if (showHelp || !mode || !["main", "wasm", "pwa"].includes(mode)) {
 }
 
 
-const builder = ClassEsbuildManager.ES__INIT();
+const builder = ClassEsbuildManager.ES__INIT(TASK_RESERVE_CONFIG);
 
 switch (mode) {
   case "main":
